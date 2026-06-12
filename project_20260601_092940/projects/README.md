@@ -19,6 +19,7 @@ python -m http.server 5000
 | `english.html` | 英语默写（译林版2024新版，中英互默） | ✅ 已上线（仅3A/3B数据） |
 | `combo.html` | 精选套题（五年级分数特训） | ✅ 已上线 |
 | `js/wordbank.js` | 英语单词数据（3A-3B） | ⚠️ 需要补齐3B-9B |
+| `styles/common.css` | 共享CSS库（设计令牌、按钮、纸张、打印规则） | ✅ 新建 |
 | `assets/` | 历史版本备份、参考图片 | — |
 | `CHANGELOG.md` | 更新日志 | — |
 
@@ -69,6 +70,4 @@ python -m http.server 5000
 ## 已知问题
 
 - 单词数据不全（仅3A/3B）
-- 三个页面CSS大量重复，可抽取公共文件
-- 顶部导航栏各页各自维护，未统一
-- 非git仓库，依赖`assets/`手工备份
+- `.btn-gen:hover` box-shadow rgba值在 common.css 中是灰色占位，各页 inline 需覆写为对应accent色

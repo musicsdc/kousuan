@@ -7,6 +7,44 @@
 
 ## 2026-06-12
 
+### [v2] 导航统一 + CSS抽取公共文件 + Git初始化
+
+**涉及文件：**
+- `styles/common.css` — **新建**，共享CSS库
+- `kousuan.html` — 引入common.css，删除重复CSS，导航文案统一
+- `english.html` — 引入common.css，删除重复CSS，导航文案统一
+- `combo.html` — 引入common.css，删除重复CSS，增加header-badge
+- `index.html` — 卡片文案统一为"精选套题"
+- `CHANGELOG.md` — 新建版本日志
+
+#### 顶部导航统一（Task 1）
+- 所有页导航链接统一为：首页 / 口算练习 / 英语默写 / **精选套题**（废弃"定制套题"）
+- combo.html 新增 `.header-badge`：显示"五年级·分数特训"
+- 移动端导航统一居中（`@media max-width: 700px`）
+
+#### CSS 抽取公共文件（Task 2）
+- **新建** `styles/common.css`，包含共享样式：
+  - 设计令牌 `:root`（不含accent色，各页inline覆写）
+  - Reset、body、容器布局
+  - 顶部导航（`--container-width` 变量化：默认960px，combo页覆写1100px）
+  - 按钮系统（.btn、.btn-gen、.btn-print）
+  - 控制栏布局（.controls-row、.control-group）
+  - 分段按钮通用规则（.grade-btn、.count-btn、.page-btn、.size-btn等）
+  - 题型/单元Pills（.type-btn、.unit-btn）
+  - 纸张系统（.paper、.paper-header、.paper-meta）
+  - 分数竖式（.frac）
+  - 共享打印规则 + 共享响应式规则
+- 各页面仅保留独有的CSS（布局网格、生成器样式等）
+- 之前在common.css里的规则，改一处就能同步三页
+
+#### Git 初始化（Task 3）
+- 根目录 `kousuan/` 初始化 git 仓库
+- 创建 `.gitignore`（排除 OS 垃圾文件）
+- 首次 commit：36个文件，包含所有项目文档和历史备份
+- 移除了原来 `projects/.git` 嵌套仓库（历史已推送到 GitHub `musicsdc/kousuan`）
+
+---
+
 ### [v1] 打印效果优化 & 套题50题模式
 
 **涉及文件：**
