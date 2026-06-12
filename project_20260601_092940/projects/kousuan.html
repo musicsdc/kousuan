@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>口算练习</title>
+<link rel="stylesheet" href="styles/common.css">
+<style>
+  :root {
+    --accent: #E8A317;
+    --accent-hover: #F0B843;
+  }
+
+  .header h1 { letter-spacing: -0.3px; }
+
+  /* ── Controls（kousuan 用磨砂玻璃效果）── */
+  .controls {
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+  .controls-row + .controls-row {
+    border-top: 1px solid #e8e8ed;
+  }
+  .control-group > label { white-space: nowrap; }
+  .grade-btn:hover, .count-btn:hover, .page-btn:hover { background: #f5f5f7; }
+  .count-input:focus { box-shadow: 0 0 0 3px rgba(232, 163, 23, 0.15); }
+
+  /* ── Type pills ── */
+  .types-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  /* ── Action buttons ── */
+  .btn-print { background: #1d1d1f; color: #ffffff; }
+  .btn-print:hover { background: #2d2d2f; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+
+  /* ── Paper ── */
+  .paper { box-shadow: none; }
+  .paper-header { border-bottom: 1.5px solid #1d1d1f; }
+  .paper-header .page-num { color: #c7c7cc; font-weight: 400; }
+  .paper-meta { gap: 28px; margin-top: 6px; }
+  .paper-meta .blank { border-bottom: 1px solid #86868b; }
+
+  /* ── Question grid ── */
+  .questions { display: grid; gap: 6px 14px; }
+  .questions.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .questions.cols-5 { grid-template-columns: repeat(5, 1fr); }
+
+  .question {
+    padding: 7px 4px;
+    border-bottom: 1px dashed #e8e8ed;
+    display: flex; align-items: baseline; gap: 4px;
+    font-family: 'SF Mono', 'Menlo', 'Courier New', monospace;
+    color: var(--ink);
+  }
+  .question .idx {
+    width: 28px; display: inline-flex; justify-content: flex-end;
+    font-size: 10px; color: #c7c7cc; flex-shrink: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+  }
+
+  .frac .num { border-bottom: 1.5px solid #1d1d1f; }
+  .q-text { display: inline-flex; align-items: center; justify-content: center; flex: 1; flex-wrap: wrap; gap: 0; }
+  .compare-blank {
+    display: inline-block; min-width: 48px;
+    border-bottom: 2.5px solid #000; margin: 0 6px;
+    height: 1.2em; vertical-align: middle;
+  }
+
+  /* ── Compact mode ── */
+  .paper.compact .question { padding: 3px 3px; }
+  .paper.compact .questions { gap: 3px 10px; }
+  .paper.compact .frac .num,
+  .paper.compact .frac .den { padding: 0 2px; }
+
+  .no-questions { text-align: center; color: #c7c7cc; padding: 60px 0; font-size: 14px; }
+
+  @media print {
+    .question {
+      border-bottom: 1px solid #aaaaaa !important;
+      break-inside: avoid; padding: 7px 3px;
+      font-size: 14px !important; color: #000000 !important;
+      font-weight: 600 !important;
+    }
+    .question .idx { color: #333333 !important; font-weight: 500 !important; }
+    .frac .num, .frac .den { color: #000000 !important; }
+    .frac .num { border-bottom: 1.5px solid #000000 !important; }
+    .questions { flex: 1; align-content: space-between; display: grid !important; gap: 0 10px !important; }
+    .questions.cols-4 { grid-template-columns: repeat(4, 1fr) !important; }
+    .questions.cols-5 { grid-template-columns: repeat(5, 1fr) !important; }
+  }
+
+  @media (max-width: 700px) {
+    .controls-row .control-group { width: 100%; }
+    .questions.cols-4, .questions.cols-5 { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div>
+      <h1>口算练习</h1>
+      <p>选择年级与题型，一键生成可打印的口算题</p>
+    </div>
+    <div style="text-align:right;">
+      <div class="top-nav">
+        <a href="index.html">首页</a>
+        <span class="current">口算练习</span>
+        <a href="english.html">英语默写</a>
+        <a href="combo.html">精选套题</a>
+      </div>
+      <div class="header-badge">如有建议请联系82127972@coze.email</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="controls-row">
+      <div class="control-group">
+        <label>年级</label>
+        <div class="grade-btns" id="gradeBtns"></div>
+      </div>
+      <div class="control-group">
+        <label>每题数</label>
+        <div class="count-btns">
+          <button class="count-btn" data-count="10">10</button>
+          <button class="count-btn" data-count="20">20</button>
+          <button class="count-btn" data-count="40">40</button>
+          <button class="count-btn active" data-count="80">80</button>
+          <button class="count-btn" data-count="100">100</button>
+          <input class="count-input" id="countInput" type="number" value="80" min="10" max="200" placeholder="自定义">
+        </div>
+      </div>
+      <div class="control-group">
+        <label>页数</label>
+        <div class="count-btns">
+          <button class="page-btn active" data-pages="1">1</button>
+          <button class="page-btn" data-pages="2">2</button>
+          <button class="page-btn" data-pages="5">5</button>
+          <button class="page-btn" data-pages="10">10</button>
+        </div>
+      </div>
+    </div>
+    <div class="controls-row">
+      <div class="control-group">
+        <label>题型</label>
+        <div class="types-grid" id="typesContainer"></div>
+      </div>
+    </div>
+    <div class="controls-row">
+      <div class="actions">
+        <button class="btn btn-gen" onclick="generate()">生成题目</button>
+        <button class="btn btn-print" onclick="window.print()">打印 / PDF</button>
+        <span class="print-tip">建议电脑端打印或保存为 PDF，手机打印可能偏移</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="paperContainer">
+    <div class="paper" id="paper">
+      <div class="paper-header">
+        <h2 id="paperTitle">口算练习题</h2>
+        <div class="paper-meta">
+          <span>姓名: <span class="blank"></span></span>
+          <span>日期: <span class="blank"></span></span>
+          <span>用时: <span class="blank"></span></span>
+          <span>对题: <span class="blank"></span></span>
+        </div>
+      </div>
+      <div class="questions cols-4" id="questionsContainer">
+        <div class="no-questions">请选择年级和题型，然后点击生成题目</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+var typeDefs = {
+  1: [
+    { id: 'g1a10', label: '10以内加减', gen: function() { return genAddSub(1, 10); } },
+    { id: 'g1a20', label: '20以内加减', gen: function() { return genAddSub(1, 20); } },
+    { id: 'g1a30', label: '30以内加减', gen: function() { return genAddSub(1, 30); } },
+    { id: 'g1a50', label: '50以内加减', gen: function() { return genAddSub(1, 50); } },
+    { id: 'g1c',   label: '连加连减', gen: function() { return genChain(1, 20, 3); } },
+  ],
+  2: [
+    { id: 'g2a100', label: '100以内加减', gen: function() { return genAddSub(1, 100); } },
+    { id: 'g2mul',  label: '表内乘除', gen: function() { return genTableMulDiv(); } },
+    { id: 'g2mix',  label: '混合运算', gen: function() { return genMix2(); } },
+  ],
+  3: [
+    { id: 'g3a',  label: '万以内加减', gen: function() { return genAddSub(10, 9999); } },
+    { id: 'g3m2', label: '两位数乘两位数', gen: function() { return genMul(10, 99, 10, 99); } },
+    { id: 'g3d1', label: '除数是一位数的除法', gen: function() { return genDivBySingleDigit(); } },
+    { id: 'g3dr', label: '有余数的除法', gen: function() { return genDivWithRemainder(); } },
+    { id: 'g3f',  label: '分数初步', gen: function() { return genSimpleFrac(); } },
+  ],
+  4: [
+    { id: 'g4mul', label: '三位数x两位数', gen: function() { return genMul(100, 999, 10, 99); } },
+    { id: 'g4div', label: '两位数除法', gen: function() { return genDiv(100, 999, 10, 99); } },
+    { id: 'g4da',  label: '小数加减法', gen: function() { return genDecAddSub(rand(1,2)); } },
+    { id: 'g4dc',  label: '小数比大小/意义', gen: function() { return genDecConcept(); } },
+  ],
+  5: [
+    { id: 'g5dm', label: '小数乘除', gen: function() { return genDecMulDiv(); } },
+    { id: 'g5da', label: '小数加减', gen: function() { return genDecAddSub(1, 2); } },
+    { id: 'g5fa', label: '分数加减', gen: function() { return genFracArith('+-'); } },
+    { id: 'g5fm', label: '分数乘法', gen: function() { return genFracArith('×'); } },
+    { id: 'g5eq', label: '解方程', gen: function() { return genEquation(10); } },
+    { id: 'g5fc', label: '分数连乘', gen: function() { return genFracChain(); } },
+  ],
+  6: [
+    { id: 'g6fm', label: '分数乘除', gen: function() { return genFracArith('×÷'); } },
+    { id: 'g6p',  label: '百分数', gen: function() { return genPercent(); } },
+    { id: 'g6r',  label: '比例', gen: function() { return genRatio(); } },
+  ],
+};
+
+var typeNames = ['','一年级','二年级','三年级','四年级','五年级','六年级'];
+
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+function gcd(a, b) { return b ? gcd(b, a % b) : a; }
+
+function properFrac(maxDen) {
+  for (var _ = 0; _ < 100; _++) {
+    var d = rand(2, maxDen);
+    var n = rand(1, d - 1);
+    if (gcd(n, d) === 1) return { n: n, d: d };
+  }
+  return { n: 1, d: 2 };
+}
+
+function shuffle(arr) {
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = rand(0, i);
+    var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+  }
+  return arr;
+}
+
+function fracHTML(n, d) {
+  return '<span class="frac"><span class="num">' + n + '</span><span class="den">' + d + '</span></span>';
+}
+
+function fmtFrac(n, d) {
+  if (n >= d) return n + '/' + d;
+  return fracHTML(n, d);
+}
+
+// ============ 题型生成器 ============
+
+function genAddSub(min, max) {
+  if (Math.random() < 0.5) {
+    var result = rand(Math.max(min * 2, 2), max);
+    var a = rand(min, Math.max(min, result - min));
+    var b = result - a;
+    return { html: a + ' + ' + b + ' =', answer: result };
+  } else {
+    var a = rand(min + 1, max);
+    var b = rand(min, a - 1);
+    return { html: a + ' - ' + b + ' =', answer: a - b };
+  }
+}
+
+function genChain(min, max, count) {
+  for (var attempt = 0; attempt < 100; attempt++) {
+    var nums = [];
+    var total = 0;
+    var valid = true;
+    for (var i = 0; i < count; i++) {
+      var v = rand(Math.max(min, 1), Math.min(max, Math.floor(max * 0.7)));
+      nums.push(v);
+      total += v;
+    }
+    var expr = '', running = nums[0];
+    if (running > max) continue;
+    for (var i = 1; i < count; i++) {
+      var op = Math.random() < 0.5 ? '+' : '-';
+      if (op === '+' && running + nums[i] > max) { valid = false; break; }
+      if (op === '-' && running - nums[i] < 0) { valid = false; break; }
+      expr += nums[i-1] + ' ' + op + ' ';
+      running = op === '+' ? running + nums[i] : running - nums[i];
+    }
+    if (valid && running >= 0 && running <= max) {
+      return { html: expr + nums[count-1] + ' =', answer: running };
+    }
+  }
+  var _a = rand(1, 10), _b = rand(1, 10);
+  return { html: _a + ' + ' + _b + ' =', answer: _a + _b };
+}
+
+function genMulDiv(min, max) {
+  var a = rand(min, max);
+  var bMax = Math.min(max, Math.floor(max / 2));
+  if (bMax < 1) bMax = 1;
+  var b = rand(1, Math.max(1, bMax));
+  if (Math.random() < 0.5) {
+    return { html: a + ' × ' + b + ' =', answer: a * b };
+  } else {
+    return { html: (a * b) + ' ÷ ' + b + ' =', answer: a };
+  }
+}
+
+function genTableMulDiv() {
+  var a = rand(1, 9);
+  var b = rand(1, 9);
+  if (Math.random() < 0.5) {
+    return { html: a + ' × ' + b + ' =', answer: a * b };
+  } else {
+    return { html: (a * b) + ' ÷ ' + b + ' =', answer: a };
+  }
+}
+
+function genMix2() {
+  var r = Math.random();
+  if (r < 0.5) {
+    var a = rand(5, 30), b = rand(1, 30);
+    var sum = a + b;
+    if (sum > 100) { a = rand(5, 50); b = rand(1, 50); sum = a + b; }
+    var c = rand(1, Math.min(sum, 50));
+    return { html: a + ' + ' + b + ' - ' + c + ' =', answer: sum - c };
+  }
+  var ma = rand(2, 9), mb = rand(2, 9);
+  var product = ma * mb;
+  if (r < 0.75) {
+    var addC = rand(1, Math.min(30, 100 - product));
+    return { html: ma + ' × ' + mb + ' + ' + addC + ' =', answer: product + addC };
+  } else {
+    var subC = rand(1, Math.min(20, product));
+    return { html: ma + ' × ' + mb + ' - ' + subC + ' =', answer: product - subC };
+  }
+}
+
+function genMul(aMin, aMax, bMin, bMax) {
+  var a = rand(aMin, aMax), b = rand(bMin, bMax);
+  return { html: a + ' × ' + b + ' =', answer: a * b };
+}
+
+function genDivBySingleDigit() {
+  var divisor = rand(1, 9);
+  var maxQuotient = Math.floor(100 / divisor);
+  var quotient = rand(1, Math.max(1, maxQuotient));
+  var dividend = divisor * quotient;
+  return { html: dividend + ' ÷ ' + divisor + ' =', answer: quotient };
+}
+
+function genDivWithRemainder() {
+  var divisor = rand(2, 9);
+  var maxQuotient = Math.floor((100 - 1) / divisor);
+  var quotient = rand(1, Math.max(1, maxQuotient));
+  var remainder = rand(1, divisor - 1);
+  var dividend = divisor * quotient + remainder;
+  return { html: dividend + ' ÷ ' + divisor + ' = ( )……( )', answer: quotient + '……' + remainder };
+}
+
+function genDiv(aMin, aMax, bMin, bMax) {
+  var b = rand(bMin, bMax);
+  var qMin = Math.ceil(aMin / b);
+  var qMax = Math.floor(aMax / b);
+  if (qMin > qMax) qMin = qMax;
+  var q = rand(qMin, qMax);
+  return { html: (b * q) + ' ÷ ' + b + ' =', answer: q };
+}
+
+function genDecAddSub(places) {
+  var a = parseFloat((Math.random() * 100).toFixed(places));
+  var b = parseFloat((Math.random() * 100).toFixed(places));
+  if (Math.random() < 0.5) {
+    return { html: a.toFixed(places) + ' + ' + b.toFixed(places) + ' =', answer: (a + b).toFixed(places) };
+  } else {
+    if (a < b) { var t = a; a = b; b = t; }
+    return { html: a.toFixed(places) + ' - ' + b.toFixed(places) + ' =', answer: (a - b).toFixed(places) };
+  }
+}
+
+function genDecConcept() {
+  var r = Math.random();
+  if (r < 0.3) {
+    // 分数转小数: 显示为 分数 = ____
+    var den = Math.random() < 0.6 ? 10 : 100;
+    var num = rand(1, den - 1);
+    var dec = (num / den).toFixed(den === 10 ? 1 : 2);
+    return { html: fracHTML(num, den) + ' = <span class="compare-blank"> </span>', answer: dec };
+  }
+  if (r < 0.6) {
+    // 小数比大小
+    var places = Math.random() < 0.6 ? 1 : 2;
+    var a = parseFloat((Math.random() * 10).toFixed(places));
+    var b = parseFloat((Math.random() * 10).toFixed(places));
+    while (b === a) { b = parseFloat((Math.random() * 10).toFixed(places)); }
+    var sym = a > b ? '>' : '<';
+    return { html: a.toFixed(places) + ' <span class="compare-blank"> </span> ' + b.toFixed(places), answer: sym };
+  }
+  // 小数化分数: 显示为 小数 = ____
+  var den = Math.random() < 0.5 ? 10 : 100;
+  var num = rand(1, den - 1);
+  var g = gcd(num, den);
+  var sn = num / g, sd = den / g;
+  var dec = (num / den).toFixed(den === 10 ? 1 : 2);
+  var fracStr = sd === 10 ? fracHTML(sn, sd) : sn + '/' + sd;
+  return { html: dec + ' = <span class="compare-blank"> </span>', answer: fracStr };
+}
+
+function genDecMulDiv() {
+  var a = parseFloat((Math.random() * 100 + 0.5).toFixed(1));
+  var b = parseFloat((Math.random() * 10 + 0.5).toFixed(1));
+  if (Math.random() < 0.5) {
+    return { html: a + ' × ' + b + ' =', answer: (a * b).toFixed(2) };
+  } else {
+    var c = parseFloat((a * b).toFixed(2));
+    return { html: c + ' ÷ ' + b + ' =', answer: a.toFixed(1) };
+  }
+}
+
+function fracAns(n1, d1, n2, d2, op) {
+  var an, ad;
+  if (op === '+') { an = n1 * d2 + n2 * d1; ad = d1 * d2; }
+  else if (op === '-') { an = n1 * d2 - n2 * d1; ad = d1 * d2; }
+  else if (op === '×') { an = n1 * n2; ad = d1 * d2; }
+  else if (op === '÷') { an = n1 * d2; ad = d1 * n2; }
+  if (!an || an <= 0 || ad <= 0) return null;
+  var g = gcd(Math.abs(an), ad);
+  an /= g; ad /= g;
+  if (ad === 1) return '' + an;
+  if (an > ad) return (an / ad >> 0) + ' ' + (an % ad) + '/' + ad;
+  return an + '/' + ad;
+}
+
+function genSimpleFrac() {
+  // 三年级同分母分数加减法（苏教版）
+  for (var a = 0; a < 100; a++) {
+    var d = rand(2, 10);
+    var n1 = rand(1, d - 1);
+    var n2 = rand(1, d - 1);
+    if (Math.random() < 0.5) {
+      if (n1 + n2 < d) {
+        return { html: fmtFrac(n1, d) + ' + ' + fmtFrac(n2, d) + ' =', answer: fracAns(n1, d, n2, d, '+') };
+      }
+    } else {
+      if (n1 !== n2) {
+        if (n1 < n2) { var t = n1; n1 = n2; n2 = t; }
+        return { html: fmtFrac(n1, d) + ' - ' + fmtFrac(n2, d) + ' =', answer: fracAns(n1, d, n2, d, '-') };
+      }
+    }
+  }
+  return { html: fmtFrac(1, 3) + ' + ' + fmtFrac(1, 3) + ' =', answer: '2/3' };
+}
+
+function genFracArith(ops) {
+  var f1 = properFrac(12), f2 = properFrac(12);
+  var op = ops.charAt(rand(0, ops.length - 1));
+  if (op === '-') {
+    if (f1.n * f2.d < f2.n * f1.d) {
+      return { html: fmtFrac(f2.n, f2.d) + ' - ' + fmtFrac(f1.n, f1.d) + ' =', answer: fracAns(f2.n, f2.d, f1.n, f1.d, '-') };
+    }
+    return { html: fmtFrac(f1.n, f1.d) + ' - ' + fmtFrac(f2.n, f2.d) + ' =', answer: fracAns(f1.n, f1.d, f2.n, f2.d, '-') };
+  }
+  return { html: fmtFrac(f1.n, f1.d) + ' ' + op + ' ' + fmtFrac(f2.n, f2.d) + ' =', answer: fracAns(f1.n, f1.d, f2.n, f2.d, op) };
+}
+
+// 分数连乘辅助
+function chainFrac(n, d) { return fracHTML(n, d); }
+function chainAns(n, d) {
+  var g = gcd(n, d); n /= g; d /= g;
+  if (d === 1) return '' + n;
+  return n + '/' + d;
+}
+function pickCoprime(den, min, max) {
+  for (var i = 0; i < 200; i++) {
+    var n = rand(min, max);
+    if (gcd(n, den) === 1 && n !== den) return n;
+  }
+  var primes = [2,3,5,7,11,13,17,19,23];
+  for (var j = 0; j < primes.length; j++) {
+    if (primes[j] !== den && gcd(primes[j], den) === 1) return primes[j];
+  }
+  return den + 1;
+}
+function simpleFrac(minN, maxN, minD, maxD) {
+  for (var i = 0; i < 200; i++) {
+    var d = rand(minD, maxD);
+    var n = pickCoprime(d, minN, maxN);
+    if (n !== d) return { n: n, d: d };
+  }
+  return { n: 1, d: 2 };
+}
+
+function genChainCancel() {
+  for (var a = 0; a < 100; a++) {
+    var b = rand(2, 10);
+    var a2 = pickCoprime(b, 1, 12);
+    var c = pickCoprime(b, 2, 10);
+    var d = pickCoprime(c, 2, 12);
+    return {
+      html: chainFrac(a2,b) + ' × ' + chainFrac(b,c) + ' × ' + chainFrac(c,d) + ' =',
+      answer: chainAns(a2, d)
+    };
+  }
+  return { html: chainFrac(1,2) + ' × ' + chainFrac(2,3) + ' × ' + chainFrac(3,4) + ' =', answer: '1/4' };
+}
+
+function genPairCancel() {
+  var a, b;
+  do { a = rand(2, 9); b = rand(2, 9); } while (a === b || gcd(a, b) !== 1);
+  var f3 = simpleFrac(1, 12, 2, 12);
+  var variants = [
+    { html: chainFrac(a,b) + ' × ' + chainFrac(b,a) + ' × ' + chainFrac(f3.n,f3.d) + ' =', answer: chainAns(f3.n,f3.d) },
+    { html: chainFrac(f3.n,f3.d) + ' × ' + chainFrac(a,b) + ' × ' + chainFrac(b,a) + ' =', answer: chainAns(f3.n,f3.d) },
+    { html: chainFrac(a,b) + ' × ' + chainFrac(f3.n,f3.d) + ' × ' + chainFrac(b,a) + ' =', answer: chainAns(f3.n,f3.d) },
+  ];
+  return variants[rand(0, variants.length - 1)];
+}
+
+function genFactorChain() {
+  for (var a = 0; a < 50; a++) {
+    var ps = rand(3, 4), pool = [];
+    var cand = [2,2,3,3,5,5,7,7]; shuffle(cand);
+    for (var j = 0; j < ps; j++) pool.push(cand[j]);
+    var nums = [[],[],[]], dens = [[],[],[]];
+    pool.forEach(function(f, idx) {
+      nums[idx % 3].push(f);
+      dens[(idx + 1) % 3].push(f);
+    });
+    for (var j = 0; j < 3; j++) {
+      if (nums[j].length === 0) nums[j].push(rand(1, 7));
+      if (dens[j].length === 0) dens[j].push(rand(2, 8));
+      if (Math.random() < 0.3) {
+        var e = rand(1, 7);
+        if (!dens[j].some(function(x) { return gcd(x, e) > 1; })) nums[j].push(e);
+      }
+      if (Math.random() < 0.3) {
+        var e = rand(2, 8);
+        if (!nums[j].some(function(x) { return gcd(x, e) > 1; })) dens[j].push(e);
+      }
+    }
+    function prod(a) { var p = 1; a.forEach(function(x) { p *= x; }); return p; }
+    var n1 = prod(nums[0]), d1 = prod(dens[0]);
+    var n2 = prod(nums[1]), d2 = prod(dens[1]);
+    var n3 = prod(nums[2]), d3 = prod(dens[2]);
+    if (gcd(n1,d1) > 1 || gcd(n2,d2) > 1 || gcd(n3,d3) > 1) continue;
+    if (n1 > 20 || d1 > 12 || n2 > 20 || d2 > 12 || n3 > 20 || d3 > 12) continue;
+    if (n1 === d1 || n2 === d2 || n3 === d3) continue;
+    var tn = n1 * n2 * n3, td = d1 * d2 * d3, g = gcd(tn, td);
+    return { html: chainFrac(n1,d1) + ' × ' + chainFrac(n2,d2) + ' × ' + chainFrac(n3,d3) + ' =', answer: chainAns(tn/g, td/g) };
+  }
+  return genChainCancel();
+}
+
+function genRandomChain() {
+  var den = [2,3,4,5,6,7,8,9,10,12];
+  for (var i = 0; i < 100; i++) {
+    var n1 = rand(1,13), d1 = den[rand(0,9)], n2 = rand(1,13), d2 = den[rand(0,9)], n3 = rand(1,13), d3 = den[rand(0,9)];
+    if (gcd(n1,d1)>1||n1===d1||gcd(n2,d2)>1||n2===d2||gcd(n3,d3)>1||n3===d3) continue;
+    return { html: chainFrac(n1,d1) + ' × ' + chainFrac(n2,d2) + ' × ' + chainFrac(n3,d3) + ' =', answer: chainAns(n1*n2*n3, d1*d2*d3) };
+  }
+  return { html: chainFrac(2,3) + ' × ' + chainFrac(5,7) + ' × ' + chainFrac(3,8) + ' =', answer: '5/28' };
+}
+
+function genFracChain() {
+  var r = Math.random();
+  if (r < 0.30) return genChainCancel();
+  if (r < 0.55) return genPairCancel();
+  if (r < 0.75) return genFactorChain();
+  return genRandomChain();
+}
+
+function genEquation(maxN) {
+  var x = rand(1, maxN), c = rand(1, maxN), r = Math.random();
+
+  // x + c = d
+  if (r < 0.12) return { html: 'x + ' + c + ' = ' + (x + c), answer: x };
+
+  // c + x = d
+  if (r < 0.22) return { html: c + ' + x = ' + (c + x), answer: x };
+
+  // x - c = d   (x = d + c, 需要 x > c)
+  if (r < 0.37) {
+    var diff = x;  // 差
+    return { html: 'x - ' + c + ' = ' + diff, answer: diff + c };
+  }
+
+  // c - x = d   (x = c - d)
+  if (r < 0.50) {
+    var m = rand(2, maxN * 2);
+    var diff = rand(1, m - 1);
+    return { html: m + ' - x = ' + diff, answer: m - diff };
+  }
+
+  // x + x = d
+  if (r < 0.57) return { html: 'x + x = ' + (2 * x), answer: x };
+
+  // dx = e
+  if (r < 0.66) {
+    var d = rand(2, 9);
+    return { html: d + 'x = ' + (d * x), answer: x };
+  }
+
+  // x ÷ d = e   (x = e × d)
+  if (r < 0.74) {
+    var d = rand(2, 5);
+    var e = rand(1, Math.floor(maxN * 2 / d));
+    return { html: 'x ÷ ' + d + ' = ' + e, answer: d * e };
+  }
+
+  // dx + c = e   (两步：先减后除)
+  if (r < 0.83) {
+    var d = rand(2, 4);
+    var c2 = rand(1, 5);
+    return { html: d + 'x + ' + c2 + ' = ' + (d * x + c2), answer: x };
+  }
+
+  // dx - c = e   (两步，保证 dx > c)
+  var d = rand(2, 4);
+  var c2 = rand(1, Math.max(1, d * x - 1));
+  return { html: d + 'x - ' + c2 + ' = ' + (d * x - c2), answer: x };
+}
+
+function genPercent() {
+  var r = rand(0, 3);
+  if (r === 0) {
+    // 求 a 的 p% — 保证结果为整数
+    var pList = [10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90];
+    var p = pList[rand(0, pList.length - 1)];
+    var a = rand(1, Math.floor(100 / p * 10)) * p;
+    var v = a * p / 100;
+    return { html: a + ' 的 ' + p + '% 是多少？', answer: v };
+  }
+  if (r === 1) {
+    // 分数化百分数 — 分母为 2/4/5/10/20/25/50 保证结果整洁
+    var denList = [2, 4, 5, 10, 20, 25, 50];
+    var d = denList[rand(0, denList.length - 1)];
+    var n = rand(1, d - 1);
+    return { html: '把 ' + n + '/' + d + ' 化成百分数？', answer: (n / d * 100) + '%' };
+  }
+  if (r === 2) {
+    // 已知 p% 是 vv，求原数 — 保证整除
+    var pList = [10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90];
+    var p = pList[rand(0, pList.length - 1)];
+    var vv = rand(1, 20) * (100 / p);
+    return { html: '一个数的 ' + p + '% 是 ' + vv + '，求这个数？', answer: vv * 100 / p };
+  }
+  var discount = rand(1, 9);
+  var price = rand(1, 20) * 5;
+  return { html: '原价 ' + price + ' 元，打 ' + discount + ' 折，现价？', answer: (price * discount / 10) + '元' };
+}
+
+function genRatio() {
+  var r = Math.random();
+
+  if (r < 0.35) {
+    // a) 化简比：数字范围 2~30，保证 gcd > 1
+    for (var a = 0; a < 100; a++) {
+      var va = rand(2, 30), vb = rand(2, 30);
+      var g = gcd(va, vb);
+      if (g > 1) {
+        return { html: va + ' : ' + vb + ' 化简比', answer: (va/g) + ':' + (vb/g) };
+      }
+    }
+    // fallback
+    var k = rand(2, 5), sa = rand(2, 6), sb = rand(2, 6);
+    return { html: (sa*k) + ' : ' + (sb*k) + ' 化简比', answer: sa + ':' + sb };
+  }
+
+  if (r < 0.65) {
+    // b) 求比值：返回精确分数
+    var a = rand(1, 20), b = rand(2, 20);
+    var g = gcd(a, b);
+    return { html: '求比值 ' + a + ' : ' + b, answer: (a/g) + '/' + (b/g) };
+  }
+
+  // c) 解比例：所有数字 ≤ 30，未知数 x 为整数
+  if (Math.random() < 0.5) {
+    for (var i = 0; i < 100; i++) {
+      var a = rand(1, 10), b = rand(1, 20), c = rand(1, 20);
+      if ((b * c) % a === 0) {
+        var x = (b * c) / a;
+        if (x <= 30) return { html: a + ' : ' + b + ' = ' + c + ' : x', answer: x };
+      }
+    }
+  } else {
+    for (var i = 0; i < 100; i++) {
+      var b = rand(1, 20), c = rand(1, 20), d = rand(1, 10);
+      if ((b * c) % d === 0) {
+        var x = (b * c) / d;
+        if (x <= 30) return { html: 'x : ' + b + ' = ' + c + ' : ' + d, answer: x };
+      }
+    }
+  }
+
+  return { html: '2 : 3 = 8 : x', answer: 12 };
+}
+
+// ============ UI ============
+
+var currentGrade = 1;
+var currentCount = 80;
+var currentPages = 1;
+var activeTypes = {};
+
+function initUI() {
+  for (var g = 1; g <= 6; g++) {
+    activeTypes[g] = [typeDefs[g][0].id];
+  }
+  loadPrefs();
+  validateActiveTypes();
+
+  var gb = document.getElementById('gradeBtns');
+  for (var i = 1; i <= 6; i++) {
+    var btn = document.createElement('button');
+    btn.className = 'grade-btn' + (i === currentGrade ? ' active' : '');
+    btn.textContent = typeNames[i];
+    btn.setAttribute('data-grade', i);
+    btn.onclick = (function(g) { return function() { selectGrade(g); }; })(i);
+    gb.appendChild(btn);
+  }
+
+  document.querySelectorAll('.count-btn').forEach(function(btn) {
+    btn.onclick = function() {
+      document.querySelectorAll('.count-btn').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      currentCount = parseInt(this.getAttribute('data-count'));
+      document.getElementById('countInput').value = currentCount;
+      generate();
+    };
+  });
+  document.getElementById('countInput').onchange = function() {
+    var v = parseInt(this.value) || 80;
+    currentCount = Math.max(10, Math.min(200, v));
+    this.value = currentCount;
+    document.querySelectorAll('.count-btn').forEach(function(b) { b.classList.remove('active'); });
+    generate();
+  };
+
+  document.querySelectorAll('.page-btn').forEach(function(btn) {
+    btn.onclick = function() {
+      document.querySelectorAll('.page-btn').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      currentPages = parseInt(this.getAttribute('data-pages'));
+      generate();
+    };
+  });
+
+  document.getElementById('countInput').value = currentCount;
+  document.querySelectorAll('.count-btn').forEach(function(btn) {
+    btn.classList.toggle('active', parseInt(btn.getAttribute('data-count')) === currentCount);
+  });
+  document.querySelectorAll('.page-btn').forEach(function(btn) {
+    btn.classList.toggle('active', parseInt(btn.getAttribute('data-pages')) === currentPages);
+  });
+
+  renderTypes();
+  generate();
+}
+
+function selectGrade(g) {
+  currentGrade = g;
+  document.querySelectorAll('.grade-btn').forEach(function(b) {
+    b.classList.toggle('active', parseInt(b.getAttribute('data-grade')) === g);
+  });
+  renderTypes();
+  generate();
+}
+
+function renderTypes() {
+  var container = document.getElementById('typesContainer');
+  container.innerHTML = '';
+  typeDefs[currentGrade].forEach(function(t) {
+    var btn = document.createElement('button');
+    btn.className = 'type-btn' + (activeTypes[currentGrade].indexOf(t.id) >= 0 ? ' active' : '');
+    btn.textContent = t.label;
+    btn.onclick = function() {
+      var idx = activeTypes[currentGrade].indexOf(t.id);
+      if (idx >= 0) {
+        if (activeTypes[currentGrade].length === 1) return;
+        activeTypes[currentGrade].splice(idx, 1);
+      } else {
+        activeTypes[currentGrade].push(t.id);
+      }
+      this.classList.toggle('active');
+      generate();
+    };
+    container.appendChild(btn);
+  });
+}
+
+function getSelectedTypes() {
+  return typeDefs[currentGrade].filter(function(t) {
+    return activeTypes[currentGrade].indexOf(t.id) >= 0;
+  });
+}
+
+// ============ 生成多页 ============
+
+function generate() {
+  var types = getSelectedTypes();
+  var perPage = currentCount;
+  var pages = currentPages;
+  var title = typeNames[currentGrade] + ' 口算练习题';
+
+  if (types.length === 0) {
+    document.getElementById('paperContainer').innerHTML =
+      '<div class="no-questions" style="padding:60px;text-align:center;">请至少选择一种题型</div>';
+    return;
+  }
+
+  var hasWideType = types.some(function(t) {
+    return /(f|p|r|eq|dec|dm|mix|c$)/.test(t.id);
+  });
+
+  var cols, fontSize;
+  if (perPage <= 30) { cols = 4; fontSize = '20px'; }
+  else if (perPage <= 50) { cols = 4; fontSize = '18px'; }
+  else if (perPage <= 80) {
+    if (hasWideType) { cols = 4; fontSize = '14px'; }
+    else { cols = 5; fontSize = '16px'; }
+  } else {
+    if (hasWideType) { cols = 4; fontSize = '13px'; }
+    else { cols = 5; fontSize = '14.5px'; }
+  }
+
+  var container = document.getElementById('paperContainer');
+  container.innerHTML = '';
+
+  for (var p = 0; p < pages; p++) {
+    var raw = [];
+    var seen = {};
+    var maxAttempts = perPage * 10;
+    var attempts = 0;
+    while (raw.length < perPage && attempts < maxAttempts) {
+      var t = types[raw.length % types.length];
+      var q = t.gen();
+      attempts++;
+      if (!seen[q.html]) {
+        seen[q.html] = true;
+        raw.push(q);
+      }
+    }
+    shuffle(raw);
+
+    var paper = document.createElement('div');
+    paper.className = 'paper' + (p < pages - 1 ? ' paper-page' : '') + (hasWideType ? ' compact' : '');
+
+    var headerHTML =
+      '<div class="paper-header">' +
+        '<span class="page-num">第 ' + (p+1) + ' 页</span>' +
+        '<h2>' + title + '</h2>' +
+        '<div class="paper-meta">' +
+          '<span>姓名: <span class="blank"></span></span>' +
+          '<span>日期: <span class="blank"></span></span>' +
+          '<span>用时: <span class="blank"></span></span>' +
+          '<span>对题: <span class="blank"></span></span>' +
+        '</div>' +
+      '</div>';
+
+    var grid = document.createElement('div');
+    grid.className = 'questions cols-' + cols;
+    grid.style.fontSize = fontSize;
+
+    raw.forEach(function(item, idx) {
+      var qDiv = document.createElement('div');
+      qDiv.className = 'question';
+      qDiv.innerHTML = '<span class="idx">' + (idx+1) + '.</span><span class="q-text">' + item.html + '</span>';
+      grid.appendChild(qDiv);
+    });
+
+    paper.innerHTML = headerHTML;
+    paper.appendChild(grid);
+    container.appendChild(paper);
+  }
+}
+
+// ============ 偏好持久化 ============
+
+function savePrefs() {
+  try {
+    var data = {
+      grade: currentGrade,
+      count: currentCount,
+      pages: currentPages,
+      types: activeTypes
+    };
+    localStorage.setItem('oralMath_prefs', JSON.stringify(data));
+  } catch(e) {}
+}
+
+function loadPrefs() {
+  try {
+    var raw = localStorage.getItem('oralMath_prefs');
+    if (!raw) return;
+    var data = JSON.parse(raw);
+    if (data.grade >= 1 && data.grade <= 6) currentGrade = data.grade;
+    if (data.count) currentCount = Math.max(10, Math.min(200, data.count));
+    if (data.pages) currentPages = data.pages;
+  } catch(e) {}
+}
+
+function validateActiveTypes() {
+  for (var g = 1; g <= 6; g++) {
+    if (!activeTypes[g]) continue;
+    var validIds = {};
+    typeDefs[g].forEach(function(t) { validIds[t.id] = true; });
+    activeTypes[g] = activeTypes[g].filter(function(id) { return validIds[id]; });
+    if (activeTypes[g].length === 0) {
+      activeTypes[g] = [typeDefs[g][0].id];
+    }
+  }
+}
+
+var _origGenerate = generate;
+generate = function() {
+  _origGenerate();
+  savePrefs();
+};
+
+initUI();
+</script>
+</body>
+</html>

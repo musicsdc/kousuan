@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英语默写打印</title>
+<link rel="stylesheet" href="styles/common.css">
+<style>
+  :root {
+    --accent: #4A90D9;
+    --accent-hover: #5BA0E9;
+  }
+
+  /* ── 册别切换 ── */
+  .semester-btns { display: flex; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+  .semester-btn {
+    padding: 7px 18px; border: none; border-right: 1px solid var(--border);
+    background: var(--card); font-size: 13px; font-weight: 500;
+    color: var(--ink); cursor: pointer; transition: all 0.15s;
+    font-family: inherit;
+  }
+  .semester-btn:last-child { border-right: none; }
+  .semester-btn:hover { background: var(--paper); }
+  .semester-btn.active { background: var(--accent); color: #FFFFFF; }
+
+  /* ── 模式切换 ── */
+  .mode-btns { display: flex; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+  .mode-btn {
+    padding: 7px 16px; border: none; border-right: 1px solid var(--border);
+    background: var(--card); font-size: 13px; font-weight: 500;
+    color: var(--ink); cursor: pointer; transition: all 0.15s;
+    font-family: inherit;
+  }
+  .mode-btn:last-child { border-right: none; }
+  .mode-btn:hover { background: var(--paper); }
+  .mode-btn.active { background: var(--accent); color: #FFFFFF; }
+
+  /* ── 单元选择 ── */
+  .units-grid { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .select-all-btn {
+    padding: 6px 12px; border: 1px dashed var(--border); border-radius: 20px;
+    background: transparent; font-size: 12px; color: var(--ink-light);
+    cursor: pointer; transition: all 0.15s; font-family: inherit;
+  }
+  .select-all-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── Word grid ── */
+  .words { display: grid; gap: 8px 16px; }
+  .words.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .words.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+  .word-item {
+    padding: 8px 4px 4px 4px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: flex-start; gap: 4px;
+    font-size: 15px; color: var(--ink); min-height: 52px;
+  }
+  .word-item .idx {
+    width: 28px; display: inline-flex; justify-content: flex-end;
+    font-size: 11px; color: var(--ink-light); flex-shrink: 0; padding-top: 4px;
+  }
+  .word-item .prompt { white-space: nowrap; min-width: 50px; }
+  .word-item .blank-line {
+    flex: 1; border-bottom: 2px solid var(--ink);
+    min-width: 60px; margin-left: 6px; margin-top: 28px;
+  }
+
+  .no-words { text-align: center; color: var(--ink-light); padding: 60px 0; }
+
+  @media print {
+    .word-item {
+      border-bottom: 1px solid #aaaaaa !important;
+      break-inside: avoid; padding: 8px 3px 4px 3px; min-height: 48px;
+      font-size: 14px !important; color: #000000 !important;
+      font-weight: 400 !important;
+      font-family: 'Segoe UI', 'Arial', 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
+    }
+    .word-item .idx { color: #333333 !important; font-weight: 500 !important; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif !important; }
+    .word-item .blank-line { border-bottom: 2px solid #000000 !important; }
+    .words { flex: 1; align-content: space-between; display: grid !important; gap: 0 10px !important; }
+    .words.cols-3 { grid-template-columns: repeat(3, 1fr) !important; }
+    .words.cols-4 { grid-template-columns: repeat(4, 1fr) !important; }
+  }
+
+  @media (max-width: 700px) {
+    .controls-row .control-group { width: 100%; }
+    .words.cols-3, .words.cols-4 { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div>
+      <h1>英语默写</h1>
+      <p>选择年级与单元，一键生成可打印的单词默写纸</p>
+    </div>
+    <div style="text-align:right;">
+      <div class="top-nav">
+        <a href="index.html">首页</a>
+        <a href="kousuan.html">口算练习</a>
+        <span class="current">英语默写</span>
+        <a href="combo.html">精选套题</a>
+      </div>
+      <div class="header-badge">译林版（2024新版）</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="controls-row">
+      <div class="control-group">
+        <label>年级</label>
+        <div class="grade-btns" id="gradeBtns"></div>
+      </div>
+      <div class="control-group">
+        <label>册别</label>
+        <div class="semester-btns" id="semesterBtns"></div>
+      </div>
+    </div>
+    <div class="controls-row">
+      <div class="control-group">
+        <label>模式</label>
+        <div class="mode-btns" id="modeBtns"></div>
+      </div>
+    </div>
+    <div class="controls-row">
+      <div class="control-group" style="flex:1">
+        <label>单元</label>
+        <div class="units-grid" id="unitsGrid"></div>
+      </div>
+    </div>
+    <div class="controls-row">
+      <div class="control-group">
+        <label>每题数</label>
+        <div class="count-btns">
+          <button class="count-btn" data-count="10">10</button>
+          <button class="count-btn" data-count="20">20</button>
+          <button class="count-btn active" data-count="30">30</button>
+          <button class="count-btn" data-count="50">50</button>
+          <input class="count-input" id="countInput" type="number" value="30" min="5" max="200" placeholder="自定义">
+        </div>
+      </div>
+      <div class="control-group">
+        <label>页数</label>
+        <div class="count-btns">
+          <button class="page-btn active" data-pages="1">1</button>
+          <button class="page-btn" data-pages="2">2</button>
+          <button class="page-btn" data-pages="5">5</button>
+        </div>
+      </div>
+    </div>
+    <div class="controls-row">
+      <div class="actions">
+        <button class="btn btn-gen" onclick="generate()">生成默写纸</button>
+        <button class="btn btn-print" onclick="window.print()">打印 / PDF</button>
+        <span class="print-tip">建议电脑端打印或保存为 PDF</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="paperContainer">
+    <div class="paper" id="paper">
+      <div class="paper-header">
+        <h2 id="paperTitle">英语默写纸</h2>
+        <div class="paper-meta">
+          <span>姓名: <span class="blank"></span></span>
+          <span>日期: <span class="blank"></span></span>
+          <span>用时: <span class="blank"></span></span>
+          <span>对题: <span class="blank"></span></span>
+        </div>
+      </div>
+      <div class="words cols-3" id="wordsContainer">
+        <div class="no-words">请选择年级和单元，然后点击生成默写纸</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/wordbank.js"></script>
+<script>
+// ============ 状态 ============
+var currentGrade = 3;
+var currentSemester = 'A';
+var currentMode = 'zh2en';
+var currentCount = 30;
+var currentPages = 1;
+var activeUnitIndices = [0];  // 默认只选第一个单元
+
+// ============ 工具函数 ============
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+function shuffle(arr) {
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = rand(0, i);
+    var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+  }
+  return arr;
+}
+
+// ============ 获取当前数据 ============
+function getCurrentBook() {
+  var key = currentGrade + currentSemester;
+  return wordBank[key] || null;
+}
+
+function getSelectedWords() {
+  var book = getCurrentBook();
+  if (!book) return [];
+
+  var indices = activeUnitIndices;
+  if (!indices || indices.length === 0) {
+    indices = book.units.map(function(_, i) { return i; });
+  }
+
+  var allWords = [];
+  var seen = {};
+  indices.forEach(function(i) {
+    if (i >= 0 && i < book.units.length) {
+      book.units[i].words.forEach(function(w) {
+        var key = w.en.toLowerCase();
+        if (!seen[key]) {
+          seen[key] = true;
+          allWords.push(w);
+        }
+      });
+    }
+  });
+  return shuffle(allWords);
+}
+
+// ============ 生成 ============
+function generate() {
+  var book = getCurrentBook();
+  var words = getSelectedWords();
+  var perPage = Math.min(currentCount, words.length);
+  var pages = currentPages;
+
+  if (!book || words.length === 0) {
+    document.getElementById('paperContainer').innerHTML =
+      '<div class="no-words" style="padding:60px;text-align:center;">该年级暂无单词数据</div>';
+    return;
+  }
+
+  // 获取选中的单元名
+  var indices = activeUnitIndices;
+  if (!indices || indices.length === 0) {
+    indices = book.units.map(function(_, i) { return i; });
+  }
+  var unitNames = indices.map(function(i) { return book.units[i].unit; }).join('、');
+
+  var title = book.label + ' 英语默写纸（' + unitNames + '）';
+  var modeLabel = { zh2en: '中→英', en2zh: '英→中', mix: '混合' }[currentMode];
+
+  var container = document.getElementById('paperContainer');
+  container.innerHTML = '';
+
+  for (var p = 0; p < pages; p++) {
+    var pageWords = shuffle(words.slice()).slice(0, perPage);
+
+    var paper = document.createElement('div');
+    paper.className = 'paper' + (p < pages - 1 ? ' paper-page' : '');
+
+    var headerHTML =
+      '<div class="paper-header">' +
+        '<span class="page-num">第 ' + (p+1) + ' 页</span>' +
+        '<h2>' + title + '</h2>' +
+        '<div class="paper-meta">' +
+          '<span>模式: ' + modeLabel + '</span>' +
+          '<span>姓名: <span class="blank"></span></span>' +
+          '<span>日期: <span class="blank"></span></span>' +
+          '<span>用时: <span class="blank"></span></span>' +
+          '<span>对题: <span class="blank"></span></span>' +
+        '</div>' +
+      '</div>';
+
+    var grid = document.createElement('div');
+    grid.className = 'words cols-3';
+
+    pageWords.forEach(function(item, idx) {
+      var qDiv = document.createElement('div');
+      qDiv.className = 'word-item';
+
+      var promptText;
+      if (currentMode === 'zh2en') {
+        promptText = item.zh;
+      } else if (currentMode === 'en2zh') {
+        promptText = item.en;
+      } else {
+        promptText = Math.random() < 0.5 ? item.zh : item.en;
+      }
+
+      qDiv.innerHTML = '<span class="idx">' + (idx+1) + '.</span>' +
+        '<span class="prompt">' + promptText + '</span>' +
+        '<span class="blank-line"></span>';
+      grid.appendChild(qDiv);
+    });
+
+    paper.innerHTML = headerHTML;
+    paper.appendChild(grid);
+    container.appendChild(paper);
+  }
+}
+
+// ============ UI 初始化 ============
+function initUI() {
+  // 年级按钮
+  var gb = document.getElementById('gradeBtns');
+  for (var g = 3; g <= 9; g++) {
+    var btn = document.createElement('button');
+    btn.className = 'grade-btn' + (g === currentGrade ? ' active' : '');
+    btn.textContent = g + '年级';
+    btn.setAttribute('data-grade', g);
+    btn.onclick = (function(grade) { return function() { selectGrade(grade); }; })(g);
+    gb.appendChild(btn);
+  }
+
+  // 册别按钮
+  var sb = document.getElementById('semesterBtns');
+  ['A', 'B'].forEach(function(sem) {
+    var btn = document.createElement('button');
+    btn.className = 'semester-btn' + (sem === currentSemester ? ' active' : '');
+    btn.textContent = sem === 'A' ? '上册' : '下册';
+    btn.setAttribute('data-semester', sem);
+    btn.onclick = function() { selectSemester(sem); };
+    sb.appendChild(btn);
+  });
+
+  // 模式按钮
+  var mb = document.getElementById('modeBtns');
+  [
+    { id: 'zh2en', label: '中 → 英' },
+    { id: 'en2zh', label: '英 → 中' },
+    { id: 'mix', label: '混合' }
+  ].forEach(function(m) {
+    var btn = document.createElement('button');
+    btn.className = 'mode-btn' + (m.id === currentMode ? ' active' : '');
+    btn.textContent = m.label;
+    btn.setAttribute('data-mode', m.id);
+    btn.onclick = function() { selectMode(m.id); };
+    mb.appendChild(btn);
+  });
+
+  // 题目数按钮
+  document.querySelectorAll('.count-btn').forEach(function(btn) {
+    btn.onclick = function() {
+      document.querySelectorAll('.count-btn').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      currentCount = parseInt(this.getAttribute('data-count'));
+      document.getElementById('countInput').value = currentCount;
+      generate();
+    };
+  });
+  document.getElementById('countInput').onchange = function() {
+    var v = parseInt(this.value) || 30;
+    currentCount = Math.max(5, Math.min(200, v));
+    this.value = currentCount;
+    document.querySelectorAll('.count-btn').forEach(function(b) { b.classList.remove('active'); });
+    generate();
+  };
+
+  // 页数按钮
+  document.querySelectorAll('.page-btn').forEach(function(btn) {
+    btn.onclick = function() {
+      document.querySelectorAll('.page-btn').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      currentPages = parseInt(this.getAttribute('data-pages'));
+      generate();
+    };
+  });
+
+  // 初始渲染
+  renderUnits();
+  loadPrefs();
+  generate();
+}
+
+function selectGrade(g) {
+  currentGrade = g;
+  document.querySelectorAll('.grade-btn').forEach(function(b) {
+    b.classList.toggle('active', parseInt(b.getAttribute('data-grade')) === g);
+  });
+  activeUnitIndices = [0];
+  renderUnits();
+  generate();
+  savePrefs();
+}
+
+function selectSemester(sem) {
+  currentSemester = sem;
+  document.querySelectorAll('.semester-btn').forEach(function(b) {
+    b.classList.toggle('active', b.getAttribute('data-semester') === sem);
+  });
+  activeUnitIndices = [0];
+  renderUnits();
+  generate();
+  savePrefs();
+}
+
+function selectMode(mode) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-btn').forEach(function(b) {
+    b.classList.toggle('active', b.getAttribute('data-mode') === mode);
+  });
+  generate();
+  savePrefs();
+}
+
+function renderUnits() {
+  var grid = document.getElementById('unitsGrid');
+  grid.innerHTML = '';
+
+  var book = getCurrentBook();
+  if (!book) {
+    var placeholder = document.createElement('span');
+    placeholder.style.cssText = 'color:var(--ink-light);font-size:13px;';
+    placeholder.textContent = '暂无数据';
+    grid.appendChild(placeholder);
+    return;
+  }
+
+  // 全选/全不选
+  var allBtn = document.createElement('button');
+  allBtn.className = 'select-all-btn';
+  var allSelected = !activeUnitIndices || activeUnitIndices.length === book.units.length;
+  allBtn.textContent = allSelected ? '全不选' : '全选';
+  allBtn.onclick = function() {
+    if (!activeUnitIndices || activeUnitIndices.length === book.units.length) {
+      activeUnitIndices = [];
+    } else {
+      activeUnitIndices = book.units.map(function(_, i) { return i; });
+    }
+    renderUnits();
+    generate();
+    savePrefs();
+  };
+  grid.appendChild(allBtn);
+
+  // 各单元
+  book.units.forEach(function(u, i) {
+    var btn = document.createElement('button');
+    var isActive = !activeUnitIndices || activeUnitIndices.indexOf(i) >= 0;
+    btn.className = 'unit-btn' + (isActive ? ' active' : '');
+    btn.textContent = u.unit + ' (' + u.words.length + '词)';
+    btn.onclick = function() {
+      if (!activeUnitIndices) {
+        activeUnitIndices = book.units.map(function(_, j) { return j; });
+      }
+      var idx = activeUnitIndices.indexOf(i);
+      if (idx >= 0) {
+        activeUnitIndices.splice(idx, 1);
+      } else {
+        activeUnitIndices.push(i);
+        activeUnitIndices.sort(function(a, b) { return a - b; });
+      }
+      renderUnits();
+      generate();
+      savePrefs();
+    };
+    grid.appendChild(btn);
+  });
+}
+
+// ============ 偏好持久化 ============
+function savePrefs() {
+  try {
+    var data = {
+      grade: currentGrade,
+      semester: currentSemester,
+      mode: currentMode,
+      count: currentCount,
+      pages: currentPages,
+      units: activeUnitIndices
+    };
+    localStorage.setItem('englishDictation_prefs', JSON.stringify(data));
+  } catch(e) {}
+}
+
+function loadPrefs() {
+  try {
+    var raw = localStorage.getItem('englishDictation_prefs');
+    if (!raw) return;
+    var data = JSON.parse(raw);
+    if (data.grade >= 3 && data.grade <= 9) currentGrade = data.grade;
+    if (data.semester === 'A' || data.semester === 'B') currentSemester = data.semester;
+    if (data.mode) currentMode = data.mode;
+    if (data.count) currentCount = Math.max(5, Math.min(200, data.count));
+    if (data.pages) currentPages = Math.min(5, data.pages);
+    if (data.units) activeUnitIndices = data.units;
+
+    document.querySelectorAll('.grade-btn').forEach(function(b) {
+      b.classList.toggle('active', parseInt(b.getAttribute('data-grade')) === currentGrade);
+    });
+    document.querySelectorAll('.semester-btn').forEach(function(b) {
+      b.classList.toggle('active', b.getAttribute('data-semester') === currentSemester);
+    });
+    document.querySelectorAll('.mode-btn').forEach(function(b) {
+      b.classList.toggle('active', b.getAttribute('data-mode') === currentMode);
+    });
+    document.getElementById('countInput').value = currentCount;
+  } catch(e) {}
+}
+
+// 启动
+initUI();
+</script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>家庭练习纸</title>
+<style>
+  :root {
+    --bg: #FDF5E8;
+    --card: #FFFFFF;
+    --ink: #3B3228;
+    --ink-light: #8B7E6E;
+    --shadow: 0 2px 20px rgba(60, 40, 20, 0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', -apple-system, sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 24px;
+    -webkit-font-smoothing: antialiased;
+    color: var(--ink);
+  }
+
+  .container { max-width: 560px; width: 100%; text-align: center; }
+
+  h1 {
+    font-size: 32px; font-weight: 800; color: var(--ink);
+    margin-bottom: 6px; letter-spacing: 2px;
+  }
+  .subtitle {
+    font-size: 15px; color: var(--ink-light); margin-bottom: 48px;
+  }
+
+  .cards { display: flex; flex-direction: column; gap: 20px; }
+
+  .card {
+    display: flex; align-items: center; gap: 24px;
+    background: var(--card);
+    border-radius: 20px;
+    padding: 32px 36px;
+    box-shadow: var(--shadow);
+    text-decoration: none; color: inherit;
+    transition: all 0.25s;
+    text-align: left;
+    border-left: 6px solid transparent;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(60, 40, 20, 0.15); }
+
+  .card.math  { border-left-color: #E8A317; }
+  .card.en    { border-left-color: #4A90D9; }
+  .card.combo { border-left-color: #7B5BA8; }
+
+  .card-icon {
+    width: 72px; height: 72px; border-radius: 18px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px; flex-shrink: 0; color: #FFFFFF; font-weight: 700;
+  }
+  .card-icon.math  { background: #E8A317; }
+  .card-icon.en    { background: #4A90D9; }
+  .card-icon.combo { background: #7B5BA8; }
+
+  .card-body h3 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .card-body p  { font-size: 14px; color: var(--ink-light); line-height: 1.6; }
+
+  .card-arrow {
+    font-size: 24px; color: var(--ink-light); flex-shrink: 0;
+    margin-left: auto; transition: transform 0.2s;
+  }
+  .card:hover .card-arrow { transform: translateX(4px); }
+
+  @media (max-width: 500px) {
+    .card { padding: 24px 20px; gap: 16px; }
+    .card-icon { width: 56px; height: 56px; font-size: 28px; border-radius: 14px; }
+    .card-body h3 { font-size: 18px; }
+    h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>家庭练习纸</h1>
+  <p class="subtitle">一份练习，一键打印</p>
+
+  <div class="cards">
+    <a href="kousuan.html" class="card math">
+      <div class="card-icon math">&#x2797;</div>
+      <div class="card-body">
+        <h3>口算练习</h3>
+        <p>1-6 年级 · 加减乘除 · 分数小数 · A4 打印</p>
+      </div>
+      <span class="card-arrow">&#x203A;</span>
+    </a>
+
+    <a href="english.html" class="card en">
+      <div class="card-icon en">Aa</div>
+      <div class="card-body">
+        <h3>英语默写</h3>
+        <p>译林版 3-9 年级 · 中英互默 · 单元自选</p>
+      </div>
+      <span class="card-arrow">&#x203A;</span>
+    </a>
+
+    <a href="combo.html" class="card combo">
+      <div class="card-icon combo">&#x2606;</div>
+      <div class="card-body">
+        <h3>精选套题</h3>
+        <p>综合练习 · 固定题型配比 · 50/100题切换</p>
+      </div>
+      <span class="card-arrow">&#x203A;</span>
+    </a>
+  </div>
+</div>
+
+</body>
+</html>

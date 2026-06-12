@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>定制套题</title>
+<style>
+  :root {
+    --paper: #FFF9F0;
+    --card: #FFFFFF;
+    --ink: #3B3228;
+    --ink-light: #8B7E6E;
+    --accent: #7B5BA8;
+    --accent-hover: #8E6FBA;
+    --border: #E6DDD0;
+    --bg: #FDF5E8;
+    --radius: 14px;
+    --shadow: 0 2px 12px rgba(60, 40, 20, 0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', -apple-system, sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    padding: 40px 24px;
+    display: flex;
+    justify-content: center;
+    -webkit-font-smoothing: antialiased;
+    color: var(--ink);
+  }
+
+  .container { max-width: 1100px; width: 100%; }
+
+  .header {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .header h1 { font-size: 24px; font-weight: 700; }
+  .header p { font-size: 14px; color: var(--ink-light); margin-top: 3px; }
+
+  .top-nav { margin-bottom: 8px; display: flex; gap: 6px; justify-content: flex-end; }
+  .top-nav a, .top-nav span.current {
+    padding: 6px 16px; border-radius: 20px;
+    font-size: 14px; font-weight: 600; text-decoration: none;
+    transition: all 0.15s;
+  }
+  .top-nav a { color: var(--ink-light); border: 1px solid transparent; }
+  .top-nav a:hover { color: var(--accent); border-color: var(--accent); background: rgba(123,91,168,0.06); }
+  .top-nav span.current { color: #FFFFFF; background: var(--accent); }
+
+  /* ── 套餐选择 ── */
+  .combo-select {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 28px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+  .combo-select label {
+    font-size: 11px; font-weight: 600; color: var(--ink-light);
+    letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 10px; display: block;
+  }
+  .combo-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+  .combo-pill {
+    padding: 10px 20px; border-radius: var(--radius);
+    border: 2px solid var(--border); background: var(--card);
+    cursor: pointer; transition: all 0.2s; text-align: left; min-width: 140px;
+  }
+  .combo-pill:hover { border-color: var(--accent); }
+  .combo-pill.active { border-color: var(--accent); background: rgba(123,91,168,0.06); }
+  .combo-pill .code { font-size: 15px; font-weight: 700; color: var(--ink); font-family: 'SF Mono','Menlo',monospace; letter-spacing: 1px; }
+  .combo-pill .name { font-size: 12px; color: var(--ink-light); margin-top: 3px; }
+  .combo-pill.active .code { color: var(--accent); }
+  .combo-pill.active .name { color: var(--accent); }
+
+  .coming-soon {
+    padding: 10px 20px; border-radius: var(--radius);
+    border: 2px dashed var(--border); background: transparent;
+    font-size: 12px; color: var(--ink-light);
+    display: flex; align-items: center; min-width: 140px;
+  }
+
+  /* ── 套餐说明 ── */
+  .combo-info {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    font-size: 13px; color: var(--ink-light); line-height: 1.7;
+  }
+  .combo-info strong { color: var(--ink); }
+
+  /* ── 控制 ── */
+  .controls {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 28px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .controls label { font-size: 12px; font-weight: 600; color: var(--ink-light); letter-spacing: 0.5px; }
+  .page-btns { display: flex; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+  .page-btn {
+    padding: 7px 16px; border: none; border-right: 1px solid var(--border);
+    background: var(--card); font-size: 13px; font-weight: 500;
+    color: var(--ink); cursor: pointer; transition: all 0.15s;
+    font-family: inherit;
+  }
+  .page-btn:last-child { border-right: none; }
+  .page-btn:hover { background: var(--paper); }
+  .page-btn.active { background: var(--accent); color: #FFFFFF; }
+
+  .btn {
+    padding: 10px 26px; border: none; border-radius: 24px;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s; font-family: inherit;
+  }
+  .btn-gen { background: var(--accent); color: #FFFFFF; }
+  .btn-gen:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(123, 91, 168, 0.35); }
+  .btn-print { background: var(--ink); color: #FFFFFF; }
+  .btn-print:hover { background: #4A3F35; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(59, 50, 40, 0.25); }
+
+  /* ── Paper ── */
+  .paper {
+    background: #FFFFFF;
+    border-radius: var(--radius);
+    padding: 24px 20px;
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .paper-header {
+    text-align: center;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .paper-header h2 { font-size: 18px; color: var(--ink); letter-spacing: 2px; font-weight: 600; }
+  .paper-header .page-num { float: right; font-size: 12px; color: var(--ink-light); }
+  .paper-meta { color: var(--ink-light); display: flex; justify-content: center; gap: 18px; margin-top: 8px; font-size: 13px; }
+  .paper-meta .blank { display: inline-block; border-bottom: 1px solid var(--ink-light); min-width: 60px; margin-left: 2px; }
+
+  .questions { display: grid; gap: 3px 8px; }
+  .questions.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .questions.cols-5 { grid-template-columns: repeat(5, 1fr); }
+
+  .question {
+    padding: 4px 2px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: baseline; gap: 3px;
+    font-family: 'SF Mono', 'Menlo', 'Courier New', monospace;
+    font-size: 12px; color: var(--ink);
+  }
+  .question .idx {
+    width: 26px; display: inline-flex; justify-content: flex-end;
+    font-size: 10px; color: var(--ink-light); flex-shrink: 0;
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  }
+  .q-text { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 0; }
+  .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; line-height: 1; margin: 0 2px; }
+  .frac .num { padding: 1px 4px 0; border-bottom: 1.5px solid var(--ink); color: var(--ink); }
+  .frac .den { padding: 0 4px 1px; color: var(--ink); }
+
+  @media (max-width: 700px) {
+    body { padding: 12px; }
+    .header { padding: 20px; flex-direction: column; text-align: center; gap: 10px; }
+    .combo-select, .combo-info { padding: 16px; }
+    .controls { padding: 16px; flex-wrap: wrap; }
+    .btn { flex: 1; text-align: center; }
+    .paper { padding: 12px; }
+    .questions.cols-4, .questions.cols-5 { grid-template-columns: repeat(2, 1fr); }
+    .question { font-size: 11px; padding: 3px 1px; }
+    .top-nav { justify-content: center; }
+  }
+
+  @media print {
+    body { background: #ffffff !important; padding: 0; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .header, .controls, .btn, .combo-select, .combo-info { display: none !important; }
+    .paper { background: #ffffff !important; box-shadow: none !important; border-radius: 0; padding: 12px 16px; margin: 0; border: none;
+      height: 267mm; width: 210mm; box-sizing: border-box; display: flex; flex-direction: column;
+      page-break-after: always; break-after: page; }
+    .paper:last-child { page-break-after: auto; break-after: auto; }
+    .paper-header { margin-bottom: 10px; padding-bottom: 8px; }
+    .paper-header h2 { font-size: 16px; color: #000000 !important; font-weight: 700; }
+    .paper-header .page-num { display: none; }
+    .paper-meta { font-size: 11px; gap: 12px; color: #333333 !important; }
+    .question { border-bottom: 1px solid #cccccc !important; break-inside: avoid; padding: 4px 2px; font-size: 12px !important; color: #000000 !important; }
+    .question .idx { color: #666666 !important; }
+    .frac .num, .frac .den { color: #000000 !important; }
+    .frac .num { border-bottom: 1.5px solid #000000 !important; }
+    .questions { flex: 1; align-content: space-between; display: grid !important; gap: 0 8px !important; }
+    .questions.cols-4 { grid-template-columns: repeat(4, 1fr) !important; }
+    .questions.cols-5 { grid-template-columns: repeat(5, 1fr) !important; }
+    @page { margin: 8mm; size: A4 portrait; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div>
+      <h1>精选套题</h1>
+      <p>高质量综合练习，一键生成打印</p>
+    </div>
+    <div style="text-align:right;">
+      <div class="top-nav">
+        <a href="index.html">首页</a>
+        <a href="kousuan.html">口算练习</a>
+        <a href="english.html">英语默写</a>
+        <span class="current">精选套题</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="combo-select">
+    <label>套题选择</label>
+    <div class="combo-pills" id="comboPills"></div>
+  </div>
+
+  <div class="combo-info" id="comboInfo"></div>
+
+  <div class="controls">
+    <label>页数</label>
+    <div class="page-btns" id="pageBtns">
+      <button class="page-btn active" data-pages="1">1 页</button>
+      <button class="page-btn" data-pages="2">2 页</button>
+      <button class="page-btn" data-pages="5">5 页</button>
+      <button class="page-btn" data-pages="10">10 页</button>
+    </div>
+    <button class="btn btn-gen" onclick="generateAll()">重新生成</button>
+    <button class="btn btn-print" onclick="window.print()">打印 / PDF</button>
+  </div>
+
+  <div id="paperContainer"></div>
+</div>
+
+<script>
+// ============ 套题配置 ============
+var combos = [
+  {
+    code: 'BOAI.LI',
+    name: '五年级分数特训',
+    desc: '共 100 题 / 5 列 × 20 题。第 1、2 列：分数加减混合（同分母 10%，异分母 90%，假分数约 30%）。第 3 列：两数相乘（分×分 70%，分×整数 30%，可约分 90%）。第 4、5 列：三数连乘（分×分×分 70%，分×整数×分 30%，可约分 90%，大质数因子约 30%）。',
+    cols: 5, rows: 20,
+    colDefs: [
+      { label: '分数加减', gen: function() { return genAddSubCol(); } },
+      { label: '分数加减', gen: function() { return genAddSubCol(); } },
+      { label: '两数相乘', gen: function() { return genMul2Col(); } },
+      { label: '三数连乘', gen: function() { return genMul3Col(); } },
+      { label: '三数连乘', gen: function() { return genMul3Col(); } },
+    ]
+  }
+];
+
+var currentComboIdx = 0;
+var currentPages = 1;
+
+// ============ 工具函数 ============
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+function gcd(a, b) { return b ? gcd(b, a % b) : a; }
+function shuffle(arr) {
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = rand(0, i);
+    var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+  }
+  return arr;
+}
+function fracHTML(n, d) {
+  return '<span class="frac"><span class="num">' + n + '</span><span class="den">' + d + '</span></span>';
+}
+function chainFrac(n, d) { return fracHTML(n, d); }
+function chainAns(n, d) {
+  var g = gcd(n, d); n /= g; d /= g;
+  if (d === 1) return '' + n;
+  return n + '/' + d;
+}
+
+function pickCoprime(den, min, max) {
+  for (var i = 0; i < 200; i++) {
+    var n = rand(min, max);
+    if (gcd(n, den) === 1 && n !== den) return n;
+  }
+  var primes = [2,3,5,7,11,13,17,19,23];
+  for (var j = 0; j < primes.length; j++) {
+    if (primes[j] !== den && gcd(primes[j], den) === 1) return primes[j];
+  }
+  return den + 1;
+}
+
+function simpleFrac(minN, maxN, minD, maxD) {
+  for (var i = 0; i < 200; i++) {
+    var d = rand(minD, maxD);
+    var n = pickCoprime(d, minN, maxN);
+    if (n !== d) return { n: n, d: d };
+  }
+  return { n: 1, d: 2 };
+}
+
+// ============ 分数加减生成器 ============
+function genAddSubSameDen() {
+  for (var i = 0; i < 100; i++) {
+    var d = rand(3, 12);
+    var maxN = Math.random() < 0.7 ? d - 1 : d + Math.floor(d * 0.6);
+    var n1 = pickCoprime(d, 1, Math.max(2, maxN));
+    maxN = Math.random() < 0.7 ? d - 1 : d + Math.floor(d * 0.6);
+    var n2 = pickCoprime(d, 1, Math.max(2, maxN));
+    if (Math.random() < 0.5) {
+      var totalN = n1 + n2;
+      if (totalN > 30) continue;
+      return { html: chainFrac(n1,d) + ' + ' + chainFrac(n2,d) + ' =', answer: chainAns(totalN, d) };
+    } else {
+      if (n1 < n2) { var t = n1; n1 = n2; n2 = t; }
+      return { html: chainFrac(n1,d) + ' - ' + chainFrac(n2,d) + ' =', answer: chainAns(n1 - n2, d) };
+    }
+  }
+  return { html: chainFrac(3,4) + ' + ' + chainFrac(1,4) + ' =', answer: '1' };
+}
+
+function genAddSubDiffDen() {
+  for (var i = 0; i < 100; i++) {
+    var d1 = rand(2, 10), d2 = rand(2, 10);
+    if (d1 === d2) continue;
+    var maxN1 = Math.random() < 0.7 ? d1 - 1 : d1 + Math.floor(d1 * 0.6);
+    var maxN2 = Math.random() < 0.7 ? d2 - 1 : d2 + Math.floor(d2 * 0.6);
+    var n1 = pickCoprime(d1, 1, Math.max(2, maxN1));
+    var n2 = pickCoprime(d2, 1, Math.max(2, maxN2));
+    var lcm = d1 * d2 / gcd(d1, d2);
+    var m1 = lcm / d1, m2 = lcm / d2;
+    if (Math.random() < 0.5) {
+      return { html: chainFrac(n1,d1) + ' + ' + chainFrac(n2,d2) + ' =', answer: chainAns(n1*m1 + n2*m2, lcm) };
+    } else {
+      if (n1 * m1 < n2 * m2) { var t = n1; n1 = n2; n2 = t; t = d1; d1 = d2; d2 = t; t = m1; m1 = m2; m2 = t; }
+      return { html: chainFrac(n1,d1) + ' - ' + chainFrac(n2,d2) + ' =', answer: chainAns(n1*m1 - n2*m2, lcm) };
+    }
+  }
+  return { html: chainFrac(2,3) + ' + ' + chainFrac(1,4) + ' =', answer: '11/12' };
+}
+
+function genAddSubCol() {
+  return Math.random() < 0.1 ? genAddSubSameDen() : genAddSubDiffDen();
+}
+
+// ============ 两数相乘生成器 ============
+function genFracTimesInt() {
+  for (var i = 0; i < 100; i++) {
+    var b = rand(2, 10);
+    var a = pickCoprime(b, 1, b * 2);
+    var k;
+    if (Math.random() < 0.9) {
+      var factors = [];
+      for (var f = 2; f <= b; f++) { if (b % f === 0) factors.push(f); }
+      var base = factors[rand(0, factors.length - 1)];
+      k = base * rand(1, Math.floor(15 / base));
+    } else { k = pickCoprime(b, 2, 15); }
+    var totalN = a * k, totalD = b;
+    if (totalN > 50) continue;
+    if (Math.random() < 0.5) {
+      return { html: chainFrac(a,b) + ' × ' + k + ' =', answer: chainAns(totalN, totalD) };
+    } else {
+      return { html: k + ' × ' + chainFrac(a,b) + ' =', answer: chainAns(totalN, totalD) };
+    }
+  }
+  return { html: chainFrac(2,3) + ' × ' + 6 + ' =', answer: '4' };
+}
+
+function genFracTimesFrac() {
+  for (var i = 0; i < 100; i++) {
+    var b = rand(2, 10), d = rand(2, 10);
+    var a = pickCoprime(b, 1, 12);
+    var c = pickCoprime(d, 1, 12);
+    var hasCancel = (gcd(a, d) > 1 || gcd(b, c) > 1);
+    if (Math.random() < 0.9 && !hasCancel) continue;
+    if (Math.random() >= 0.9 && hasCancel) continue;
+    var totalN = a * c, totalD = b * d;
+    var g = gcd(totalN, totalD);
+    return { html: chainFrac(a,b) + ' × ' + chainFrac(c,d) + ' =', answer: chainAns(totalN/g, totalD/g) };
+  }
+  return { html: chainFrac(3,4) + ' × ' + chainFrac(8,9) + ' =', answer: '2/3' };
+}
+
+function genMul2Col() {
+  return Math.random() < 0.3 ? genFracTimesInt() : genFracTimesFrac();
+}
+
+// ============ 三数连乘生成器 ============
+function genChainCancel() {
+  for (var attempt = 0; attempt < 100; attempt++) {
+    var b = rand(2, 10);
+    var a = pickCoprime(b, 1, 12);
+    var c = pickCoprime(b, 2, 10);
+    var d = pickCoprime(c, 2, 12);
+    return { html: chainFrac(a,b) + ' × ' + chainFrac(b,c) + ' × ' + chainFrac(c,d) + ' =', answer: chainAns(a, d) };
+  }
+  return { html: chainFrac(1,2) + ' × ' + chainFrac(2,3) + ' × ' + chainFrac(3,4) + ' =', answer: '1/4' };
+}
+
+function genFactorChain() {
+  for (var attempt = 0; attempt < 50; attempt++) {
+    var poolSize = rand(3, 4), pool = [];
+    var candidates = [2, 2, 3, 3, 5, 5, 7, 7];
+    shuffle(candidates);
+    for (var i = 0; i < poolSize; i++) pool.push(candidates[i]);
+    var nums = [[], [], []], dens = [[], [], []];
+    pool.forEach(function(f, idx) {
+      nums[idx % 3].push(f);
+      dens[(idx + 1) % 3].push(f);
+    });
+    for (var j = 0; j < 3; j++) {
+      if (nums[j].length === 0) nums[j].push(rand(1, 7));
+      if (dens[j].length === 0) dens[j].push(rand(2, 8));
+      if (Math.random() < 0.3) {
+        var extra = rand(1, 7);
+        if (!dens[j].some(function(x) { return gcd(x, extra) > 1; })) nums[j].push(extra);
+      }
+      if (Math.random() < 0.3) {
+        var extra = rand(2, 8);
+        if (!nums[j].some(function(x) { return gcd(x, extra) > 1; })) dens[j].push(extra);
+      }
+    }
+    function prod(arr) { var p = 1; arr.forEach(function(x) { p *= x; }); return p; }
+    var n1 = prod(nums[0]), d1 = prod(dens[0]), n2 = prod(nums[1]), d2 = prod(dens[1]), n3 = prod(nums[2]), d3 = prod(dens[2]);
+    if (gcd(n1, d1) > 1 || gcd(n2, d2) > 1 || gcd(n3, d3) > 1) continue;
+    if (n1 > 20 || d1 > 12 || n2 > 20 || d2 > 12 || n3 > 20 || d3 > 12) continue;
+    if (n1 === d1 || n2 === d2 || n3 === d3) continue;
+    var tn = n1 * n2 * n3, td = d1 * d2 * d3, g = gcd(tn, td);
+    return { html: chainFrac(n1,d1) + ' × ' + chainFrac(n2,d2) + ' × ' + chainFrac(n3,d3) + ' =', answer: chainAns(tn/g, td/g) };
+  }
+  return genChainCancel();
+}
+
+function genRandomChain() {
+  var denoms = [2, 3, 4, 5, 6, 7, 8, 9, 10, 12];
+  for (var i = 0; i < 100; i++) {
+    var n1 = rand(1, 13), d1 = denoms[rand(0, denoms.length - 1)];
+    if (gcd(n1, d1) > 1 || n1 === d1) continue;
+    var n2 = rand(1, 13), d2 = denoms[rand(0, denoms.length - 1)];
+    if (gcd(n2, d2) > 1 || n2 === d2) continue;
+    var n3 = rand(1, 13), d3 = denoms[rand(0, denoms.length - 1)];
+    if (gcd(n3, d3) > 1 || n3 === d3) continue;
+    return { html: chainFrac(n1,d1) + ' × ' + chainFrac(n2,d2) + ' × ' + chainFrac(n3,d3) + ' =', answer: chainAns(n1*n2*n3, d1*d2*d3) };
+  }
+  return { html: chainFrac(2,3) + ' × ' + chainFrac(5,7) + ' × ' + chainFrac(3,8) + ' =', answer: '5/28' };
+}
+
+function genCrossMix3() {
+  for (var i = 0; i < 100; i++) {
+    var b = rand(2, 10), d = rand(2, 10);
+    var a = pickCoprime(b, 1, 12), c = pickCoprime(d, 1, 12);
+    if (gcd(a, d) === 1 && gcd(b, c) === 1) continue;
+    var f = rand(2, 10), e = pickCoprime(f, 1, 12);
+    if (a === c && b === d) continue;
+    var tn = a * c * e, td = b * d * f;
+    if (tn > 500 || td > 300) continue;
+    var g = gcd(tn, td);
+    return { html: chainFrac(a,b) + ' × ' + chainFrac(c,d) + ' × ' + chainFrac(e,f) + ' =', answer: chainAns(tn/g, td/g) };
+  }
+  return genChainCancel();
+}
+
+function hasTrivialPair(html) {
+  var fracs = [], re = /num">(\d+)<\/span><span class="den">(\d+)<\/span>/g, m;
+  while ((m = re.exec(html)) !== null) fracs.push([parseInt(m[1]), parseInt(m[2])]);
+  for (var i = 0; i < fracs.length; i++) {
+    for (var j = i + 1; j < fracs.length; j++) {
+      if (fracs[i][0] === fracs[j][0] && fracs[i][1] === fracs[j][1]) return true;
+      if (fracs[i][0] === fracs[j][1] && fracs[i][1] === fracs[j][0]) return true;
+    }
+  }
+  return false;
+}
+
+function checkCrossCancel(html) {
+  var nums = [], dens = [], re = /num">(\d+)<\/span>/g, m;
+  while ((m = re.exec(html)) !== null) nums.push(parseInt(m[1]));
+  re = /den">(\d+)<\/span>/g;
+  while ((m = re.exec(html)) !== null) dens.push(parseInt(m[1]));
+  for (var ni = 0; ni < nums.length; ni++) {
+    for (var di = 0; di < dens.length; di++) {
+      if (ni === di) continue;
+      if (gcd(nums[ni], dens[di]) > 1) return true;
+    }
+  }
+  return false;
+}
+
+function gen3FracLarge() {
+  for (var i = 0; i < 100; i++) {
+    var pairs = [[13,26],[13,39],[13,52],[13,65],[13,78],[17,34],[17,51],[17,68],[17,85],[19,38],[19,57],[19,76],[19,95],[23,46],[23,69],[7,35],[7,49],[7,56],[11,33],[11,55],[11,66],[11,77],[14,42],[14,56],[15,45],[15,75],[18,54],[18,72]];
+    var pair = pairs[rand(0, pairs.length - 1)];
+    var small = pair[0], large = pair[1];
+    var b = pickCoprime(large, 2, 8), d = rand(2, 10);
+    var c = pickCoprime(d, 1, 12), e = pickCoprime(small, 1, 12);
+    if (b === small || d === large) continue;
+    if (hasTrivialPair(chainFrac(large,b) + ' × ' + chainFrac(c,d) + ' × ' + chainFrac(e,small) + ' =')) continue;
+    var tn = large * c * e, td = b * d * small;
+    if (tn > 800 || td > 500) continue;
+    var g = gcd(tn, td);
+    return { html: chainFrac(large,b) + ' × ' + chainFrac(c,d) + ' × ' + chainFrac(e,small) + ' =', answer: chainAns(tn/g, td/g) };
+  }
+  return genChainCancel();
+}
+
+function gen3Frac() {
+  if (Math.random() < 0.3) return gen3FracLarge();
+  for (var i = 0; i < 100; i++) {
+    var r = Math.random(), result;
+    if (r < 0.40) result = genChainCancel();
+    else if (r < 0.65) result = genFactorChain();
+    else if (r < 0.85) result = genCrossMix3();
+    else result = genRandomChain();
+    if (hasTrivialPair(result.html)) continue;
+    var hc = checkCrossCancel(result.html);
+    if (Math.random() < 0.9 && !hc) continue;
+    if (Math.random() >= 0.9 && hc) continue;
+    return result;
+  }
+  return genChainCancel();
+}
+
+// 分×整×分 中整数三个位置平均分布
+function fmtFracIntFrac(a, b, k, c, d) {
+  var pos = rand(0, 2);
+  if (pos === 0) return { html: k + ' × ' + chainFrac(a,b) + ' × ' + chainFrac(c,d) + ' =' };
+  if (pos === 1) return { html: chainFrac(a,b) + ' × ' + k + ' × ' + chainFrac(c,d) + ' =' };
+  return { html: chainFrac(a,b) + ' × ' + chainFrac(c,d) + ' × ' + k + ' =' };
+}
+
+function genFracIntFracLarge() {
+  for (var i = 0; i < 100; i++) {
+    var pairs = [[13,26],[13,39],[13,52],[13,65],[13,78],[17,34],[17,51],[17,68],[17,85],[19,38],[19,57],[19,76],[19,95],[23,46],[23,69],[7,35],[7,49],[7,56],[11,33],[11,55],[11,66],[11,77],[14,42],[14,56],[15,45],[15,75],[18,54],[18,72]];
+    var pair = pairs[rand(0, pairs.length - 1)];
+    var small = pair[0], large = pair[1];
+    var b = pickCoprime(large, 2, 8), c = pickCoprime(small, 1, 12);
+    var k = rand(2, 8);
+    var tn = large * k * c, td = b * small;
+    if (tn > 600 || td > 200) continue;
+    var g = gcd(tn, td);
+    var fmt = fmtFracIntFrac(large, b, k, c, small);
+    return { html: fmt.html, answer: chainAns(tn/g, td/g) };
+  }
+  return { html: chainFrac(34,5) + ' × ' + 2 + ' × ' + chainFrac(1,17) + ' =', answer: '4/5' };
+}
+
+function genFracIntFrac() {
+  if (Math.random() < 0.3) return genFracIntFracLarge();
+  for (var i = 0; i < 100; i++) {
+    var b = rand(2, 10), d = rand(2, 10);
+    var a = pickCoprime(b, 1, 12), c = pickCoprime(d, 1, 12);
+    var k;
+    if (Math.random() < 0.9) {
+      var target = Math.random() < 0.5 ? b : d;
+      var factors = [];
+      for (var f = 2; f <= target; f++) { if (target % f === 0) factors.push(f); }
+      k = factors[rand(0, factors.length - 1)] * rand(1, Math.floor(12 / (factors[0] || 2)));
+    } else { k = rand(2, 12); }
+    var tn = a * k * c, td = b * d;
+    if (tn > 500 || td > 200) continue;
+    var g = gcd(tn, td);
+    var fmt = fmtFracIntFrac(a, b, k, c, d);
+    return { html: fmt.html, answer: chainAns(tn/g, td/g) };
+  }
+  return { html: chainFrac(4,7) + ' × ' + 3 + ' × ' + chainFrac(7,8) + ' =', answer: '3/2' };
+}
+
+function genMul3Col() {
+  return Math.random() < 0.3 ? genFracIntFrac() : gen3Frac();
+}
+
+// ============ UI ============
+function selectCombo(idx) {
+  currentComboIdx = idx;
+  document.querySelectorAll('.combo-pill').forEach(function(p, i) {
+    p.classList.toggle('active', i === idx);
+  });
+  updateInfo();
+  generateAll();
+}
+
+function updateInfo() {
+  var c = combos[currentComboIdx];
+  document.getElementById('comboInfo').innerHTML =
+    '<strong>' + c.code + '</strong> · ' + c.name + '<br>' + c.desc;
+}
+
+function renderPills() {
+  var container = document.getElementById('comboPills');
+  container.innerHTML = '';
+  combos.forEach(function(c, i) {
+    var pill = document.createElement('div');
+    pill.className = 'combo-pill' + (i === currentComboIdx ? ' active' : '');
+    pill.innerHTML = '<div class="code">' + c.code + '</div><div class="name">' + c.name + '</div>';
+    pill.onclick = function() { selectCombo(i); };
+    container.appendChild(pill);
+  });
+  var soon = document.createElement('div');
+  soon.className = 'coming-soon';
+  soon.textContent = '+ 更多套题';
+  container.appendChild(soon);
+}
+
+function generateAll() {
+  var c = combos[currentComboIdx];
+  var container = document.getElementById('paperContainer');
+  container.innerHTML = '';
+
+  for (var p = 0; p < currentPages; p++) {
+    var paper = document.createElement('div');
+    paper.className = 'paper' + (p < currentPages - 1 ? ' paper-page' : '');
+
+    var headerHTML =
+      '<div class="paper-header">' +
+        '<span class="page-num">第 ' + (p + 1) + ' 页</span>' +
+        '<h2>' + c.name + '</h2>' +
+        '<div class="paper-meta">' +
+          '<span>姓名: <span class="blank"></span></span>' +
+          '<span>日期: <span class="blank"></span></span>' +
+          '<span>用时: <span class="blank"></span></span>' +
+          '<span>对题: <span class="blank"></span></span>' +
+        '</div>' +
+      '</div>';
+
+    var grid = document.createElement('div');
+    grid.className = 'questions cols-' + c.cols;
+
+    for (var r = 0; r < c.rows; r++) {
+      for (var col = 0; col < c.colDefs.length; col++) {
+        var q = c.colDefs[col].gen();
+        var qDiv = document.createElement('div');
+        qDiv.className = 'question';
+        qDiv.innerHTML = '<span class="idx">' + (r * c.cols + col + 1) + '.</span><span class="q-text">' + q.html + '</span>';
+        grid.appendChild(qDiv);
+      }
+    }
+
+    paper.innerHTML = headerHTML;
+    paper.appendChild(grid);
+    container.appendChild(paper);
+  }
+}
+
+// ============ 初始化 ============
+document.querySelectorAll('.page-btn').forEach(function(btn) {
+  btn.onclick = function() {
+    document.querySelectorAll('.page-btn').forEach(function(b) { b.classList.remove('active'); });
+    this.classList.add('active');
+    currentPages = parseInt(this.getAttribute('data-pages'));
+    generateAll();
+  };
+});
+
+renderPills();
+updateInfo();
+generateAll();
+</script>
+</body>
+</html>

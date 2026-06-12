@@ -1,0 +1,7 @@
+# OS junk
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Node / dev (not used currently, just in case)
+node_modules/
