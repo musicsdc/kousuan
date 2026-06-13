@@ -7,3 +7,9 @@ desktop.ini
 node_modules/
 project_20260601_092940/projects/nul
 nul
+
+# Python venv and OCR temp
+.venv/
+ocr_tool/
+ocr_results/
+parsed_words.json
