@@ -1563,7 +1563,7 @@ var wordBank = {
         }
 ]
   },
-  "5A": {
+    "5A": {
     "label": "五年级上册",
     "semester": "上册",
     "grade": 5,
@@ -1572,76 +1572,44 @@ var wordBank = {
                 "unit": "Unit 1 Goldilocks and the three bears",
                 "words": [
                         {
-                                "en": "classroom",
-                                "zh": "教室"
-                        },
-                        {
-                                "en": "second",
-                                "zh": "第二"
-                        },
-                        {
-                                "en": "floor",
-                                "zh": "楼层"
-                        },
-                        {
-                                "en": "PE",
-                                "zh": "体育"
-                        },
-                        {
-                                "en": "computer",
-                                "zh": "电脑"
-                        },
-                        {
-                                "en": "forest",
-                                "zh": "森林"
-                        },
-                        {
-                                "en": "third",
-                                "zh": "第三"
-                        },
-                        {
-                                "en": "there",
-                                "zh": "(与be连用)有"
-                        },
-                        {
                                 "en": "house",
                                 "zh": "房子"
-                        },
-                        {
-                                "en": "first",
-                                "zh": "第一;首先"
-                        },
-                        {
-                                "en": "swing",
-                                "zh": "秋千"
-                        },
-                        {
-                                "en": "soup",
-                                "zh": "汤"
-                        },
-                        {
-                                "en": "push",
-                                "zh": "推"
-                        },
-                        {
-                                "en": "just right",
-                                "zh": "正合适，正好"
-                        },
-                        {
-                                "en": "heavy",
-                                "zh": "重的，沉的"
                         },
                         {
                                 "en": "room",
                                 "zh": "房间"
                         },
                         {
-                                "en": "hard",
-                                "zh": "硬的"
+                                "en": "her",
+                                "zh": "她"
                         },
                         {
-                                "en": "high",
-                                "zh": "高的"
+                                "en": "beside",
+                                "zh": "在旁边"
+                        },
+                        {
+                                "en": "between",
+                                "zh": "在中间"
+                        },
+                        {
+                                "en": "bear",
+                                "zh": "熊"
+                        },
+                        {
+                                "en": "forest",
+                                "zh": "森林"
+                        },
+                        {
+                                "en": "there",
+                                "zh": "(与be连用)有"
+                        },
+                        {
+                                "en": "soup",
+                                "zh": "汤"
+                        },
+                        {
+                                "en": "hard",
+                                "zh": "硬的"
                         },
                         {
                                 "en": "soft",
@@ -1652,12 +1620,60 @@ var wordBank = {
                                 "zh": "害怕的"
                         },
                         {
-                                "en": "great",
-                                "zh": "很多的，极大的"
+                                "en": "really",
+                                "zh": "真的"
+                        },
+                        {
+                                "en": "then",
+                                "zh": "然后"
+                        },
+                        {
+                                "en": "find",
+                                "zh": "找到,发现"
+                        },
+                        {
+                                "en": "their",
+                                "zh": "他们的;她们的;它们的"
                         },
                         {
                                 "en": "in front of",
                                 "zh": "在前面"
+                        },
+                        {
+                                "en": "just right",
+                                "zh": "正合适,正好"
+                        },
+                        {
+                                "en": "in the forest",
+                                "zh": "在森林里"
+                        },
+                        {
+                                "en": "a beautiful house",
+                                "zh": "一座漂亮的房子"
+                        },
+                        {
+                                "en": "hungry and thirsty",
+                                "zh": "又饿又渴"
+                        },
+                        {
+                                "en": "some soup",
+                                "zh": "一些汤"
+                        },
+                        {
+                                "en": "three bears",
+                                "zh": "三只熊"
+                        },
+                        {
+                                "en": "have some cakes",
+                                "zh": "吃些蛋糕"
+                        },
+                        {
+                                "en": "too cold/hot/hard/soft",
+                                "zh": "太冷/热/硬/软"
+                        },
+                        {
+                                "en": "in the room/kitchen/fridge",
+                                "zh": "在房间/厨房/冰箱里"
                         }
                 ]
         },
@@ -1665,28 +1681,84 @@ var wordBank = {
                 "unit": "Unit 2 A new student",
                 "words": [
                         {
-                                "en": "rabbit",
-                                "zh": "兔子"
-                        },
-                        {
                                 "en": "student",
                                 "zh": "学生"
                         },
                         {
-                                "en": "give",
-                                "zh": "给"
+                                "en": "classroom",
+                                "zh": "教室"
                         },
                         {
-                                "en": "show... around",
-                                "zh": "带……参观"
+                                "en": "computer",
+                                "zh": "电脑"
                         },
                         {
-                                "en": "finger",
-                                "zh": "手指"
+                                "en": "first",
+                                "zh": "第一;首先"
                         },
                         {
-                                "en": "puppet",
-                                "zh": "木偶"
+                                "en": "third",
+                                "zh": "第三"
+                        },
+                        {
+                                "en": "second",
+                                "zh": "第二"
+                        },
+                        {
+                                "en": "stop",
+                                "zh": "停下,停止"
+                        },
+                        {
+                                "en": "floor",
+                                "zh": "楼层"
+                        },
+                        {
+                                "en": "swing",
+                                "zh": "秋千"
+                        },
+                        {
+                                "en": "push",
+                                "zh": "推"
+                        },
+                        {
+                                "en": "heavy",
+                                "zh": "重的,沉的"
+                        },
+                        {
+                                "en": "high",
+                                "zh": "高的"
+                        },
+                        {
+                                "en": "great",
+                                "zh": "很多的,极大的"
+                        },
+                        {
+                                "en": "show...around",
+                                "zh": "带...参观"
+                        },
+                        {
+                                "en": "a new student",
+                                "zh": "一名新学生"
+                        },
+                        {
+                                "en": "on the first/second/third floor",
+                                "zh": "在一/二/三楼"
+                        },
+                        {
+                                "en": "have a look",
+                                "zh": "去看看"
+                        },
+                        {
+                                "en": "on the swing",
+                                "zh": "在秋千上"
+                        },
+                        {
+                                "en": "great fun",
+                                "zh": "很有趣"
+                        },
+                        {
+                                "en": "an art room",
+                                "zh": "一间美术室"
                         }
                 ]
         },
@@ -1694,68 +1766,88 @@ var wordBank = {
                 "unit": "Unit 3 Our animal friends",
                 "words": [
                         {
-                                "en": "her",
-                                "zh": "她"
-                        },
-                        {
-                                "en": "Help!",
-                                "zh": "救命啊"
-                        },
-                        {
-                                "en": "one ... the other ...",
-                                "zh": "一个……另一个……"
-                        },
-                        {
-                                "en": "beside",
-                                "zh": "在旁边"
-                        },
-                        {
-                                "en": "body",
-                                "zh": "身体"
-                        },
-                        {
-                                "en": "China",
-                                "zh": "中国"
-                        },
-                        {
                                 "en": "no",
-                                "zh": "没有，无"
-                        },
-                        {
-                                "en": "really",
-                                "zh": "真的"
+                                "zh": "没有,无"
                         },
                         {
                                 "en": "leg",
                                 "zh": "腿"
                         },
                         {
-                                "en": "then",
-                                "zh": "然后"
-                        },
-                        {
-                                "en": "or",
-                                "zh": "也不，也没有"
-                        },
-                        {
-                                "en": "find",
-                                "zh": "找到，发现"
-                        },
-                        {
                                 "en": "arm",
                                 "zh": "手臂"
                         },
                         {
-                                "en": "their",
-                                "zh": "他们的;她们的;它们的"
+                                "en": "foot",
+                                "zh": "脚,足"
+                        },
+                        {
+                                "en": "give",
+                                "zh": "给"
+                        },
+                        {
+                                "en": "body",
+                                "zh": "身体"
+                        },
+                        {
+                                "en": "or",
+                                "zh": "也不,也没有"
                         },
                         {
                                 "en": "wing",
                                 "zh": "翅膀"
                         },
                         {
-                                "en": "foot",
-                                "zh": "脚，足"
+                                "en": "rabbit",
+                                "zh": "兔子"
+                        },
+                        {
+                                "en": "finger",
+                                "zh": "手指"
+                        },
+                        {
+                                "en": "one...the other...",
+                                "zh": "一个...,另一个..."
+                        },
+                        {
+                                "en": "our animal friends",
+                                "zh": "我们的动物朋友"
+                        },
+                        {
+                                "en": "run and jump",
+                                "zh": "跑和跳"
+                        },
+                        {
+                                "en": "talk and fly",
+                                "zh": "说话和飞"
+                        },
+                        {
+                                "en": "big bodies/arms",
+                                "zh": "大的身体/手臂"
+                        },
+                        {
+                                "en": "long ears",
+                                "zh": "长耳朵"
+                        },
+                        {
+                                "en": "four legs",
+                                "zh": "四条腿"
+                        },
+                        {
+                                "en": "red eyes",
+                                "zh": "红眼睛"
+                        },
+                        {
+                                "en": "a short tail",
+                                "zh": "一条短尾巴"
+                        },
+                        {
+                                "en": "a small mouth",
+                                "zh": "一张小嘴巴"
+                        },
+                        {
+                                "en": "on the farm",
+                                "zh": "在农场上"
                         }
                 ]
         },
@@ -1763,92 +1855,108 @@ var wordBank = {
                 "unit": "Unit 4 Hobbies",
                 "words": [
                         {
-                                "en": "doctor",
-                                "zh": "医生"
-                        },
-                        {
-                                "en": "hobby",
-                                "zh": "业余爱好"
-                        },
-                        {
-                                "en": "help",
-                                "zh": "帮助"
-                        },
-                        {
-                                "en": "sick",
-                                "zh": "生病的"
-                        },
-                        {
-                                "en": "with",
-                                "zh": "与一起"
-                        },
-                        {
-                                "en": "people",
-                                "zh": "人; 人们"
-                        },
-                        {
-                                "en": "factory",
-                                "zh": "工厂"
-                        },
-                        {
-                                "en": "also",
-                                "zh": "也"
-                        },
-                        {
                                 "en": "read",
-                                "zh": "读，阅读"
-                        },
-                        {
-                                "en": "worker",
-                                "zh": "工人"
-                        },
-                        {
-                                "en": "cook",
-                                "zh": "厨师"
+                                "zh": "阅读"
                         },
                         {
                                 "en": "story",
                                 "zh": "故事"
                         },
                         {
-                                "en": "driver",
-                                "zh": "驾驶员，司机"
-                        },
-                        {
-                                "en": "farmer",
-                                "zh": "农民"
-                        },
-                        {
-                                "en": "play the piano",
-                                "zh": "弹钢琴"
-                        },
-                        {
-                                "en": "nurse",
-                                "zh": "护士"
-                        },
-                        {
                                 "en": "dance",
                                 "zh": "跳舞"
-                        },
-                        {
-                                "en": "policeman",
-                                "zh": "警察"
-                        },
-                        {
-                                "en": "watch films",
-                                "zh": "看电影"
-                        },
-                        {
-                                "en": "both",
-                                "zh": "两个都"
                         },
                         {
                                 "en": "sing",
                                 "zh": "唱歌"
                         },
                         {
+                                "en": "hobby",
+                                "zh": "业余爱好"
+                        },
+                        {
+                                "en": "with",
+                                "zh": "与...一起"
+                        },
+                        {
+                                "en": "also",
+                                "zh": "也"
+                        },
+                        {
+                                "en": "both",
+                                "zh": "两个都"
+                        },
+                        {
                                 "en": "group",
                                 "zh": "组"
+                        },
+                        {
+                                "en": "about",
+                                "zh": "关于"
+                        },
+                        {
+                                "en": "idea",
+                                "zh": "主意"
+                        },
+                        {
+                                "en": "ice",
+                                "zh": "冰"
+                        },
+                        {
+                                "en": "hole",
+                                "zh": "洞"
+                        },
+                        {
+                                "en": "wet",
+                                "zh": "湿的,潮的"
+                        },
+                        {
+                                "en": "a lot of",
+                                "zh": "很多"
+                        },
+                        {
+                                "en": "play basketball well",
+                                "zh": "篮球打得好"
+                        },
+                        {
+                                "en": "sing and dance",
+                                "zh": "唱歌和跳舞"
+                        },
+                        {
+                                "en": "be good at skating",
+                                "zh": "擅长溜冰"
+                        },
+                        {
+                                "en": "read stories",
+                                "zh": "读故事"
+                        },
+                        {
+                                "en": "like drawing/dancing/swimming",
+                                "zh": "喜欢画画/跳舞/游泳"
+                        },
+                        {
+                                "en": "play football/basketball/table tennis",
+                                "zh": "踢足球/打篮球/打乒乓球"
+                        },
+                        {
+                                "en": "play the piano",
+                                "zh": "弹钢琴"
+                        },
+                        {
+                                "en": "watch films",
+                                "zh": "看电影"
+                        },
+                        {
+                                "en": "talk about",
+                                "zh": "谈论某事"
+                        },
+                        {
+                                "en": "look out",
+                                "zh": "当心,注意"
+                        },
+                        {
+                                "en": "cold and wet",
+                                "zh": "又冷又湿"
                         }
                 ]
         },
@@ -1864,28 +1972,104 @@ var wordBank = {
                                 "zh": "教"
                         },
                         {
-                                "en": "writer",
-                                "zh": "作家"
-                        },
-                        {
-                                "en": "go fishing",
-                                "zh": "去钓鱼"
-                        },
-                        {
                                 "en": "write",
                                 "zh": "写"
-                        },
-                        {
-                                "en": "tomorrow",
-                                "zh": "明天"
                         },
                         {
                                 "en": "work",
                                 "zh": "工作"
                         },
                         {
+                                "en": "doctor",
+                                "zh": "医生"
+                        },
+                        {
+                                "en": "help",
+                                "zh": "帮助"
+                        },
+                        {
+                                "en": "worker",
+                                "zh": "工人"
+                        },
+                        {
+                                "en": "nurse",
+                                "zh": "护士"
+                        },
+                        {
+                                "en": "writer",
+                                "zh": "作家"
+                        },
+                        {
+                                "en": "sick",
+                                "zh": "生病的"
+                        },
+                        {
+                                "en": "people",
+                                "zh": "人;人们"
+                        },
+                        {
+                                "en": "factory",
+                                "zh": "工厂"
+                        },
+                        {
+                                "en": "cook",
+                                "zh": "厨师"
+                        },
+                        {
+                                "en": "driver",
+                                "zh": "驾驶员,司机"
+                        },
+                        {
+                                "en": "farmer",
+                                "zh": "农民"
+                        },
+                        {
+                                "en": "policeman",
+                                "zh": "警察"
+                        },
+                        {
                                 "en": "at home",
                                 "zh": "在家"
+                        },
+                        {
+                                "en": "teach English",
+                                "zh": "教英语"
+                        },
+                        {
+                                "en": "a lot of students = lots of students",
+                                "zh": "许多学生"
+                        },
+                        {
+                                "en": "write stories",
+                                "zh": "写故事"
+                        },
+                        {
+                                "en": "work at home",
+                                "zh": "在家工作"
+                        },
+                        {
+                                "en": "help sick people",
+                                "zh": "帮助生病的人"
+                        },
+                        {
+                                "en": "a factory worker",
+                                "zh": "一名工厂工人"
+                        },
+                        {
+                                "en": "an English teacher",
+                                "zh": "一名英语老师"
+                        },
+                        {
+                                "en": "make sweets",
+                                "zh": "制作糖果"
+                        },
+                        {
+                                "en": "make cars",
+                                "zh": "制造小汽车"
+                        },
+                        {
+                                "en": "so many cars",
+                                "zh": "如此多的小汽车"
                         }
                 ]
         },
@@ -1897,80 +2081,108 @@ var wordBank = {
                                 "zh": "网友"
                         },
                         {
-                                "en": "Wait a minute.",
-                                "zh": "等一会儿。"
-                        },
-                        {
-                                "en": "about",
-                                "zh": "关于"
-                        },
-                        {
-                                "en": "send",
-                                "zh": "发出信件、邮件等"
-                        },
-                        {
-                                "en": "idea",
-                                "zh": "主意"
-                        },
-                        {
                                 "en": "email",
                                 "zh": "电子邮件"
                         },
                         {
-                                "en": "ice",
-                                "zh": "冰"
-                        },
-                        {
-                                "en": "to",
-                                "zh": "给"
-                        },
-                        {
-                                "en": "hole",
-                                "zh": "洞"
-                        },
-                        {
                                 "en": "live",
-                                "zh": "住，居住"
-                        },
-                        {
-                                "en": "UK",
-                                "zh": "英国"
-                        },
-                        {
-                                "en": "Look out!",
-                                "zh": "当心!注意!"
-                        },
-                        {
-                                "en": "years old",
-                                "zh": "岁"
-                        },
-                        {
-                                "en": "wet",
-                                "zh": "湿的，潮的"
+                                "zh": "住,居住"
                         },
                         {
                                 "en": "study",
                                 "zh": "学习"
                         },
                         {
+                                "en": "China",
+                                "zh": "中国"
+                        },
+                        {
+                                "en": "tomorrow",
+                                "zh": "明天"
+                        },
+                        {
+                                "en": "sit",
+                                "zh": "坐,坐在"
+                        },
+                        {
+                                "en": "by...",
+                                "zh": "在旁边"
+                        },
+                        {
+                                "en": "send",
+                                "zh": "发出(信件,邮件等)"
+                        },
+                        {
+                                "en": "to",
+                                "zh": "给"
+                        },
+                        {
+                                "en": "UK",
+                                "zh": "英国"
+                        },
+                        {
+                                "en": "Australia",
+                                "zh": "澳大利亚"
+                        },
+                        {
                                 "en": "Canada",
                                 "zh": "加拿大"
                         },
                         {
-                                "en": "Greece",
-                                "zh": "希腊"
-                        },
-                        {
-                                "en": "Russia",
-                                "zh": "俄罗斯"
-                        },
-                        {
-                                "en": "PRC",
-                                "zh": "中华人民共和国"
-                        },
-                        {
                                 "en": "US",
                                 "zh": "美国"
+                        },
+                        {
+                                "en": "fishing",
+                                "zh": "钓鱼,捕鱼"
+                        },
+                        {
+                                "en": "wait",
+                                "zh": "等,等待"
+                        },
+                        {
+                                "en": "wait a minute",
+                                "zh": "等一会"
+                        },
+                        {
+                                "en": ".. years old",
+                                "zh": "..岁"
+                        },
+                        {
+                                "en": "go fishing",
+                                "zh": "去钓鱼"
+                        },
+                        {
+                                "en": "don't worry",
+                                "zh": "别担心"
+                        },
+                        {
+                                "en": "my e-friend",
+                                "zh": "我的网友"
+                        },
+                        {
+                                "en": "send this email",
+                                "zh": "发送这封电子邮件"
+                        },
+                        {
+                                "en": "have Chinese lessons",
+                                "zh": "上语文课"
+                        },
+                        {
+                                "en": "study Chinese",
+                                "zh": "学习汉语"
+                        },
+                        {
+                                "en": "at a snack bar",
+                                "zh": "在一家小吃店"
+                        },
+                        {
+                                "en": "sit by the river",
+                                "zh": "坐在河边"
+                        },
+                        {
+                                "en": "live in Canada/the UK",
+                                "zh": "住在加拿大/英国"
                         }
                 ]
         },
@@ -1978,32 +2190,28 @@ var wordBank = {
                 "unit": "Unit 7 At weekends",
                 "words": [
                         {
-                                "en": "at weekends",
-                                "zh": "在周末"
-                        },
-                        {
                                 "en": "visit",
                                 "zh": "拜访;参观"
                         },
                         {
+                                "en": "often",
+                                "zh": "经常,常常"
+                        },
+                        {
+                                "en": "always",
+                                "zh": "总是,一直"
+                        },
+                        {
+                                "en": "sometimes",
+                                "zh": "有时"
+                        },
+                        {
+                                "en": "there",
+                                "zh": "那里"
+                        },
+                        {
                                 "en": "grandparent",
                                 "zh": "祖父;祖母;外祖父;外祖母"
-                        },
-                        {
-                                "en": "play with",
-                                "zh": "和一起玩"
-                        },
-                        {
-                                "en": "turkey",
-                                "zh": "火鸡；火鸡肉"
-                        },
-                        {
-                                "en": "very much",
-                                "zh": "非常"
-                        },
-                        {
-                                "en": "often",
-                                "zh": "经常，常常"
                         },
                         {
                                 "en": "chat",
@@ -2011,47 +2219,88 @@ var wordBank = {
                         },
                         {
                                 "en": "Internet",
-                                "zh": "网络，互联网"
+                                "zh": "网络,互联网"
                         },
                         {
-                                "en": "always",
-                                "zh": "总是，一直"
+                                "en": "at weekends",
+                                "zh": "在周末"
                         },
                         {
-                                "en": "card",
-                                "zh": "卡片"
+                                "en": "play with",
+                                "zh": "和...一起玩"
                         },
                         {
-                                "en": "sometimes",
-                                "zh": "有时"
+                                "en": "very much",
+                                "zh": "非常"
                         },
                         {
                                 "en": "go to the cinema",
-                                "zh": "去看电影"
+                                "zh": "去电影院"
                         },
                         {
-                                "en": "message",
-                                "zh": "信息，消息"
-                        },
-                        {
-                                "en": "there",
-                                "zh": "那里"
-                        },
-                        {
-                                "en": "song",
-                                "zh": "歌曲"
+                                "en": "a lot",
+                                "zh": "很多"
                         },
                         {
                                 "en": "come out",
                                 "zh": "出来"
                         },
                         {
-                                "en": "What's wrong with ...?",
-                                "zh": "……怎么了？"
+                                "en": "visit my grandparents",
+                                "zh": "看望我的(外)祖父母"
+                        },
+                        {
+                                "en": "fly a kite",
+                                "zh": "放风筝"
+                        },
+                        {
+                                "en": "chat on the Internet",
+                                "zh": "在网上聊天"
+                        },
+                        {
+                                "en": "have dancing lessons",
+                                "zh": "上舞蹈课"
+                        },
+                        {
+                                "en": "have a picnic",
+                                "zh": "去野餐"
+                        },
+                        {
+                                "en": "go swimming",
+                                "zh": "去游泳"
                         },
                         {
                                 "en": "get out",
-                                "zh": "出来"
+                                "zh": "出去"
+                        }
+                ]
+        },
+        {
+                "unit": "Unit 8 At Christmas",
+                "words": [
+                        {
+                                "en": "buy",
+                                "zh": "买"
+                        },
+                        {
+                                "en": "next",
+                                "zh": "接着,然后"
+                        },
+                        {
+                                "en": "put",
+                                "zh": "放"
+                        },
+                        {
+                                "en": "look",
+                                "zh": "看起来"
+                        },
+                        {
+                                "en": "early",
+                                "zh": "早早地"
+                        },
+                        {
+                                "en": "song",
+                                "zh": "歌曲"
                         },
                         {
                                 "en": "him",
@@ -2066,77 +2315,36 @@ var wordBank = {
                                 "zh": "信"
                         },
                         {
-                                "en": "storybook",
-                                "zh": "故事书"
-                        }
-                ]
-        },
-        {
-                "unit": "Unit 8 At Christmas",
-                "words": [
-                        {
-                                "en": "Father Christmas",
-                                "zh": "圣诞老人"
+                                "en": "after",
+                                "zh": "在以后"
                         },
                         {
-                                "en": "fishing",
-                                "zh": "钓鱼，捕鱼"
+                                "en": "Christmas",
+                                "zh": "圣诞节"
                         },
                         {
-                                "en": "next",
-                                "zh": "接着，然后"
-                        },
-                        {
-                                "en": "put",
-                                "zh": "放"
-                        },
-                        {
-                                "en": "sit",
-                                "zh": "坐，坐在"
+                                "en": "present",
+                                "zh": "礼物"
                         },
                         {
                                 "en": "pretty",
-                                "zh": "漂亮的，好看的"
-                        },
-                        {
-                                "en": "by",
-                                "zh": "在旁边"
+                                "zh": "漂亮的,好看的"
                         },
                         {
                                 "en": "thing",
-                                "zh": "物品，东西"
-                        },
-                        {
-                                "en": "wait",
-                                "zh": "等，等待"
-                        },
-                        {
-                                "en": "look",
-                                "zh": "看起来"
-                        },
-                        {
-                                "en": "Christmas Eve",
-                                "zh": "圣诞夜，平安夜"
+                                "zh": "物品,东西"
                         },
                         {
                                 "en": "stocking",
-                                "zh": "长筒袜"
-                        },
-                        {
-                                "en": "wait for",
-                                "zh": "等候，等待"
+                                "zh": "长统袜"
                         },
                         {
                                 "en": "finally",
                                 "zh": "最后"
                         },
                         {
-                                "en": "Christmas Day",
-                                "zh": "圣诞节"
-                        },
-                        {
-                                "en": "early",
-                                "zh": "早早地"
+                                "en": "turkey",
+                                "zh": "火鸡;火鸡肉"
                         },
                         {
                                 "en": "pudding",
@@ -2147,24 +2355,68 @@ var wordBank = {
                                 "zh": "全都"
                         },
                         {
-                                "en": "Merry Christmas!",
-                                "zh": "圣诞快乐！"
+                                "en": "card",
+                                "zh": "卡片"
                         },
                         {
-                                "en": "Christmas",
-                                "zh": "圣诞节"
+                                "en": "children",
+                                "zh": "孩子,儿童"
                         },
                         {
-                                "en": "buy",
-                                "zh": "买"
+                                "en": "message",
+                                "zh": "信息,消息"
                         },
                         {
-                                "en": "present",
-                                "zh": "礼物"
+                                "en": "storybook",
+                                "zh": "故事书"
                         },
                         {
                                 "en": "Christmas tree",
                                 "zh": "圣诞树"
+                        },
+                        {
+                                "en": "Christmas Eve",
+                                "zh": "圣诞夜,平安夜"
+                        },
+                        {
+                                "en": "Merry Christmas",
+                                "zh": "圣诞快乐"
+                        },
+                        {
+                                "en": "at Christmas = on Christmas Day",
+                                "zh": "在圣诞节"
+                        },
+                        {
+                                "en": "go to see Father Christmas",
+                                "zh": "去看圣诞老人"
+                        },
+                        {
+                                "en": "have a good time / have a lot of fun",
+                                "zh": "过得愉快,玩得高兴"
+                        },
+                        {
+                                "en": "look great/sad",
+                                "zh": "看起来很棒/伤心"
+                        },
+                        {
+                                "en": "sing Christmas songs",
+                                "zh": "唱圣诞歌曲"
+                        },
+                        {
+                                "en": "wake up early",
+                                "zh": "早早醒来"
+                        },
+                        {
+                                "en": "wait for presents",
+                                "zh": "等待礼物"
+                        },
+                        {
+                                "en": "have a big lunch/dinner",
+                                "zh": "吃一顿丰盛的午餐/晚餐"
+                        },
+                        {
+                                "en": "write your message",
+                                "zh": "写上你的信息"
                         }
                 ]
         }
@@ -2178,6 +2430,22 @@ var wordBank = {
         {
                 "unit": "Unit 1 Cinderella",
                 "words": [
+                        {
+                                "en": "remember",
+                                "zh": "记住"
+                        },
+                        {
+                                "en": "mushroom",
+                                "zh": "蘑菇"
+                        },
+                        {
+                                "en": "question",
+                                "zh": "问题"
+                        },
+                        {
+                                "en": "hurt",
+                                "zh": "受伤"
+                        },
                         {
                                 "en": "prince",
                                 "zh": "王子"
@@ -2196,60 +2464,236 @@ var wordBank = {
                         },
                         {
                                 "en": "clothes",
-                                "zh": "衣服"
+                                "zh": "服装"
+                        },
+                        {
+                                "en": "pick",
+                                "zh": "采摘"
                         },
                         {
                                 "en": "put on",
                                 "zh": "穿上"
                         },
                         {
+                                "en": "take off",
+                                "zh": "脱下"
+                        },
+                        {
+                                "en": "understand",
+                                "zh": "理解"
+                        },
+                        {
+                                "en": "let",
+                                "zh": "让"
+                        },
+                        {
+                                "en": "late",
+                                "zh": "迟的"
+                        },
+                        {
                                 "en": "before",
-                                "zh": "在以前"
+                                "zh": "在…以前"
+                        },
+                        {
+                                "en": "fit",
+                                "zh": "合身"
                         },
                         {
                                 "en": "have to",
                                 "zh": "不得不，必须"
                         },
                         {
-                                "en": "fit",
-                                "zh": "合适，合身"
-                        },
-                        {
-                                "en": "take off",
-                                "zh": "脱下"
-                        },
-                        {
                                 "en": "try on",
                                 "zh": "试穿"
                         },
                         {
-                                "en": "young",
-                                "zh": "年幼的"
+                                "en": "be bad for",
+                                "zh": "有害的"
                         },
                         {
-                                "en": "mushroom",
-                                "zh": "蘑菇"
+                                "en": "party",
+                                "zh": "聚会"
                         },
                         {
-                                "en": "basket",
-                                "zh": "篮子"
+                                "en": "leave…behind",
+                                "zh": "留下，丢下"
                         },
                         {
-                                "en": "show",
-                                "zh": "给看"
+                                "en": "help",
+                                "zh": "帮助"
+                        },
+                        {
+                                "en": "at the prince's house",
+                                "zh": "在王子的宫殿"
+                        },
+                        {
+                                "en": "So sad",
+                                "zh": "如此伤心"
+                        },
+                        {
+                                "en": "come back",
+                                "zh": "回来"
+                        },
+                        {
+                                "en": "visit every house",
+                                "zh": "拜访每一间屋子"
+                        },
+                        {
+                                "en": "fairy tales",
+                                "zh": "童话故事"
+                        },
+                        {
+                                "en": "Monkey King",
+                                "zh": "美猴王"
+                        },
+                        {
+                                "en": "find some mushrooms",
+                                "zh": "找到一些蘑菇"
+                        },
+                        {
+                                "en": "draw a dress",
+                                "zh": "画一条连衣裙"
+                        },
+                        {
+                                "en": "for her friend",
+                                "zh": "为她的朋友"
+                        },
+                        {
+                                "en": "have some snacks",
+                                "zh": "吃一些零食"
+                        },
+                        {
+                                "en": "have a drink",
+                                "zh": "喝一杯"
+                        },
+                        {
+                                "en": "fit well",
+                                "zh": "很合适"
+                        },
+                        {
+                                "en": "look so nice",
+                                "zh": "看起来那么漂亮"
+                        },
+                        {
+                                "en": "can't understand",
+                                "zh": "不能理解"
+                        },
+                        {
+                                "en": "would like to do",
+                                "zh": "想要做某事"
+                        },
+                        {
+                                "en": "be bad for us",
+                                "zh": "对我们有害"
+                        },
+                        {
+                                "en": "take off the shoes",
+                                "zh": "脱下鞋子"
+                        },
+                        {
+                                "en": "go to the party",
+                                "zh": "参加舞会"
+                        },
+                        {
+                                "en": "three fairies",
+                                "zh": "三个仙女"
+                        },
+                        {
+                                "en": "try it on",
+                                "zh": "试穿它"
+                        },
+                        {
+                                "en": "have to go",
+                                "zh": "不得不走"
+                        },
+                        {
+                                "en": "before twelve o'clock",
+                                "zh": "在12点以前"
+                        },
+                        {
+                                "en": "at the parties",
+                                "zh": "在那些聚会上"
+                        },
+                        {
+                                "en": "beautiful clothes",
+                                "zh": "美丽的衣服"
+                        },
+                        {
+                                "en": "a lot of mushrooms",
+                                "zh": "许多蘑菇"
+                        },
+                        {
+                                "en": "under the tree",
+                                "zh": "在树下"
+                        },
+                        {
+                                "en": "try on the shoe",
+                                "zh": "试穿鞋子"
+                        },
+                        {
+                                "en": "eat them",
+                                "zh": "吃了它"
+                        },
+                        {
+                                "en": "find the girl",
+                                "zh": "找到女孩"
+                        },
+                        {
+                                "en": "why can't you…",
+                                "zh": "你为什么不能…"
+                        },
+                        {
+                                "en": "hurry up",
+                                "zh": "赶快"
+                        },
+                        {
+                                "en": "find some drinks",
+                                "zh": "找到一些饮料"
+                        },
+                        {
+                                "en": "some question words",
+                                "zh": "一些疑问词"
+                        },
+                        {
+                                "en": "fit me",
+                                "zh": "适合我"
+                        },
+                        {
+                                "en": "draw a picture for me",
+                                "zh": "为我画一幅画"
+                        },
+                        {
+                                "en": "be at school",
+                                "zh": "在校学习"
+                        },
+                        {
+                                "en": "read a story about…",
+                                "zh": "读一个有关…的故事"
+                        },
+                        {
+                                "en": "pick a big and red mushroom",
+                                "zh": "采一个又大又红的蘑菇"
                         }
                 ]
         },
         {
-                "unit": "Unit 2 How do you come to school?",
+                "unit": "Unit 2 How do you come to school",
                 "words": [
                         {
-                                "en": "bus",
-                                "zh": "公共汽车，巴士"
+                                "en": "near",
+                                "zh": "在…附近"
                         },
                         {
-                                "en": "on foot",
-                                "zh": "步行"
+                                "en": "by…",
+                                "zh": "乘(汽车、火车等)"
+                        },
+                        {
+                                "en": "bus",
+                                "zh": "公共汽车，大巴士"
+                        },
+                        {
+                                "en": "ship",
+                                "zh": "轮船"
                         },
                         {
                                 "en": "metro",
@@ -2268,10 +2712,6 @@ var wordBank = {
                                 "zh": "飞机"
                         },
                         {
-                                "en": "ship",
-                                "zh": "轮船"
-                        },
-                        {
                                 "en": "train",
                                 "zh": "火车"
                         },
@@ -2280,44 +2720,132 @@ var wordBank = {
                                 "zh": "骑车"
                         },
                         {
-                                "en": "take",
-                                "zh": "搭乘"
+                                "en": "show",
+                                "zh": "给…看"
                         },
                         {
-                                "en": "far from",
-                                "zh": "离远"
-                        },
-                        {
-                                "en": "near",
-                                "zh": "在附近"
+                                "en": "basket",
+                                "zh": "篮子"
                         },
                         {
                                 "en": "city",
                                 "zh": "城市"
                         },
                         {
-                                "en": "moon",
-                                "zh": "月亮"
+                                "en": "street",
+                                "zh": "街，街道"
                         },
                         {
-                                "en": "sun",
-                                "zh": "太阳"
+                                "en": "young",
+                                "zh": "年幼的"
                         },
                         {
-                                "en": "bookshop",
-                                "zh": "书店"
+                                "en": "on foot",
+                                "zh": "步行"
                         },
                         {
-                                "en": "leave... behind",
-                                "zh": "留下，丢下"
+                                "en": "come to school",
+                                "zh": "到学校来"
                         },
                         {
-                                "en": "station",
-                                "zh": "车站"
+                                "en": "your new home",
+                                "zh": "你的新家"
                         },
                         {
-                                "en": "walk",
-                                "zh": "走、步行"
+                                "en": "far from",
+                                "zh": "离……远"
+                        },
+                        {
+                                "en": "by bus",
+                                "zh": "乘公共汽车"
+                        },
+                        {
+                                "en": "near school",
+                                "zh": "在学校附近"
+                        },
+                        {
+                                "en": "by metro",
+                                "zh": "乘地铁"
+                        },
+                        {
+                                "en": "by taxi",
+                                "zh": "乘出租车"
+                        },
+                        {
+                                "en": "taxi driver",
+                                "zh": "出租车司机"
+                        },
+                        {
+                                "en": "by car",
+                                "zh": "乘小轿车"
+                        },
+                        {
+                                "en": "by bike",
+                                "zh": "骑自行车"
+                        },
+                        {
+                                "en": "by plane",
+                                "zh": "乘飞机"
+                        },
+                        {
+                                "en": "by ship",
+                                "zh": "乘轮船"
+                        },
+                        {
+                                "en": "by train",
+                                "zh": "乘火车"
+                        },
+                        {
+                                "en": "on the street",
+                                "zh": "在街上"
+                        },
+                        {
+                                "en": "through the trees",
+                                "zh": "穿过树林"
+                        },
+                        {
+                                "en": "get there",
+                                "zh": "到达那里"
+                        },
+                        {
+                                "en": "in the basket",
+                                "zh": "在篮子里"
+                        },
+                        {
+                                "en": "think so",
+                                "zh": "认为如此"
+                        },
+                        {
+                                "en": "too young",
+                                "zh": "太年轻了，太小了"
+                        },
+                        {
+                                "en": "go to school",
+                                "zh": "去学校"
+                        },
+                        {
+                                "en": "show…to…",
+                                "zh": "向……展示……"
+                        },
+                        {
+                                "en": "want to",
+                                "zh": "想要"
+                        },
+                        {
+                                "en": "a new bike",
+                                "zh": "一辆新的自行车"
+                        },
+                        {
+                                "en": "the wheels on the bus",
+                                "zh": "公共汽车的轮子"
+                        },
+                        {
+                                "en": "sit in the basket",
+                                "zh": "坐在篮子里"
+                        },
+                        {
+                                "en": "go round and round",
+                                "zh": "转啊转"
                         }
                 ]
         },
@@ -2325,88 +2853,152 @@ var wordBank = {
                 "unit": "Unit 3 Asking the way",
                 "words": [
                         {
+                                "en": "ask the way",
+                                "zh": "问路"
+                        },
+                        {
+                                "en": "want to / would like to",
+                                "zh": "想要（做）"
+                        },
+                        {
+                                "en": "get to the cinema",
+                                "zh": "到达电影院"
+                        },
+                        {
+                                "en": "get home",
+                                "zh": "到家"
+                        },
+                        {
+                                "en": "get to your home",
+                                "zh": "到你的家"
+                        },
+                        {
+                                "en": "the new clothes and shoes",
+                                "zh": "新衣服和新鞋子"
+                        },
+                        {
+                                "en": "get on",
+                                "zh": "上车"
+                        },
+                        {
+                                "en": "get on the metro",
+                                "zh": "上地铁"
+                        },
+                        {
                                 "en": "get off",
                                 "zh": "下车"
                         },
                         {
-                                "en": "excuse me",
-                                "zh": "劳驾，对不起"
+                                "en": "at Park Station",
+                                "zh": "在公园站"
                         },
                         {
-                                "en": "along",
-                                "zh": "沿着"
+                                "en": "walk to Moon Street",
+                                "zh": "步行去月亮街"
+                        },
+                        {
+                                "en": "next to it",
+                                "zh": "在它旁边"
+                        },
+                        {
+                                "en": "come out from",
+                                "zh": "从……出来"
+                        },
+                        {
+                                "en": "on Sun Street",
+                                "zh": "在太阳街"
+                        },
+                        {
+                                "en": "can't find",
+                                "zh": "找不到"
+                        },
+                        {
+                                "en": "ask a policeman for help",
+                                "zh": "向一位警察求助"
+                        },
+                        {
+                                "en": "excuse me",
+                                "zh": "打扰了"
+                        },
+                        {
+                                "en": "go along this street",
+                                "zh": "沿着这条街直走"
+                        },
+                        {
+                                "en": "walk along this street",
+                                "zh": "沿着这条街直走"
                         },
                         {
                                 "en": "turn right",
                                 "zh": "向右转"
                         },
                         {
-                                "en": "turn left",
-                                "zh": "向左转"
-                        },
-                        {
-                                "en": "point at",
-                                "zh": "指着，指向"
+                                "en": "turn left at the second traffic light",
+                                "zh": "在第二个交通灯处向左转"
                         },
                         {
                                 "en": "on your right",
-                                "zh": "在你的右侧"
+                                "zh": "在你的右边"
                         },
                         {
-                                "en": "ask... for help",
-                                "zh": "向求助"
+                                "en": "on your left",
+                                "zh": "在你的左边"
                         },
                         {
-                                "en": "stop",
-                                "zh": "车站"
+                                "en": "see a new film",
+                                "zh": "看一部新电影"
                         },
                         {
-                                "en": "full",
-                                "zh": "满的；饱的"
+                                "en": "go to City Cinema",
+                                "zh": "去市电影院"
                         },
                         {
-                                "en": "over",
-                                "zh": "结束了，完了"
+                                "en": "wait for the bus",
+                                "zh": "等公交车"
                         },
                         {
-                                "en": "hospital",
-                                "zh": "医院"
+                                "en": "at the bus station",
+                                "zh": "在公交车站"
                         },
                         {
-                                "en": "shop",
-                                "zh": "商店"
+                                "en": "go by bus",
+                                "zh": "乘公交车去"
                         },
                         {
-                                "en": "supermarket",
-                                "zh": "超市"
+                                "en": "get in a taxi",
+                                "zh": "上了一辆出租车"
                         },
                         {
-                                "en": "zoo",
-                                "zh": "动物园"
+                                "en": "too many cars",
+                                "zh": "太多汽车了"
                         },
                         {
-                                "en": "cinema",
-                                "zh": "电影院"
+                                "en": "so many",
+                                "zh": "这么多"
                         },
                         {
-                                "en": "film",
-                                "zh": "电影"
+                                "en": "take the metro",
+                                "zh": "乘坐地铁"
                         },
                         {
-                                "en": "late",
-                                "zh": "迟的，晚的"
+                                "en": "be over",
+                                "zh": "结束"
                         },
                         {
-                                "en": "pick",
-                                "zh": "捡，拾"
+                                "en": "too late",
+                                "zh": "太晚了"
                         },
                         {
-                                "en": "understand",
-                                "zh": "明白，理解"
+                                "en": "from your school",
+                                "zh": "从你的学校"
                         },
                         {
-                                "en": "be bad for",
-                                "zh": "有害的"
+                                "en": "in the shoe shop",
+                                "zh": "在鞋店"
+                        },
+                        {
+                                "en": "which to choose",
+                                "zh": "选哪一个"
                         }
                 ]
         },
@@ -2414,52 +3006,180 @@ var wordBank = {
                 "unit": "Unit 4 Seeing the doctor",
                 "words": [
                         {
-                                "en": "see the doctor",
-                                "zh": "看医生，看病"
-                        },
-                        {
                                 "en": "feel",
                                 "zh": "感觉，感到"
-                        },
-                        {
-                                "en": "check",
-                                "zh": "检查"
                         },
                         {
                                 "en": "should",
                                 "zh": "应该"
                         },
                         {
-                                "en": "bedtime",
-                                "zh": "就寝时间"
+                                "en": "have a rest",
+                                "zh": "休息"
                         },
                         {
-                                "en": "giraffe",
-                                "zh": "长颈鹿"
+                                "en": "toothache",
+                                "zh": "牙疼"
                         },
                         {
-                                "en": "neck",
-                                "zh": "脖子"
+                                "en": "anything",
+                                "zh": "任何东西"
                         },
                         {
-                                "en": "pest",
-                                "zh": "害虫"
+                                "en": "see the doctor",
+                                "zh": "看医生，看病"
                         },
                         {
-                                "en": "ladybird",
-                                "zh": "瓢虫"
+                                "en": "be ill",
+                                "zh": "生病"
                         },
                         {
-                                "en": "draw",
-                                "zh": "画画"
+                                "en": "go to see the doctor",
+                                "zh": "去看医生，去看病"
                         },
                         {
-                                "en": "leaf (pl. leaves)",
-                                "zh": "叶子"
+                                "en": "have a headache",
+                                "zh": "(患了)头疼"
                         },
                         {
-                                "en": "grow",
-                                "zh": "生长"
+                                "en": "feel cold",
+                                "zh": "感觉冷"
+                        },
+                        {
+                                "en": "Let me check.",
+                                "zh": "让我检查一下。"
+                        },
+                        {
+                                "en": "have a fever",
+                                "zh": "(得了)发烧"
+                        },
+                        {
+                                "en": "have a rest at home",
+                                "zh": "在家休息"
+                        },
+                        {
+                                "en": "take some medicine",
+                                "zh": "吃一些药"
+                        },
+                        {
+                                "en": "drink some warm water",
+                                "zh": "喝一些温水"
+                        },
+                        {
+                                "en": "have a toothache",
+                                "zh": "(患了)牙疼"
+                        },
+                        {
+                                "en": "go to see the dentist",
+                                "zh": "去看牙医"
+                        },
+                        {
+                                "en": "can't eat anything",
+                                "zh": "不能吃任何东西"
+                        },
+                        {
+                                "en": "eat a lot of sweets",
+                                "zh": "吃许多糖果"
+                        },
+                        {
+                                "en": "shouldn't eat too many sweets",
+                                "zh": "不应该吃太多糖果"
+                        },
+                        {
+                                "en": "brush one's teeth",
+                                "zh": "刷某人的牙"
+                        },
+                        {
+                                "en": "in the morning",
+                                "zh": "在早晨/在上午"
+                        },
+                        {
+                                "en": "before bedtime",
+                                "zh": "上床睡觉前/就寝前"
+                        },
+                        {
+                                "en": "eat an ice cream",
+                                "zh": "吃一个冰淇淋"
+                        },
+                        {
+                                "en": "watch TV",
+                                "zh": "看电视"
+                        },
+                        {
+                                "en": "sit on a bench",
+                                "zh": "坐在一个长凳上"
+                        },
+                        {
+                                "en": "eat chicken for his lunch",
+                                "zh": "午饭吃鸡肉"
+                        },
+                        {
+                                "en": "like Chinese food very much",
+                                "zh": "非常喜欢中国的食物"
+                        },
+                        {
+                                "en": "go to China in March",
+                                "zh": "在三月去中国"
+                        },
+                        {
+                                "en": "your temperature",
+                                "zh": "你的体温"
+                        },
+                        {
+                                "en": "help in the hospital",
+                                "zh": "在医院里帮忙"
+                        },
+                        {
+                                "en": "come to see him",
+                                "zh": "来看他"
+                        },
+                        {
+                                "en": "be (very) happy to do sth.",
+                                "zh": "很高兴去做某事"
+                        },
+                        {
+                                "en": "can't hear well",
+                                "zh": "不能听得清楚"
+                        },
+                        {
+                                "en": "come to the hospital",
+                                "zh": "来医院"
+                        },
+                        {
+                                "en": "point at his long neck",
+                                "zh": "指着他的长脖子"
+                        },
+                        {
+                                "en": "My neck hurts.",
+                                "zh": "我的脖受伤了。"
+                        },
+                        {
+                                "en": "feel tired",
+                                "zh": "感到累"
+                        },
+                        {
+                                "en": "in the library",
+                                "zh": "在图书馆里"
+                        },
+                        {
+                                "en": "should not eat or drink either",
+                                "zh": "也不应该吃喝"
+                        },
+                        {
+                                "en": "talk about illnesses",
+                                "zh": "讨论疾病"
+                        },
+                        {
+                                "en": "give some advice",
+                                "zh": "给些建议"
+                        },
+                        {
+                                "en": "have a lot of rest / have lots of rest",
+                                "zh": "多休息"
+                        },
+                        {
+                                "en": "have a good rest",
+                                "zh": "好好休息"
                         }
                 ]
         },
@@ -2467,32 +3187,140 @@ var wordBank = {
                 "unit": "Unit 5 Helping our parents",
                 "words": [
                         {
-                                "en": "parent",
-                                "zh": "父或母"
+                                "en": "help our parents",
+                                "zh": "帮助我们的父母"
                         },
                         {
-                                "en": "clean",
-                                "zh": "擦，洗"
+                                "en": "Saturday morning",
+                                "zh": "星期六上午"
+                        },
+                        {
+                                "en": "help him",
+                                "zh": "帮助他"
+                        },
+                        {
+                                "en": "clean the car",
+                                "zh": "洗车"
+                        },
+                        {
+                                "en": "cook breakfast",
+                                "zh": "做早饭"
+                        },
+                        {
+                                "en": "in the kitchen",
+                                "zh": "在厨房"
+                        },
+                        {
+                                "en": "in the living room",
+                                "zh": "在客厅"
                         },
                         {
                                 "en": "sweep the floor",
                                 "zh": "扫地"
                         },
                         {
+                                "en": "in his bedroom",
+                                "zh": "在他的卧室里"
+                        },
+                        {
+                                "en": "in the afternoon",
+                                "zh": "在下午"
+                        },
+                        {
+                                "en": "my cousin",
+                                "zh": "我的表弟／表妹"
+                        },
+                        {
+                                "en": "be busy",
+                                "zh": "忙碌的"
+                        },
+                        {
+                                "en": "cook dinner",
+                                "zh": "做晚饭"
+                        },
+                        {
+                                "en": "help her",
+                                "zh": "帮助她"
+                        },
+                        {
                                 "en": "wash the dishes",
                                 "zh": "洗碗"
+                        },
+                        {
+                                "en": "clean the table",
+                                "zh": "擦桌子"
+                        },
+                        {
+                                "en": "eat fruit",
+                                "zh": "吃水果"
+                        },
+                        {
+                                "en": "read newspaper",
+                                "zh": "看报纸"
                         },
                         {
                                 "en": "make the bed",
                                 "zh": "整理床铺"
                         },
                         {
-                                "en": "garden",
-                                "zh": "花园，果园"
+                                "en": "wash clothes",
+                                "zh": "洗衣服"
                         },
                         {
-                                "en": "sweet",
-                                "zh": "甜的"
+                                "en": "in the study",
+                                "zh": "在书房"
+                        },
+                        {
+                                "en": "listen to her",
+                                "zh": "听她讲"
+                        },
+                        {
+                                "en": "grow grapes",
+                                "zh": "种葡萄"
+                        },
+                        {
+                                "en": "in his garden",
+                                "zh": "在他的花园里"
+                        },
+                        {
+                                "en": "big and sweet",
+                                "zh": "又大又甜"
+                        },
+                        {
+                                "en": "many pests",
+                                "zh": "许多害虫"
+                        },
+                        {
+                                "en": "on the grapes",
+                                "zh": "在葡萄上"
+                        },
+                        {
+                                "en": "on Sunday afternoon",
+                                "zh": "在星期天下午"
+                        },
+                        {
+                                "en": "so sweet",
+                                "zh": "如此甜"
+                        },
+                        {
+                                "en": "go away",
+                                "zh": "走了，离开"
+                        },
+                        {
+                                "en": "some ladybirds",
+                                "zh": "一些瓢虫"
+                        },
+                        {
+                                "en": "do housework",
+                                "zh": "做家务"
+                        },
+                        {
+                                "en": "help me cook dinner",
+                                "zh": "帮我做晚饭"
+                        },
+                        {
+                                "en": "to be continued",
+                                "zh": "待续"
                         }
                 ]
         },
@@ -2500,60 +3328,124 @@ var wordBank = {
                 "unit": "Unit 6 In the kitchen",
                 "words": [
                         {
-                                "en": "have a rest",
-                                "zh": "休息"
+                                "en": "six o'clock in the evening",
+                                "zh": "晚上六点钟"
                         },
                         {
-                                "en": "game",
-                                "zh": "运动，比赛"
+                                "en": "come home from a football game",
+                                "zh": "足球赛后回到家"
                         },
                         {
-                                "en": "take medicine",
-                                "zh": "吃药"
+                                "en": "cook dinner in the kitchen",
+                                "zh": "在厨房里做饭"
                         },
                         {
-                                "en": "smell",
-                                "zh": "闻"
+                                "en": "meat smells nice",
+                                "zh": "肉闻起来很美味"
                         },
                         {
-                                "en": "drink water",
-                                "zh": "喝水"
+                                "en": "cook meat",
+                                "zh": "煮肉"
                         },
                         {
-                                "en": "meat",
-                                "zh": "（猪、牛、羊等的）肉"
+                                "en": "wash some vegetables",
+                                "zh": "洗一些蔬菜"
                         },
                         {
-                                "en": "toothache",
-                                "zh": "牙疼"
+                                "en": "cook some tomato soup",
+                                "zh": "做番茄汤"
                         },
                         {
-                                "en": "vegetable",
-                                "zh": "蔬菜"
+                                "en": "cook meat with potatoes",
+                                "zh": "烧些土豆烧肉"
                         },
                         {
-                                "en": "dentist",
-                                "zh": "牙医"
+                                "en": "look for some juice",
+                                "zh": "寻找一些果汁"
                         },
                         {
-                                "en": "tomato",
-                                "zh": "西红柿，番茄"
+                                "en": "in the fridge",
+                                "zh": "在冰箱里"
                         },
                         {
-                                "en": "anything",
-                                "zh": "任何东西"
+                                "en": "some orange/apple juice",
+                                "zh": "一些橙汁/苹果汁"
                         },
                         {
-                                "en": "potato",
-                                "zh": "马铃薯，土豆"
+                                "en": "Dinner is ready.",
+                                "zh": "晚餐准备好了。"
                         },
                         {
-                                "en": "brush one's teeth",
-                                "zh": "刷牙"
+                                "en": "eat the meat",
+                                "zh": "吃肉"
                         },
                         {
-                                "en": "I can't wait!",
-                                "zh": "我等不及了！"
+                                "en": "eat fruit",
+                                "zh": "吃水果"
+                        },
+                        {
+                                "en": "you win",
+                                "zh": "你赢了"
+                        },
+                        {
+                                "en": "the queen",
+                                "zh": "女王，王后"
+                        },
+                        {
+                                "en": "come through our little town",
+                                "zh": "通过我们的小镇"
+                        },
+                        {
+                                "en": "wear her golden crown",
+                                "zh": "戴着她金色的皇冠"
+                        },
+                        {
+                                "en": "eat with chopsticks",
+                                "zh": "用筷子吃饭"
+                        },
+                        {
+                                "en": "It's yummy! / It's delicious!",
+                                "zh": "真美味！"
+                        },
+                        {
+                                "en": "eat with a knife and fork",
+                                "zh": "用刀叉吃饭"
+                        },
+                        {
+                                "en": "a lot of pests and ladybirds",
+                                "zh": "许多害虫和瓢虫"
+                        },
+                        {
+                                "en": "in Bobby's garden",
+                                "zh": "在波比的花园里"
+                        },
+                        {
+                                "en": "come to help Bobby",
+                                "zh": "来帮助波比"
+                        },
+                        {
+                                "en": "see two ladybirds on Sam's hand",
+                                "zh": "看到萨姆手上有两只瓢虫"
+                        },
+                        {
+                                "en": "catch a ladybird from the grapes",
+                                "zh": "从葡萄上抓到一只瓢虫"
+                        },
+                        {
+                                "en": "have seven spots",
+                                "zh": "有七个斑点"
+                        },
+                        {
+                                "en": "how many spots",
+                                "zh": "有多少个斑点"
+                        },
+                        {
+                                "en": "drive the bad ladybirds and the pests away",
+                                "zh": "把瓢虫和害虫赶走"
+                        },
+                        {
+                                "en": "help in the kitchen",
+                                "zh": "在厨房帮忙"
                         }
                 ]
         },
@@ -2565,8 +3457,8 @@ var wordBank = {
                                 "zh": "节日"
                         },
                         {
-                                "en": "Spring Festival",
-                                "zh": "春节"
+                                "en": "spring",
+                                "zh": "春天"
                         },
                         {
                                 "en": "January",
@@ -2578,75 +3470,15 @@ var wordBank = {
                         },
                         {
                                 "en": "call",
-                                "zh": "叫作，称作"
+                                "zh": "称呼，叫作"
                         },
                         {
-                                "en": "Chinese New Year",
-                                "zh": "中国农历新年"
+                                "en": "together",
+                                "zh": "一起"
                         },
                         {
-                                "en": "get together",
-                                "zh": "团聚"
-                        },
-                        {
-                                "en": "jiaozi",
+                                "en": "dumpling",
                                 "zh": "饺子"
-                        },
-                        {
-                                "en": "Dragon Boat Festival",
-                                "zh": "端午节"
-                        },
-                        {
-                                "en": "dragon boat race",
-                                "zh": "龙舟赛"
-                        },
-                        {
-                                "en": "rice dumpling",
-                                "zh": "粽子"
-                        },
-                        {
-                                "en": "Mid-Autumn Festival",
-                                "zh": "中秋节"
-                        },
-                        {
-                                "en": "moon cake",
-                                "zh": "月饼"
-                        },
-                        {
-                                "en": "Double Ninth Festival",
-                                "zh": "重阳节"
-                        },
-                        {
-                                "en": "November",
-                                "zh": "十一月"
-                        },
-                        {
-                                "en": "old",
-                                "zh": "年纪大的"
-                        },
-                        {
-                                "en": "mountain",
-                                "zh": "山，山脉"
-                        },
-                        {
-                                "en": "rice cake",
-                                "zh": "重阳糕"
-                        },
-                        {
-                                "en": "Father's Day",
-                                "zh": "父亲节"
-                        },
-                        {
-                                "en": "favourite",
-                                "zh": "最喜欢的"
-                        },
-                        {
-                                "en": "March",
-                                "zh": "三月"
-                        },
-                        {
-                                "en": "April",
-                                "zh": "四月"
                         },
                         {
                                 "en": "May",
@@ -2657,12 +3489,16 @@ var wordBank = {
                                 "zh": "六月"
                         },
                         {
-                                "en": "July",
-                                "zh": "七月"
+                                "en": "dragon",
+                                "zh": "龙"
                         },
                         {
-                                "en": "August",
-                                "zh": "八月"
+                                "en": "race",
+                                "zh": "比赛"
+                        },
+                        {
+                                "en": "place",
+                                "zh": "地方"
                         },
                         {
                                 "en": "September",
@@ -2673,20 +3509,173 @@ var wordBank = {
                                 "zh": "十月"
                         },
                         {
-                                "en": "December",
-                                "zh": "十二月"
+                                "en": "November",
+                                "zh": "十一月"
+                        },
+                        {
+                                "en": "climb",
+                                "zh": "爬，攀"
+                        },
+                        {
+                                "en": "mountain",
+                                "zh": "山"
+                        },
+                        {
+                                "en": "or",
+                                "zh": "或者"
+                        },
+                        {
+                                "en": "songbird",
+                                "zh": "鸣鸟"
+                        },
+                        {
+                                "en": "knock",
+                                "zh": "敲"
+                        },
+                        {
+                                "en": "Halloween",
+                                "zh": "万圣节"
+                        },
+                        {
+                                "en": "know",
+                                "zh": "知道"
+                        },
+                        {
+                                "en": "get together with their families",
+                                "zh": "和家人团聚"
+                        },
+                        {
+                                "en": "eat rice dumplings",
+                                "zh": "吃粽子"
+                        },
+                        {
+                                "en": "dragon boat races",
+                                "zh": "龙舟比赛"
+                        },
+                        {
+                                "en": "in some places",
+                                "zh": "在一些地方"
+                        },
+                        {
+                                "en": "at Mid-Autumn Festival",
+                                "zh": "在中秋节"
+                        },
+                        {
+                                "en": "in September or October",
+                                "zh": "在九月或十月"
+                        },
+                        {
+                                "en": "look at the moon at night",
+                                "zh": "晚上赏月"
+                        },
+                        {
+                                "en": "eat moon cakes",
+                                "zh": "吃月饼"
+                        },
+                        {
+                                "en": "climb mountains",
+                                "zh": "爬山"
+                        },
+                        {
+                                "en": "sit in the tree",
+                                "zh": "坐在树上"
+                        },
+                        {
+                                "en": "sing songs to me",
+                                "zh": "唱歌给我听"
+                        },
+                        {
+                                "en": "on the thirty-first of October",
+                                "zh": "在十月三十一号"
+                        },
+                        {
+                                "en": "dress up",
+                                "zh": "装扮"
+                        },
+                        {
+                                "en": "knock on people's doors",
+                                "zh": "敲人们的门"
+                        },
+                        {
+                                "en": "on Mother's Day",
+                                "zh": "在母亲节"
+                        },
+                        {
+                                "en": "a day for mothers",
+                                "zh": "母亲们的一天"
+                        },
+                        {
+                                "en": "on the second Sunday of May",
+                                "zh": "在五月的第二个星期日"
+                        },
+                        {
+                                "en": "give their mothers presents",
+                                "zh": "给他们的母亲礼物"
+                        },
+                        {
+                                "en": "That's a good idea!",
+                                "zh": "好主意！"
+                        },
+                        {
+                                "en": "talk about the present for Mum",
+                                "zh": "讨论给妈妈的礼物"
+                        },
+                        {
+                                "en": "What about a card and some flowers?",
+                                "zh": "一张卡片和一些花怎么样？"
+                        }
+                ]
+        },
+        {
+                "unit": "Unit 8 Birthdays",
+                "words": [
+                        {
+                                "en": "Birthday",
+                                "zh": "生日"
+                        },
+                        {
+                                "en": "eleventh",
+                                "zh": "第十一"
                         },
                         {
                                 "en": "together",
                                 "zh": "一起"
                         },
                         {
-                                "en": "game",
-                                "zh": "游戏"
+                                "en": "eighth",
+                                "zh": "第八"
+                        },
+                        {
+                                "en": "April",
+                                "zh": "四月"
+                        },
+                        {
+                                "en": "go shopping",
+                                "zh": "去购物"
+                        },
+                        {
+                                "en": "March",
+                                "zh": "三月"
+                        },
+                        {
+                                "en": "July",
+                                "zh": "七月"
+                        },
+                        {
+                                "en": "August",
+                                "zh": "八月"
+                        },
+                        {
+                                "en": "December",
+                                "zh": "十二月"
                         },
                         {
                                 "en": "hero",
                                 "zh": "英雄"
+                        },
+                        {
+                                "en": "play",
+                                "zh": "戏，喜剧"
                         },
                         {
                                 "en": "number",
@@ -2701,75 +3690,94 @@ var wordBank = {
                                 "zh": "答案"
                         },
                         {
-                                "en": "play",
-                                "zh": "戏，戏剧"
-                        }
-                ]
-        },
-        {
-                "unit": "Unit 8 Birthdays",
-                "words": [
-                        {
-                                "en": "birthday",
-                                "zh": "生日"
-                        },
-                        {
-                                "en": "eleventh",
-                                "zh": "第十一"
-                        },
-                        {
-                                "en": "eighth",
-                                "zh": "第八"
-                        },
-                        {
                                 "en": "fourth",
                                 "zh": "第四"
                         },
                         {
-                                "en": "win",
-                                "zh": "获胜，赢"
-                        },
-                        {
-                                "en": "yeah",
-                                "zh": "太好了，太棒了"
-                        },
-                        {
-                                "en": "spot",
-                                "zh": "斑点"
-                        },
-                        {
-                                "en": "catch",
-                                "zh": "抓，抓住"
-                        },
-                        {
-                                "en": "drive... away",
-                                "zh": "赶走"
+                                "en": "start",
+                                "zh": "开始"
                         },
                         {
                                 "en": "fight",
-                                "zh": "打仗，打架"
+                                "zh": "打仗，大家"
                         },
                         {
-                                "en": "bread",
-                                "zh": "面包"
+                                "en": "on the eleventh of May",
+                                "zh": "在5月11日"
                         },
                         {
-                                "en": "gummy",
-                                "zh": "好的，美味的"
+                                "en": "Su Yang's birthday",
+                                "zh": "苏阳的生日"
                         },
                         {
-                                "en": "love",
-                                "zh": "喜欢，喜爱"
+                                "en": "on her birthday",
+                                "zh": "在她的生日那天"
                         },
                         {
-                                "en": "place",
-                                "zh": "地方，地点"
+                                "en": "eat (some) noodles",
+                                "zh": "吃面条"
+                        },
+                        {
+                                "en": "have a big dinner with our parents and grandparents",
+                                "zh": "和我们的父母和祖父母吃大餐"
+                        },
+                        {
+                                "en": "a birthday cake",
+                                "zh": "一块生日蛋糕"
+                        },
+                        {
+                                "en": "have a party",
+                                "zh": "开派对"
+                        },
+                        {
+                                "en": "play (some) games",
+                                "zh": "玩游戏"
+                        },
+                        {
+                                "en": "play with Kitty the cat",
+                                "zh": "和凯蒂这只猫玩"
+                        },
+                        {
+                                "en": "have a great time",
+                                "zh": "玩的愉快"
+                        },
+                        {
+                                "en": "a lot of fun",
+                                "zh": "许多乐趣"
+                        },
+                        {
+                                "en": "in a play",
+                                "zh": "在一场戏剧中"
+                        },
+                        {
+                                "en": "be good at Maths",
+                                "zh": "擅长数学"
+                        },
+                        {
+                                "en": "the fourth number",
+                                "zh": "第四个数字"
+                        },
+                        {
+                                "en": "start fighting",
+                                "zh": "开始打架"
+                        },
+                        {
+                                "en": "come out from a room",
+                                "zh": "从一个房间出来"
+                        },
+                        {
+                                "en": "run away",
+                                "zh": "逃跑"
+                        },
+                        {
+                                "en": "What a play!",
+                                "zh": "怎样的一场戏剧呀！"
                         }
                 ]
         }
 ]
   },
-  "6A": {
+"6A": {
     "label": "六年级上册",
     "semester": "上册",
     "grade": 6,
