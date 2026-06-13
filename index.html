@@ -10,7 +10,12 @@
     --card: #FFFFFF;
     --ink: #3B3228;
     --ink-light: #8B7E6E;
-    --shadow: 0 2px 20px rgba(60, 40, 20, 0.08);
+    --ink-lighter: #B5A898;
+    --accent: #E8A317;
+    --accent-en: #4A90D9;
+    --accent-combo: #7B5BA8;
+    --border: #E6DDD0;
+    --shadow: 0 2px 20px rgba(60, 40, 20, 0.06);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -21,105 +26,203 @@
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 40px 24px;
+    padding: 48px 24px;
     -webkit-font-smoothing: antialiased;
     color: var(--ink);
+    line-height: 1.7;
   }
 
-  .container { max-width: 560px; width: 100%; text-align: center; }
+  .container { max-width: 600px; width: 100%; }
 
-  h1 {
-    font-size: 32px; font-weight: 800; color: var(--ink);
-    margin-bottom: 6px; letter-spacing: 2px;
+  /* ── Header ── */
+  .header { text-align: center; margin-bottom: 40px; }
+  .header h1 {
+    font-size: 32px; font-weight: 800; letter-spacing: 3px;
   }
-  .subtitle {
-    font-size: 15px; color: var(--ink-light); margin-bottom: 48px;
+  .header .subtitle {
+    font-size: 15px; color: var(--ink-light); margin-top: 6px; letter-spacing: 1px;
   }
 
-  .cards { display: flex; flex-direction: column; gap: 20px; }
+  /* ── 工具入口卡片 ── */
+  .tools { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
 
-  .card {
-    display: flex; align-items: center; gap: 24px;
+  .tool {
+    display: flex; align-items: center; gap: 20px;
     background: var(--card);
-    border-radius: 20px;
-    padding: 32px 36px;
+    border-radius: 18px;
+    padding: 28px 32px;
     box-shadow: var(--shadow);
     text-decoration: none; color: inherit;
-    transition: all 0.25s;
-    text-align: left;
-    border-left: 6px solid transparent;
+    transition: all 0.2s;
+    border-left: 5px solid transparent;
   }
-  .card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(60, 40, 20, 0.15); }
+  .tool:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(60, 40, 20, 0.12); }
 
-  .card.math  { border-left-color: #E8A317; }
-  .card.en    { border-left-color: #4A90D9; }
-  .card.combo { border-left-color: #7B5BA8; }
+  .tool:nth-child(1) { border-left-color: var(--accent); }
+  .tool:nth-child(2) { border-left-color: var(--accent-en); }
+  .tool:nth-child(3) { border-left-color: var(--accent-combo); }
 
-  .card-icon {
-    width: 72px; height: 72px; border-radius: 18px;
+  .tool-icon {
+    width: 64px; height: 64px; border-radius: 16px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 36px; flex-shrink: 0; color: #FFFFFF; font-weight: 700;
+    font-size: 30px; flex-shrink: 0; color: #fff; font-weight: 700;
   }
-  .card-icon.math  { background: #E8A317; }
-  .card-icon.en    { background: #4A90D9; }
-  .card-icon.combo { background: #7B5BA8; }
+  .tool-icon.math  { background: var(--accent); }
+  .tool-icon.en    { background: var(--accent-en); }
+  .tool-icon.combo { background: var(--accent-combo); }
 
-  .card-body h3 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
-  .card-body p  { font-size: 14px; color: var(--ink-light); line-height: 1.6; }
+  .tool-body h3 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .tool-body p  { font-size: 13px; color: var(--ink-light); }
 
-  .card-arrow {
-    font-size: 24px; color: var(--ink-light); flex-shrink: 0;
+  .tool-arrow {
+    font-size: 22px; color: var(--ink-lighter); flex-shrink: 0;
     margin-left: auto; transition: transform 0.2s;
   }
-  .card:hover .card-arrow { transform: translateX(4px); }
+  .tool:hover .tool-arrow { transform: translateX(3px); }
 
+  /* ── 分隔线 ── */
+  .divider {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 32px;
+  }
+  .divider::before, .divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+  .divider span { font-size: 12px; color: var(--ink-lighter); letter-spacing: 1px; }
+
+  /* ── 使用步骤 ── */
+  .section { margin-bottom: 28px; }
+
+  .section h2 {
+    font-size: 12px; font-weight: 700; color: var(--ink-lighter);
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section h2::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .steps {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--card);
+    border-radius: 14px;
+    padding: 18px 24px;
+    box-shadow: var(--shadow);
+    flex-wrap: wrap; justify-content: center;
+    font-size: 14px;
+  }
+  .steps .arrow { color: var(--accent); font-weight: 700; font-size: 18px; }
+  .steps .step {
+    background: var(--bg);
+    padding: 7px 16px; border-radius: 20px;
+    border: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .step-icon { margin-right: 3px; }
+
+  /* ── 提示 ── */
+  .notes {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 20px 28px;
+    box-shadow: var(--shadow);
+    list-style: none;
+  }
+  .notes li {
+    font-size: 13px; color: var(--ink-light);
+    padding: 5px 0 5px 18px;
+    position: relative;
+  }
+  .notes li::before {
+    content: '·'; position: absolute; left: 5px;
+    color: var(--accent); font-weight: 700; font-size: 16px; line-height: 1.6;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center; margin-top: 36px;
+    font-size: 12px; color: var(--ink-lighter);
+  }
+
+  /* ── 响应式 ── */
   @media (max-width: 500px) {
-    .card { padding: 24px 20px; gap: 16px; }
-    .card-icon { width: 56px; height: 56px; font-size: 28px; border-radius: 14px; }
-    .card-body h3 { font-size: 18px; }
-    h1 { font-size: 26px; }
+    body { padding: 28px 14px; }
+    .header h1 { font-size: 26px; letter-spacing: 2px; }
+    .tool { padding: 20px 18px; gap: 14px; }
+    .tool-icon { width: 50px; height: 50px; font-size: 24px; border-radius: 13px; }
+    .tool-body h3 { font-size: 17px; }
+    .steps { gap: 6px; }
+    .steps .step { padding: 5px 10px; font-size: 13px; }
   }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>家庭练习纸</h1>
-  <p class="subtitle">一份练习，一键打印</p>
 
-  <div class="cards">
-    <a href="kousuan.html" class="card math">
-      <div class="card-icon math">&#x2797;</div>
-      <div class="card-body">
+  <div class="header">
+    <h1>家庭练习纸</h1>
+    <p class="subtitle">给家长省去手写出题的小工具</p>
+  </div>
+
+  <!-- 工具入口 -->
+  <div class="tools">
+    <a href="kousuan.html" class="tool">
+      <div class="tool-icon math">&#x2797;</div>
+      <div class="tool-body">
         <h3>口算练习</h3>
-        <p>1-6 年级 · 加减乘除 · 分数小数 · A4 打印</p>
+        <p>1-6 年级 · 25 种题型 · 一键生成 · A4 打印</p>
       </div>
-      <span class="card-arrow">&#x203A;</span>
+      <span class="tool-arrow">&#x203A;</span>
     </a>
 
-    <a href="english.html" class="card en">
-      <div class="card-icon en">Aa</div>
-      <div class="card-body">
+    <a href="english.html" class="tool">
+      <div class="tool-icon en">Aa</div>
+      <div class="tool-body">
         <h3>英语默写</h3>
-        <p>译林版 3-9 年级 · 中英互默 · 单元自选</p>
+        <p>译林版 3-6 年级 · 中英互默 · 单元自选</p>
       </div>
-      <span class="card-arrow">&#x203A;</span>
+      <span class="tool-arrow">&#x203A;</span>
     </a>
 
-    <a href="combo.html" class="card combo">
-      <div class="card-icon combo">&#x2606;</div>
-      <div class="card-body">
+    <a href="combo.html" class="tool">
+      <div class="tool-icon combo">&#x2606;</div>
+      <div class="tool-body">
         <h3>精选套题</h3>
-        <p>综合练习 · 固定题型配比 · 50/100题切换</p>
+        <p>综合练习 · 固定配比 · 50 / 100 题切换</p>
       </div>
-      <span class="card-arrow">&#x203A;</span>
+      <span class="tool-arrow">&#x203A;</span>
     </a>
   </div>
 
-  <p style="text-align:center;margin-top:36px;font-size:12px;color:#B5A898;">
-    <a href="card.html" style="color:inherit;">📋 项目卡片</a>
-  </p>
+  <!-- 分隔 -->
+  <div class="divider"><span>使用说明</span></div>
+
+  <!-- 使用方式 -->
+  <div class="section">
+    <h2>使用方式</h2>
+    <div class="steps">
+      <span class="step"><span class="step-icon">🌐</span>打开网页</span>
+      <span class="arrow">→</span>
+      <span class="step"><span class="step-icon">✅</span>选择内容</span>
+      <span class="arrow">→</span>
+      <span class="step"><span class="step-icon">🖨</span>生成打印</span>
+    </div>
+  </div>
+
+  <!-- 温馨提示 -->
+  <div class="section">
+    <h2>温馨提示</h2>
+    <ul class="notes">
+      <li>网站部署在海外免费服务器，偶尔加载较慢或连接不稳定，刷新即可</li>
+      <li>英语单词数据通过图片识别提取，大部分已核对，个别翻译可能有偏差，欢迎指正</li>
+      <li>口算题为实时随机生成，每次结果不同，无法复现之前的试卷</li>
+      <li>当前仅覆盖 3-6 年级英语，初中段尚未收录</li>
+      <li>本项目为个人制作，非商业产品，更新不保证时效</li>
+    </ul>
+  </div>
+
+  <p class="footer">家庭练习纸 · 个人项目 · 随缘更新</p>
+
 </div>
 
 </body>
