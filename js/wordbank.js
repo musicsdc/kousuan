@@ -724,12 +724,13 @@ var wordBank = {
     grade: 5,
     units: [
       {
-        unit: "Unit 1 Our school",
+        unit: "Unit 1 Goldilocks and the three bears",
         words: [
           { en: "classroom", zh: "教室" },
           { en: "first", zh: "第一；首先" },
           { en: "second", zh: "第二" },
           { en: "floor", zh: "楼层" },
+          { en: "PE", zh: "体育" },
           { en: "computer", zh: "电脑" },
           { en: "forest", zh: "森林" },
           { en: "third", zh: "第三" },
@@ -750,10 +751,19 @@ var wordBank = {
         ]
       },
       {
-        unit: "Unit 2 Our school (II)",
+        unit: "Unit 2 A new student",
         words: [
           { en: "student", zh: "学生" },
           { en: "show ... around", zh: "带……参观" },
+          { en: "give", zh: "给" },
+          { en: "finger", zh: "手指" },
+          { en: "rabbit", zh: "兔子" },
+          { en: "puppet", zh: "木偶" },
+        ]
+      },
+      {
+        unit: "Unit 3 Our animal friends",
+        words: [
           { en: "her", zh: "她" },
           { en: "Help!", zh: "救命啊！" },
           { en: "one ... the other ...", zh: "一个……另一个……" },
@@ -769,19 +779,11 @@ var wordBank = {
           { en: "arm", zh: "手臂" },
           { en: "their", zh: "他们的；她们的；它们的" },
           { en: "wing", zh: "翅膀" },
-          { en: "foot", zh: "脚，足" },
-          { en: "rabbit", zh: "兔子" },
-          { en: "give", zh: "给" },
-          { en: "finger", zh: "手指" },
-          { en: "puppet", zh: "木偶" },
+          { en: "foot (pl. feet)", zh: "脚，足" },
         ]
       },
       {
-        unit: "Unit 3 Animals and body",
-        words: [],
-      },
-      {
-        unit: "Unit 4 Jobs",
+        unit: "Unit 4 Hobbies",
         words: [
           { en: "hobby", zh: "业余爱好" },
           { en: "doctor", zh: "医生" },
@@ -807,7 +809,7 @@ var wordBank = {
         ]
       },
       {
-        unit: "Unit 5 Teachers",
+        unit: "Unit 5 What do they do?",
         words: [
           { en: "teacher", zh: "教师" },
           { en: "teach", zh: "教" },
@@ -820,7 +822,7 @@ var wordBank = {
         ]
       },
       {
-        unit: "Unit 6 Friends online",
+        unit: "Unit 6 My e-friend",
         words: [
           { en: "Wait a minute.", zh: "等一下，稍等。" },
           { en: "about", zh: "关于" },
@@ -846,6 +848,7 @@ var wordBank = {
       {
         unit: "Unit 7 At weekends",
         words: [
+          { en: "turkey", zh: "火鸡；火鸡肉" },
           { en: "at weekends", zh: "在周末" },
           { en: "visit", zh: "拜访；参观" },
           { en: "grandparent", zh: "祖父；祖母；外祖父；外祖母" },
@@ -871,7 +874,7 @@ var wordBank = {
         ]
       },
       {
-        unit: "Unit 8 Christmas",
+        unit: "Unit 8 At Christmas",
         words: [
           { en: "Christmas", zh: "圣诞节" },
           { en: "Father Christmas", zh: "圣诞老人" },
@@ -905,21 +908,8 @@ var wordBank = {
     grade: 5,
     units: [
       {
-        unit: "Unit 1 Transportation",
+        unit: "Unit 1 Cinderella",
         words: [
-          { en: "bus", zh: "公交车；巴士" },
-          { en: "on foot", zh: "徒步，步行" },
-          { en: "metro", zh: "地铁" },
-          { en: "taxi", zh: "出租车，的士" },
-          { en: "bike", zh: "自行车" },
-          { en: "plane", zh: "飞机" },
-          { en: "ship", zh: "轮船" },
-          { en: "train", zh: "火车" },
-          { en: "ride", zh: "骑车" },
-          { en: "show", zh: "展示" },
-          { en: "young", zh: "年轻的" },
-          { en: "basket", zh: "篮子" },
-          { en: "mushroom", zh: "蘑菇" },
           { en: "prince", zh: "王子" },
           { en: "fairy", zh: "仙女" },
           { en: "why", zh: "为什么" },
@@ -930,49 +920,62 @@ var wordBank = {
           { en: "have to", zh: "不得不，必须" },
           { en: "fit", zh: "合适，合身" },
           { en: "take off", zh: "脱下" },
-          { en: "late", zh: "迟的，晚的" },
-          { en: "pick", zh: "捡，拾" },
-          { en: "understand", zh: "理解，明白" },
-          { en: "be bad for", zh: "有害于" },
-          { en: "take", zh: "拿" },
+          { en: "try on", zh: "试穿" },
+          { en: "young", zh: "年幼的" },
+          { en: "mushroom", zh: "蘑菇" },
+          { en: "basket", zh: "篮子" },
+          { en: "show", zh: "给……看" },
+        ]
+      },
+      {
+        unit: "Unit 2 How do you come to school?",
+        words: [
+          { en: "bus", zh: "公交车；巴士" },
+          { en: "on foot", zh: "徒步，步行" },
+          { en: "metro", zh: "地铁" },
+          { en: "taxi", zh: "出租车，的士" },
+          { en: "bike", zh: "自行车" },
+          { en: "plane", zh: "飞机" },
+          { en: "ship", zh: "轮船" },
+          { en: "train", zh: "火车" },
+          { en: "ride", zh: "骑车" },
+          { en: "take", zh: "搭乘，乘坐" },
+          { en: "far from", zh: "离……远" },
+          { en: "near", zh: "在附近" },
+          { en: "city", zh: "城市" },
+          { en: "moon", zh: "月亮" },
+          { en: "sun", zh: "太阳" },
+          { en: "bookshop", zh: "书店" },
+          { en: "basket", zh: "篮子" },
           { en: "leave ... behind", zh: "留下，丢下" },
           { en: "station", zh: "车站" },
-          { en: "get off", zh: "下车" },
           { en: "walk", zh: "走，步行" },
         ]
       },
       {
-        unit: "Unit 2 Places and directions",
+        unit: "Unit 3 Asking the way",
         words: [
-          { en: "far from", zh: "离……远" },
-          { en: "bookshop", zh: "书店" },
-          { en: "moon", zh: "月亮" },
-          { en: "near", zh: "在附近" },
-          { en: "sun", zh: "太阳" },
-          { en: "city", zh: "城市" },
-          { en: "ask ... for help", zh: "请求帮助" },
+          { en: "get off", zh: "下车" },
           { en: "excuse me", zh: "劳驾，对不起" },
           { en: "along", zh: "沿着" },
           { en: "turn right", zh: "向右转" },
           { en: "turn left", zh: "向左转" },
           { en: "point at", zh: "指着，指向" },
           { en: "on your right", zh: "在你的右侧" },
-          { en: "next to", zh: "在旁边" },
-          { en: "supermarket", zh: "超市" },
-          { en: "film", zh: "电影" },
+          { en: "ask ... for help", zh: "向……求助" },
           { en: "stop", zh: "车站" },
           { en: "full", zh: "满的；饱的" },
           { en: "over", zh: "结束了，完了" },
-          { en: "garden", zh: "花园，公园" },
-        ]
-      },
-      {
-        unit: "Unit 3 Asking the way",
-        words: [
           { en: "hospital", zh: "医院" },
           { en: "shop", zh: "商店" },
+          { en: "supermarket", zh: "超市" },
           { en: "zoo", zh: "动物园" },
           { en: "cinema", zh: "电影院" },
+          { en: "film", zh: "电影" },
+          { en: "late", zh: "迟的，晚的" },
+          { en: "pick", zh: "捡，拾" },
+          { en: "understand", zh: "理解，明白" },
+          { en: "be bad for", zh: "有害于" },
         ]
       },
       {
@@ -982,34 +985,30 @@ var wordBank = {
           { en: "feel", zh: "感觉，感到" },
           { en: "check", zh: "检查" },
           { en: "should", zh: "应该" },
-          { en: "have a rest", zh: "休息" },
-          { en: "take medicine", zh: "吃药" },
-          { en: "drink water", zh: "喝水" },
-          { en: "toothache", zh: "牙痛" },
-          { en: "dentist", zh: "牙医" },
-          { en: "anything", zh: "任何东西" },
-          { en: "brush one's teeth", zh: "刷牙" },
           { en: "bedtime", zh: "就寝时间" },
           { en: "giraffe", zh: "长颈鹿" },
           { en: "neck", zh: "脖子" },
-          { en: "parent", zh: "父亲（或母亲）" },
-          { en: "clean", zh: "清洁，打扫" },
-          { en: "sweep the floor", zh: "扫地" },
-          { en: "wash the dishes", zh: "洗碗" },
-          { en: "make the bed", zh: "整理床铺" },
-          { en: "grow", zh: "生长" },
           { en: "pest", zh: "害虫" },
           { en: "ladybird", zh: "瓢虫" },
           { en: "draw", zh: "画画" },
           { en: "leaf (pl. leaves)", zh: "叶子" },
+          { en: "grow", zh: "生长" },
         ]
       },
       {
         unit: "Unit 5 Helping our parents",
-        words: [],
+        words: [
+          { en: "parent", zh: "父亲（或母亲）" },
+          { en: "clean", zh: "擦，洗" },
+          { en: "sweep the floor", zh: "扫地" },
+          { en: "wash the dishes", zh: "洗碗" },
+          { en: "make the bed", zh: "整理床铺" },
+          { en: "garden", zh: "花园，果园" },
+          { en: "sweet", zh: "甜的" },
+        ]
       },
       {
-        unit: "Unit 6 Food and health",
+        unit: "Unit 6 In the kitchen",
         words: [
           { en: "game", zh: "运动；比赛" },
           { en: "smell", zh: "闻" },
@@ -1017,17 +1016,24 @@ var wordBank = {
           { en: "vegetable", zh: "蔬菜" },
           { en: "tomato", zh: "番茄，西红柿" },
           { en: "potato", zh: "土豆，马铃薯" },
+          { en: "have a rest", zh: "休息" },
+          { en: "take medicine", zh: "吃药" },
+          { en: "drink water", zh: "喝水" },
+          { en: "toothache", zh: "牙痛" },
+          { en: "dentist", zh: "牙医" },
+          { en: "anything", zh: "任何东西" },
+          { en: "brush one's teeth", zh: "刷牙" },
           { en: "I can't wait!", zh: "我等不及了！" },
         ]
       },
       {
-        unit: "Unit 7 Festivals",
+        unit: "Unit 7 Chinese festivals",
         words: [
           { en: "festival", zh: "节日" },
           { en: "Spring Festival", zh: "春节" },
           { en: "January", zh: "一月" },
           { en: "February", zh: "二月" },
-          { en: "call", zh: "叫，称为" },
+          { en: "call", zh: "叫作，称作" },
           { en: "Chinese New Year", zh: "中国农历新年" },
           { en: "get together", zh: "团聚" },
           { en: "jiaozi", zh: "饺子" },
@@ -1038,7 +1044,7 @@ var wordBank = {
           { en: "moon cake", zh: "月饼" },
           { en: "Double Ninth Festival", zh: "重阳节" },
           { en: "November", zh: "十一月" },
-          { en: "old", zh: "老的，年老的" },
+          { en: "old", zh: "年纪大的" },
           { en: "mountain", zh: "山，山脉" },
           { en: "rice cake", zh: "重阳糕" },
           { en: "Father's Day", zh: "父亲节" },
@@ -1058,6 +1064,7 @@ var wordBank = {
           { en: "number", zh: "数字" },
           { en: "password", zh: "密码" },
           { en: "answer", zh: "答案" },
+          { en: "play", zh: "戏，戏剧" },
         ]
       },
       {
@@ -1072,9 +1079,9 @@ var wordBank = {
           { en: "spot", zh: "斑点" },
           { en: "catch", zh: "抓住，捉住" },
           { en: "drive ... away", zh: "赶走" },
-          { en: "fight", zh: "战斗，打斗" },
+          { en: "fight", zh: "打仗，打架" },
           { en: "bread", zh: "面包" },
-          { en: "gummy", zh: "好吃的，美味的" },
+          { en: "gummy", zh: "好的，美味的" },
           { en: "love", zh: "喜欢，喜爱" },
           { en: "place", zh: "地方，地点" },
         ]
@@ -1087,7 +1094,7 @@ var wordBank = {
     grade: 6,
     units: [
       {
-        unit: "Unit 1 Stories",
+        unit: "Unit 1 The King's new clothes",
         words: [
           { en: "long long ago", zh: "很久以前" },
           { en: "magic", zh: "有魔力的，神奇的" },
@@ -1104,12 +1111,22 @@ var wordBank = {
           { en: "next", zh: "下一个" },
           { en: "know", zh: "知道" },
           { en: "lose", zh: "丢失" },
-          { en: "What happened?", zh: "发生什么事了？" },
+          { en: "What happened?", zh: "出什么事了？" },
           { en: "meet", zh: "遇见" },
+          { en: "honey", zh: "蜂蜜" },
+          { en: "drink", zh: "饮料" },
+          { en: "ant", zh: "蚂蚁" },
+          { en: "bee", zh: "蜜蜂" },
+          { en: "cloud", zh: "云" },
+          { en: "rain", zh: "雨" },
+          { en: "climb up", zh: "爬上" },
+          { en: "hold onto", zh: "抓紧" },
+          { en: "quick", zh: "迅速的，快的" },
+          { en: "fly away", zh: "飞走" },
         ]
       },
       {
-        unit: "Unit 2 Weather and places",
+        unit: "Unit 2 What a day!",
         words: [
           { en: "holiday", zh: "假日，假期" },
           { en: "National Day", zh: "国庆节" },
@@ -1132,7 +1149,7 @@ var wordBank = {
         ]
       },
       {
-        unit: "Unit 3 Then and now",
+        unit: "Unit 3 Holiday fun",
         words: [
           { en: "then and now", zh: "过去和现在" },
           { en: "ago", zh: "以前" },
@@ -1153,7 +1170,7 @@ var wordBank = {
         ]
       },
       {
-        unit: "Unit 4 Signs",
+        unit: "Unit 4 Then and now",
         words: [
           { en: "sign", zh: "标识" },
           { en: "shopping centre", zh: "购物中心" },
@@ -1178,7 +1195,7 @@ var wordBank = {
         ]
       },
       {
-        unit: "Unit 5 Weather and activities",
+        unit: "Unit 5 Signs",
         words: [
           { en: "go well", zh: "进展顺利" },
           { en: "at first", zh: "开始，最初" },
@@ -1298,6 +1315,7 @@ var wordBank = {
           { en: "hit", zh: "打，击" },
           { en: "ground", zh: "地面，地上" },
           { en: "deep", zh: "深的" },
+          { en: "ask", zh: "问" },
         ]
       },
       {
@@ -1327,6 +1345,7 @@ var wordBank = {
           { en: "cola", zh: "可乐" },
           { en: "too much", zh: "太多" },
           { en: "need", zh: "需要" },
+          { en: "cheer", zh: "欢呼" },
         ]
       },
       {
