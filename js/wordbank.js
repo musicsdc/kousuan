@@ -333,7 +333,7 @@ var wordBank = {
           { en: "brown", zh: "棕色的" },
           { en: "black", zh: "黑色的" },
           { en: "white", zh: "白色的" },
-          { en: "sure(表示同意)", zh: "当然" },
+          { en: "sure", zh: "（表示同意）当然" },
           { en: "What colour?", zh: "什么颜色?" },
           { en: "little", zh: "小的" },
           { en: "What colour ...?……", zh: "是什么颜色的?" },
