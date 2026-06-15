@@ -3,262 +3,153 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>答案与计算过程</title>
+<title>答案页</title>
 <style>
+  :root { --ink: #3B3228; --ink-light: #8B7E6E; --border: #E6DDD0; --bg: #FDF5E8; --radius: 14px; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
     font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-    background: #fdf5e8; padding: 20px;
-    color: #3b3228;
+    background: var(--bg); padding: 20px; color: var(--ink);
+    -webkit-font-smoothing: antialiased;
   }
-  .container { max-width: 900px; margin: 0 auto; }
+  .container { max-width: 1100px; margin: 0 auto; }
 
-  .controls {
-    background: #fff; border-radius: 14px; padding: 16px 24px;
-    margin-bottom: 16px; display: flex; gap: 12px; align-items: center;
+  .top-bar {
+    background: #fff; border-radius: var(--radius); padding: 14px 24px;
+    margin-bottom: 14px; display: flex; gap: 12px; align-items: center;
     box-shadow: 0 2px 12px rgba(60,40,20,0.06);
   }
+  .top-bar a { color: #7B5BA8; text-decoration: none; font-size: 14px; font-weight: 500; }
   .btn {
     padding: 10px 24px; border: none; border-radius: 24px;
-    font-size: 14px; font-weight: 600; cursor: pointer;
-    font-family: inherit;
+    font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;
   }
   .btn-gen { background: #7B5BA8; color: #fff; }
-  .btn-print { background: #3b3228; color: #fff; }
+  .btn-print { background: var(--ink); color: #fff; }
 
   .paper {
-    background: #fff; border-radius: 14px; padding: 24px 28px;
+    background: #fff; border-radius: var(--radius); padding: 20px 18px;
     box-shadow: 0 2px 12px rgba(60,40,20,0.06); margin-bottom: 16px;
   }
-  .paper h2 { font-size: 18px; text-align: center; margin-bottom: 16px; }
+  .paper-header { text-align: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1.5px solid var(--ink); }
+  .paper-header h2 { font-size: 17px; font-weight: 700; }
+  .paper-header .page-num { float: right; font-size: 11px; color: var(--ink-light); }
 
-  .calc-item {
-    padding: 8px 0; border-bottom: 1px dashed #e6ddd0;
-    font-size: 14px; line-height: 1.8;
+  .questions { display: grid; gap: 3px 8px; }
+  .questions.cols-5 { grid-template-columns: repeat(5, 1fr); }
+  .question {
+    padding: 4px 2px; border-bottom: 1px dashed var(--border);
+    display: flex; align-items: baseline; gap: 3px;
+    font-family: 'SF Mono', 'Menlo', 'Courier New', monospace;
+    font-size: 12px; color: var(--ink);
   }
-  .calc-item .step { margin-left: 20px; color: #555; font-size: 13px; }
-  .calc-item .answer { font-weight: 700; color: #7B5BA8; }
-
-  .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; line-height: 1; margin: 0 3px; }
-  .frac .num { padding: 1px 4px 0; border-bottom: 1.5px solid #3b3228; }
-  .frac .den { padding: 0 4px 1px; }
+  .question .idx { width: 24px; font-size: 10px; color: var(--ink-light); flex-shrink: 0; text-align: right; font-family: 'PingFang SC','Microsoft YaHei',sans-serif; }
+  .q-text { display: inline-flex; align-items: center; flex-wrap: wrap; }
+  .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; line-height: 1; margin: 0 2px; }
+  .frac .num { padding: 1px 3px 0; border-bottom: 1.2px solid var(--ink); }
+  .frac .den { padding: 0 3px 1px; }
 
   @media print {
     body { background: #fff; padding: 0; }
-    .controls { display: none; }
-    .paper { box-shadow: none; border-radius: 0; page-break-after: always; }
-    @page { margin: 10mm; size: A4 portrait; }
+    .top-bar { display: none; }
+    .paper { box-shadow: none; border-radius: 0; padding: 12px 16px; height: 267mm; width: 210mm; box-sizing: border-box; display: flex; flex-direction: column; page-break-after: always; break-after: page; }
+    .paper:last-child { page-break-after: auto; }
+    .paper-header { margin-bottom: 8px; }
+    .paper-header h2 { font-size: 15px; color: #000 !important; }
+    .question { border-bottom-color: #ccc !important; font-size: 11px !important; color: #000 !important; }
+    .question .idx { color: #666 !important; }
+    .questions { flex: 1; align-content: space-between; display: grid !important; gap: 0 4px !important; }
+    .questions.cols-5 { grid-template-columns: repeat(5, 1fr) !important; }
+    @page { margin: 6mm; size: A4 portrait; }
   }
 </style>
 </head>
 <body>
 <div class="container">
-  <div class="controls">
-    <button class="btn btn-gen" onclick="generate()">生成答案页</button>
+  <div class="top-bar">
+    <a href="index.html">← 首页</a>
+    <a href="combo.html">精选套题</a>
+    <span style="flex:1"></span>
+    <button class="btn btn-gen" onclick="generate()">重新生成</button>
     <button class="btn btn-print" onclick="window.print()">打印</button>
-    <span style="font-size:13px;color:#888;">五年级分数特训 · 计算过程与答案</span>
   </div>
   <div id="paperContainer"></div>
 </div>
 
 <script>
 // ============ 工具函数 ============
-function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
-function gcd(a, b) { return b ? gcd(b, a % b) : a; }
-function shuffle(arr) {
-  for (var i = arr.length - 1; i > 0; i--) {
-    var j = rand(0, i); var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
-  }
-  return arr;
-}
-function fracHTML(n, d) { return '<span class="frac"><span class="num">'+n+'</span><span class="den">'+d+'</span></span>'; }
-function fracText(n, d) { return n + '/' + d; }
+function rand(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
+function gcd(a,b){return b?gcd(b,a%b):a;}
+function shuffle(arr){for(var i=arr.length-1;i>0;i--){var j=rand(0,i),t=arr[i];arr[i]=arr[j];arr[j]=t;}return arr;}
+function fracHTML(n,d){return'<span class="frac"><span class="num">'+n+'</span><span class="den">'+d+'</span></span>';}
+function chainFrac(n,d){return fracHTML(n,d);}
+function chainAns(n,d){var g=gcd(n,d);n/=g;d/=g;if(d===1)return''+n;return n+'/'+d;}
+function pickCoprime(den,min,max){for(var i=0;i<200;i++){var n=rand(min,max);if(gcd(n,den)===1&&n!==den)return n;}var p=[2,3,5,7,11,13,17,19,23];for(var j=0;j<p.length;j++){if(p[j]!==den&&gcd(p[j],den)===1)return p[j];}return den+1;}
+function ansHTML(a){if(!a)return'';var p=a.split('/');if(p.length===1)return a;return fracHTML(p[0],p[1]);}
 
-function pickCoprime(den, min, max) {
-  for (var i = 0; i < 200; i++) {
-    var n = rand(min, max);
-    if (gcd(n, den) === 1 && n !== den) return n;
-  }
-  var primes = [2,3,5,7,11,13,17,19,23];
-  for (var j = 0; j < primes.length; j++) {
-    if (primes[j] !== den && gcd(primes[j], den) === 1) return primes[j];
-  }
-  return den + 1;
-}
+// ============ 生成器 ============
+function genAddSubSameDen(){for(var i=0;i<100;i++){var d=rand(3,12),m=Math.random()<0.7?d-1:d+Math.floor(d*0.6),n1=pickCoprime(d,1,Math.max(2,m));m=Math.random()<0.7?d-1:d+Math.floor(d*0.6);var n2=pickCoprime(d,1,Math.max(2,m));if(Math.random()<0.5){var tn=n1+n2;if(tn>30)continue;return{html:chainFrac(n1,d)+' + '+chainFrac(n2,d)+' =',ans:chainAns(tn,d)};}else{if(n1<n2){var t=n1;n1=n2;n2=t;}return{html:chainFrac(n1,d)+' - '+chainFrac(n2,d)+' =',ans:chainAns(n1-n2,d)};}}return{html:chainFrac(3,4)+' + '+chainFrac(1,4)+' =',ans:'1'};}
+function genAddSubDiffDen(){for(var i=0;i<100;i++){var d1=rand(2,10),d2=rand(2,10);if(d1===d2)continue;var m1=Math.random()<0.7?d1-1:d1+Math.floor(d1*0.6),m2=Math.random()<0.7?d2-1:d2+Math.floor(d2*0.6),n1=pickCoprime(d1,1,Math.max(2,m1)),n2=pickCoprime(d2,1,Math.max(2,m2)),lcm=d1*d2/gcd(d1,d2),mm1=lcm/d1,mm2=lcm/d2;if(Math.random()<0.5){return{html:chainFrac(n1,d1)+' + '+chainFrac(n2,d2)+' =',ans:chainAns(n1*mm1+n2*mm2,lcm)};}else{if(n1*mm1<n2*mm2){var t=n1;n1=n2;n2=t;t=d1;d1=d2;d2=t;t=mm1;mm1=mm2;mm2=t;}return{html:chainFrac(n1,d1)+' - '+chainFrac(n2,d2)+' =',ans:chainAns(n1*mm1-n2*mm2,lcm)};}}return{html:chainFrac(2,3)+' + '+chainFrac(1,4)+' =',ans:'11/12'};}
+function genAddSubCol(){return Math.random()<0.1?genAddSubSameDen():genAddSubDiffDen();}
+function genMul2Col(){return Math.random()<0.3?genFracTimesInt():genFracTimesFrac();}
+function genFracTimesInt(){for(var i=0;i<100;i++){var b=rand(2,10),a=pickCoprime(b,1,b*2),k;if(Math.random()<0.9){var fs=[];for(var f=2;f<=b;f++)if(b%f===0)fs.push(f);k=fs[rand(0,fs.length-1)]*rand(1,Math.floor(15/(fs[0]||2)));}else k=pickCoprime(b,2,15);var tn=a*k,td=b;if(tn>50)continue;return{html:chainFrac(a,b)+' × '+k+' =',ans:chainAns(tn,td)};}return{html:chainFrac(2,3)+' × 6 =',ans:'4'};}
+function genFracTimesFrac(){for(var i=0;i<100;i++){var b=rand(2,10),d=rand(2,10),a=pickCoprime(b,1,12),c=pickCoprime(d,1,12),hc=gcd(a,d)>1||gcd(b,c)>1;if(Math.random()<0.9&&!hc)continue;if(Math.random()>=0.9&&hc)continue;var tn=a*c,td=b*d,g=gcd(tn,td);return{html:chainFrac(a,b)+' × '+chainFrac(c,d)+' =',ans:chainAns(tn/g,td/g)};}return{html:chainFrac(3,4)+' × '+chainFrac(8,9)+' =',ans:'2/3'};}
+function genMul3Col(){return Math.random()<0.3?genFracIntFrac():gen3Frac();}
+function gen3Frac(){for(var i=0;i<100;i++){var b=rand(2,10),a=pickCoprime(b,1,12),c=pickCoprime(b,2,10),d=pickCoprime(c,2,12);return{html:chainFrac(a,b)+' × '+chainFrac(b,c)+' × '+chainFrac(c,d)+' =',ans:chainAns(a,d)};}return{html:chainFrac(1,2)+' × '+chainFrac(2,3)+' × '+chainFrac(3,4)+' =',ans:'1/4'};}
+function genFracIntFrac(){for(var i=0;i<100;i++){var b=rand(2,10),d=rand(2,10),a=pickCoprime(b,1,12),c=pickCoprime(d,1,12),k=rand(2,8),tn=a*k*c,td=b*d;if(tn>200)continue;var g=gcd(tn,td);return{html:chainFrac(a,b)+' × '+k+' × '+chainFrac(c,d)+' =',ans:chainAns(tn/g,td/g)};}return{html:chainFrac(4,7)+' × 3 × '+chainFrac(7,8)+' =',ans:'3/2'};}
 
-// ============ 生成器（带计算过程）============
+// ============ 生成 ============
+function generate(){
+  var container=document.getElementById('paperContainer');
+  container.innerHTML='';
 
-// 同分母加减
-function genSameDen() {
-  for (var i = 0; i < 100; i++) {
-    var d = rand(3, 12);
-    var maxN = Math.random() < 0.7 ? d - 1 : d + Math.floor(d * 0.6);
-    var n1 = pickCoprime(d, 1, Math.max(2, maxN));
-    maxN = Math.random() < 0.7 ? d - 1 : d + Math.floor(d * 0.6);
-    var n2 = pickCoprime(d, 1, Math.max(2, maxN));
-    if (Math.random() < 0.5) {
-      var total = n1 + n2;
-      if (total > 30) continue;
-      var g = gcd(total, d);
-      var calc = fracText(n1,d) + ' + ' + fracText(n2,d) + ' = (' + n1 + '+' + n2 + ')/' + d + ' = ' + total + '/' + d;
-      if (g > 1) calc += ' = ' + (total/g) + '/' + (d/g);
-      return { q: fracHTML(n1,d) + ' + ' + fracHTML(n2,d) + ' =', calc: calc, ans: (total/g) + '/' + (d/g) };
-    } else {
-      if (n1 < n2) { var t = n1; n1 = n2; n2 = t; }
-      var diff = n1 - n2;
-      var g = gcd(diff, d);
-      var calc = fracText(n1,d) + ' - ' + fracText(n2,d) + ' = (' + n1 + '-' + n2 + ')/' + d + ' = ' + diff + '/' + d;
-      if (g > 1) calc += ' = ' + (diff/g) + '/' + (d/g);
-      return { q: fracHTML(n1,d) + ' - ' + fracHTML(n2,d) + ' =', calc: calc, ans: (diff/g) + '/' + (d/g) };
+  // 和 combo 一样的列生成器
+  var cols=[genAddSubCol,genAddSubCol,genMul2Col,genMul3Col,genMul3Col];
+  var allQA=[];
+
+  // 生成 100 题
+  for(var r=0;r<20;r++){
+    var row=[];
+    for(var c=0;c<5;c++) row.push(cols[c]());
+    allQA.push(row);
+  }
+
+  // === 第1页：纯题目 ===
+  var p1=document.createElement('div');
+  p1.className='paper';
+  p1.innerHTML='<div class="paper-header"><h2>五年级分数特训 · 练习</h2></div>';
+  var g1=document.createElement('div');
+  g1.className='questions cols-5';
+  for(var r=0;r<20;r++){
+    for(var c=0;c<5;c++){
+      var q=allQA[r][c];
+      var d=document.createElement('div');
+      d.className='question';
+      d.innerHTML='<span class="idx">'+(r*5+c+1)+'.</span><span class="q-text">'+q.html+'</span>';
+      g1.appendChild(d);
     }
   }
-}
+  p1.appendChild(g1);
+  container.appendChild(p1);
 
-// 异分母加减
-function genDiffDen() {
-  for (var i = 0; i < 100; i++) {
-    var d1 = rand(2, 10), d2 = rand(2, 10);
-    if (d1 === d2) continue;
-    var maxN1 = Math.random() < 0.7 ? d1 - 1 : d1 + Math.floor(d1*0.6);
-    var maxN2 = Math.random() < 0.7 ? d2 - 1 : d2 + Math.floor(d2*0.6);
-    var n1 = pickCoprime(d1, 1, Math.max(2, maxN1));
-    var n2 = pickCoprime(d2, 1, Math.max(2, maxN2));
-    var lcm = d1 * d2 / gcd(d1, d2);
-    var m1 = lcm / d1, m2 = lcm / d2;
-    if (Math.random() < 0.5) {
-      var total = n1*m1 + n2*m2;
-      var g = gcd(total, lcm);
-      var calc = fracText(n1,d1) + ' + ' + fracText(n2,d2);
-      calc += ' = ' + fracText(n1,d1) + '(×' + m1 + ') + ' + fracText(n2,d2) + '(×' + m2 + ')';
-      calc += ' = ' + (n1*m1) + '/' + lcm + ' + ' + (n2*m2) + '/' + lcm;
-      calc += ' = ' + total + '/' + lcm;
-      if (g > 1) calc += ' = ' + (total/g) + '/' + (lcm/g);
-      return { q: fracHTML(n1,d1)+' + '+fracHTML(n2,d2)+' =', calc: calc, ans: (total/g)+'/'+(lcm/g) };
-    } else {
-      if (n1*m1 < n2*m2) { var t=n1;n1=n2;n2=t;t=d1;d1=d2;d2=t;t=m1;m1=m2;m2=t; }
-      var diff = n1*m1 - n2*m2;
-      var g = gcd(diff, lcm);
-      var calc = fracText(n1,d1) + ' - ' + fracText(n2,d2);
-      calc += ' = ' + fracText(n1,d1) + '(×' + m1 + ') - ' + fracText(n2,d2) + '(×' + m2 + ')';
-      calc += ' = ' + (n1*m1) + '/' + lcm + ' - ' + (n2*m2) + '/' + lcm;
-      calc += ' = ' + diff + '/' + lcm;
-      if (g > 1) calc += ' = ' + (diff/g) + '/' + (lcm/g);
-      return { q: fracHTML(n1,d1)+' - '+fracHTML(n2,d2)+' =', calc: calc, ans: (diff/g)+'/'+(lcm/g) };
+  // === 第2页：题目+答案 ===
+  var p2=document.createElement('div');
+  p2.className='paper';
+  p2.innerHTML='<div class="paper-header"><h2>五年级分数特训 · 答案</h2></div>';
+  var g2=document.createElement('div');
+  g2.className='questions cols-5';
+  for(var r=0;r<20;r++){
+    for(var c=0;c<5;c++){
+      var q=allQA[r][c];
+      var d=document.createElement('div');
+      d.className='question';
+      d.innerHTML='<span class="idx">'+(r*5+c+1)+'.</span><span class="q-text">'+q.html.replace(' =',' = ')+'<b>'+ansHTML(q.ans)+'</b></span>';
+      g2.appendChild(d);
     }
   }
-  return genSameDen();
-}
-
-// 分×分
-function genFracTimesFrac() {
-  for (var i = 0; i < 100; i++) {
-    var b = rand(2,10), d = rand(2,10);
-    var a = pickCoprime(b,1,12), c = pickCoprime(d,1,12);
-    var hasCancel = gcd(a,d)>1 || gcd(b,c)>1;
-    if (Math.random()<0.9 && !hasCancel) continue;
-    var rawN = a*c, rawD = b*d;
-    var g = gcd(rawN, rawD);
-
-    var calc = fracText(a,b) + ' × ' + fracText(c,d);
-    calc += ' = (' + a + '×' + c + ')/(' + b + '×' + d + ') = ' + rawN + '/' + rawD;
-    if (hasCancel) {
-      var crosses = [];
-      if (gcd(a,d) > 1) crosses.push(fracText(a,b) + '的分子' + a + ' 与 ' + fracText(c,d) + '的分母' + d + ' 约(÷' + gcd(a,d) + ')');
-      if (gcd(b,c) > 1) crosses.push(fracText(a,b) + '的分母' + b + ' 与 ' + fracText(c,d) + '的分子' + c + ' 约(÷' + gcd(b,c) + ')');
-      calc += '  [' + crosses.join(', ') + ']';
-    }
-    if (g > 1) calc += ' = ' + (rawN/g) + '/' + (rawD/g);
-    return { q: fracHTML(a,b)+' × '+fracHTML(c,d)+' =', calc: calc, ans: (rawN/g)+'/'+(rawD/g) };
-  }
-  return { q: fracHTML(3,4)+' × '+fracHTML(8,9)+' =', calc: '3/4 × 8/9 = 24/36 = 2/3', ans: '2/3' };
-}
-
-// 分×整数
-function genFracTimesInt() {
-  for (var i = 0; i < 100; i++) {
-    var b = rand(2,10), a = pickCoprime(b,1,b*2), k;
-    if (Math.random()<0.9) {
-      var factors = []; for (var f=2;f<=b;f++) if(b%f===0)factors.push(f);
-      k = factors[rand(0,factors.length-1)] * rand(1,Math.floor(15/(factors[0]||2)));
-    } else { k = pickCoprime(b,2,15); }
-    var rawN = a*k, rawD = b, g = gcd(rawN,rawD);
-    var calc = fracText(a,b) + ' × ' + k + ' = ' + a + '×' + k + '/' + b + ' = ' + rawN + '/' + rawD;
-    if (g > 1) calc += ' = ' + (rawN/g) + '/' + (rawD/g);
-    return { q: fracHTML(a,b)+' × '+k+' =', calc: calc, ans: (rawN/g)+'/'+(rawD/g) };
-  }
-}
-
-// 三数连乘（简化版计算过程）
-function genMul3() {
-  for (var i = 0; i < 100; i++) {
-    var b = rand(2,10), c = pickCoprime(b,2,10), d = pickCoprime(c,2,12);
-    var a = pickCoprime(b,1,12);
-    var totalN = a*b*c, totalD = b*c*d;
-    var g = gcd(totalN, totalD);
-    var calc = fracText(a,b) + ' × ' + fracText(b,c) + ' × ' + fracText(c,d);
-    calc += ' = (' + a + '×' + b + '×' + c + ')/(' + b + '×' + c + '×' + d + ')';
-    calc += ' = ' + totalN + '/' + totalD + ' = ' + (totalN/g) + '/' + (totalD/g);
-    return { q: fracHTML(a,b)+' × '+fracHTML(b,c)+' × '+fracHTML(c,d)+' =', calc: calc, ans: (totalN/g)+'/'+(totalD/g) };
-  }
-  return { q: fracHTML(1,2)+' × '+fracHTML(2,3)+' × '+fracHTML(3,4)+' =', calc: '1/2 × 2/3 × 3/4 = 6/24 = 1/4', ans: '1/4' };
-}
-
-// ============ 生成答案页 ============
-function generate() {
-  var container = document.getElementById('paperContainer');
-  container.innerHTML = '';
-
-  // 按比例生成各类型题目
-  var generators = [];
-  // 40题加减（列1-2）
-  var addSub = [genDiffDen, genSameDen];
-  for (var i = 0; i < 40; i++) {
-    generators.push(Math.random()<0.1 ? genSameDen : genDiffDen);
-  }
-  // 20题两数相乘（列3）
-  for (var i = 0; i < 20; i++) {
-    generators.push(Math.random()<0.3 ? genFracTimesInt : genFracTimesFrac);
-  }
-  // 40题三数连乘（列4-5）
-  for (var i = 0; i < 40; i++) {
-    generators.push(genMul3);
-  }
-
-  // 生成所有题目
-  var items = [];
-  for (var i = 0; i < generators.length; i++) {
-    var result = generators[i]();
-    if (result) items.push(result);
-  }
-
-  // 分页：每页放约30题（计算过程占空间）
-  var perPage = 25;
-  var totalPages = Math.ceil(items.length / perPage);
-
-  for (var p = 0; p < totalPages; p++) {
-    var paper = document.createElement('div');
-    paper.className = 'paper';
-
-    var title = '<h2>答案与计算过程 · 第 '+(p+1)+'/'+totalPages+' 页</h2>';
-    paper.innerHTML = title;
-
-    var start = p * perPage;
-    var end = Math.min(start + perPage, items.length);
-
-    for (var j = start; j < end; j++) {
-      var item = items[j];
-      var div = document.createElement('div');
-      div.className = 'calc-item';
-      div.innerHTML =
-        '<strong>' + (j+1) + '.</strong> ' + item.q + '<br>' +
-        '<span class="step">' + item.calc + '</span><br>' +
-        '<span class="answer">答案: ' + item.ans + '</span>';
-      paper.appendChild(div);
-    }
-
-    container.appendChild(paper);
-  }
+  p2.appendChild(g2);
+  container.appendChild(p2);
 }
 
 generate();
