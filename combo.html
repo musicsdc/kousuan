@@ -118,8 +118,8 @@
   .answer-item .frac .den { padding: 0 2px; }
 
   @media print {
-    .paper { padding: 8px 16px; }
-    .paper-header { height: 5%; display: flex; flex-direction: row; justify-content: space-between; align-items: baseline; }
+    .paper { padding: 8px 16px; overflow: hidden; }
+    .paper-header { flex: 0 0 auto; display: flex; flex-direction: row; justify-content: space-between; align-items: baseline; }
     .paper-header h2 { font-size: 13px; flex: 1; }
     .paper-header .page-num { font-size: 9px; color: #444444 !important; flex-shrink: 0; margin-left: 12px; }
     .paper-meta { font-size: 9px; gap: 8px; }
@@ -128,12 +128,12 @@
     .frac .num, .frac .den { color: #000000 !important; }
     .frac .num { border-bottom: 1.5px solid #000000 !important; padding: 0 2px; }
     .frac .den { padding: 0 2px; }
-    .questions { height: 73%; display: grid !important; gap: 0 2px !important; align-content: space-between; }
+    .questions { flex: 1; display: grid !important; gap: 0 2px !important; align-content: space-between; min-height: 0; }
     .questions.cols-4 { grid-template-columns: repeat(4, 1fr) !important; }
     .questions.cols-5 { grid-template-columns: repeat(5, 1fr) !important; }
-    .cut-line { height: 2%; display: flex; align-items: center; justify-content: center; border-top: 1px dashed #666666 !important; }
+    .cut-line { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; border-top: 1px dashed #666666 !important; padding: 1px 0; }
     .cut-line span { color: #666666 !important; font-size: 6px; }
-    .answers { height: 18%; display: grid !important; gap: 0 1px !important; }
+    .answers { flex: 0 0 auto; display: grid !important; gap: 0 1px !important; max-height: 20%; }
     .answers.cols-4 { grid-template-columns: repeat(4, 1fr) !important; }
     .answers.cols-5 { grid-template-columns: repeat(5, 1fr) !important; }
     .answer-item { border-bottom: 1px dotted #bbbbbb !important; padding: 0 2px; font-size: 7px !important; line-height: 1; font-weight: 500 !important; }
