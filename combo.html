@@ -80,14 +80,14 @@
   .questions.cols-5 { grid-template-columns: repeat(5, 1fr); }
 
   .question {
-    padding: 4px 2px; border-bottom: 1px dashed var(--border);
+    padding: 4px 2px; border-bottom: 1px solid #bbbbbb;
     display: flex; align-items: baseline; gap: 3px;
     font-family: 'SF Mono', 'Menlo', 'Courier New', monospace;
-    font-size: 12px; color: var(--ink);
+    font-size: 12px; color: #000000; font-weight: 600;
   }
   .question .idx {
     width: 26px; display: inline-flex; justify-content: flex-end;
-    font-size: 10px; color: var(--ink-light); flex-shrink: 0;
+    font-size: 11px; color: #555555; flex-shrink: 0; font-weight: 600;
     font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
   }
   .q-text { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 0; }
@@ -96,52 +96,18 @@
   .frac .num { padding: 1px 4px 0; }
   .frac .den { padding: 0 4px 1px; }
 
-  /* 裁切线 */
-  .cut-line { text-align: center; padding: 2px 0 0; margin: 0; border-top: 1px dashed var(--ink-light); }
-  .cut-line span { font-size: 10px; color: var(--ink-light); letter-spacing: 1px; }
-
-  /* 答案区 */
-  .answers { display: grid; gap: 0 8px; }
-  .answers.cols-4 { grid-template-columns: repeat(4, 1fr); }
-  .answers.cols-5 { grid-template-columns: repeat(5, 1fr); }
-  .answer-item {
-    padding: 1px 3px; border-bottom: none; display: flex; align-items: baseline; gap: 2px;
-    font-family: 'SF Mono', 'Menlo', 'Courier New', monospace;
-    font-size: 10px; color: var(--ink); line-height: 1.15;
-  }
-  .answer-item .idx {
-    width: 18px; display: inline-flex; justify-content: flex-end;
-    font-size: 8px; color: var(--ink-light); flex-shrink: 0;
-    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  }
-  .answer-item .frac .num { padding: 0 2px; border-bottom: 1px solid var(--ink); }
-  .answer-item .frac .den { padding: 0 2px; }
-
   @media print {
-    .paper { padding: 8px 16px; overflow: hidden; }
-    .paper-header { flex: 0 0 auto; display: flex; flex-direction: row; justify-content: space-between; align-items: baseline; }
-    .paper-header h2 { font-size: 13px; flex: 1; }
-    .paper-header .page-num { font-size: 9px; color: #444444 !important; flex-shrink: 0; margin-left: 12px; }
-    .paper-meta { font-size: 9px; gap: 8px; }
-    .question { border-bottom: 1px solid #aaaaaa !important; break-inside: avoid; padding: 3px 2px; font-size: 13px !important; line-height: 1.25; font-weight: 600 !important; }
+    .paper-header { margin-bottom: 10px; padding-bottom: 8px; display: flex; flex-direction: row; justify-content: space-between; align-items: baseline; flex-shrink: 0; }
+    .paper-header h2 { font-size: 16px; color: #000000 !important; font-weight: 700; flex: 1; }
+    .paper-header .page-num { display: inline !important; font-size: 10px; color: #666666 !important; flex-shrink: 0; margin-left: 12px; }
+    .question { border-bottom: 1px solid #aaaaaa !important; break-inside: avoid; padding: 3px 2px; font-size: 13px !important; line-height: 1.25; font-weight: 600 !important; color: #000000 !important; }
     .question .idx { font-size: 10px; width: 24px; color: #333333 !important; font-weight: 500 !important; }
     .frac .num, .frac .den { color: #000000 !important; }
     .frac .num { border-bottom: 1.5px solid #000000 !important; padding: 0 2px; }
     .frac .den { padding: 0 2px; }
-    .questions { flex: 1; display: grid !important; gap: 0 2px !important; align-content: space-between; min-height: 0; }
+    .questions { flex: 1; display: grid !important; gap: 0 2px !important; align-content: space-between; }
     .questions.cols-4 { grid-template-columns: repeat(4, 1fr) !important; }
     .questions.cols-5 { grid-template-columns: repeat(5, 1fr) !important; }
-    .cut-line { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; border-top: 1px dashed #666666 !important; padding: 1px 0; }
-    .cut-line span { color: #666666 !important; font-size: 6px; }
-    .answers { flex: 0 0 auto; display: grid !important; gap: 0 1px !important; max-height: 20%; }
-    .answers.cols-4 { grid-template-columns: repeat(4, 1fr) !important; }
-    .answers.cols-5 { grid-template-columns: repeat(5, 1fr) !important; }
-    .answer-item { border-bottom: 1px dotted #bbbbbb !important; padding: 0 2px; font-size: 7px !important; line-height: 1; font-weight: 500 !important; }
-    .answer-item .idx { font-size: 6px; width: 13px; color: #555555 !important; }
-    .answer-item .frac .num { padding: 0 1px; border-bottom: 1px solid #000000 !important; }
-    .answer-item .frac .den { padding: 0 1px; }
-    .paper.size-50 .question { font-size: 18px !important; padding: 5px 3px; font-weight: 600 !important; }
-    .paper.size-50 .answer-item { font-size: 10px !important; padding: 2px 2px; font-weight: 500 !important; }
     .combo-select, .combo-info { display: none !important; }
   }
 
@@ -151,9 +117,8 @@
     .btn { flex: 1; text-align: center; }
     .paper { padding: 12px; }
     .questions.cols-4, .questions.cols-5 { grid-template-columns: repeat(2, 1fr); }
-    .answers.cols-4, .answers.cols-5 { grid-template-columns: repeat(2, 1fr); }
     .question { font-size: 11px; padding: 3px 1px; }
-    .answer-item { font-size: 11px; padding: 3px 1px; }
+    .top-nav { justify-content: center; }
   }
 </style>
 </head>
@@ -164,6 +129,7 @@
     <div>
       <h1>精选套题</h1>
       <p>高质量综合练习，一键生成打印</p>
+      <p style="font-size:12px;color:var(--ink-light);margin-top:2px;">反馈建议 <a href="mailto:82127972@coze.email" style="color:var(--ink-light);">82127972@coze.email</a></p>
     </div>
     <div style="text-align:right;">
       <div class="top-nav">
@@ -583,7 +549,7 @@ function generateAll() {
   var container = document.getElementById('paperContainer');
   container.innerHTML = '';
 
-  // 生成批次时间戳
+  // 批次比对码：年月日-时分
   var now = new Date();
   var batch = now.getFullYear().toString().slice(2) +
     ('0'+(now.getMonth()+1)).slice(-2) +
@@ -592,63 +558,78 @@ function generateAll() {
     ('0'+now.getMinutes()).slice(-2);
 
   for (var p = 0; p < currentPages; p++) {
+    var totalPerPage = c.rows * c.colDefs.length;
     var rowsPerPage = currentSize === 50 ? 10 : c.rows;
-    var paper = document.createElement('div');
-    paper.className = 'paper' + (p < currentPages - 1 ? ' paper-page' : '') + ' size-' + currentSize;
 
-    var headerHTML =
-      '<div class="paper-header">' +
-        '<h2>' + c.name + '</h2>' +
-        '<span class="page-num">' + batch + ' | 第 ' + (p + 1) + '/' + currentPages + ' 页</span>' +
-      '</div>';
-
-    // 先生成所有题目和答案
+    // 生成当前页题目和答案
     var allQA = [];
     for (var r = 0; r < rowsPerPage; r++) {
       var rowQA = [];
       for (var col = 0; col < c.colDefs.length; col++) {
-        var q = c.colDefs[col].gen();
-        rowQA.push(q);
+        rowQA.push(c.colDefs[col].gen());
       }
       allQA.push(rowQA);
     }
+    var cols = Math.min(c.colDefs.length, c.cols);
 
-    // 做题区
+    // === 题目页 ===
+    var qPaper = document.createElement('div');
+    qPaper.className = 'paper paper-page';
+
+    qPaper.innerHTML =
+      '<div class="paper-header">' +
+        '<h2>' + c.name + ' · 练习</h2>' +
+        '<span class="page-num">' + batch + ' | 第 ' + (p + 1) + '/' + currentPages + ' 页</span>' +
+      '</div>';
+
     var qGrid = document.createElement('div');
-    qGrid.className = 'questions cols-' + c.cols;
+    qGrid.className = 'questions cols-' + cols;
     for (var r = 0; r < rowsPerPage; r++) {
-      for (var col = 0; col < c.colDefs.length; col++) {
+      for (var col = 0; col < cols; col++) {
         var q = allQA[r][col];
         var qDiv = document.createElement('div');
         qDiv.className = 'question';
-        qDiv.innerHTML = '<span class="idx">' + (r * c.cols + col + 1) + '.</span><span class="q-text">' + q.html + '</span>';
+        qDiv.innerHTML = '<span class="idx">' + (r * cols + col + 1) + '.</span><span class="q-text">' + q.html + '</span>';
         qGrid.appendChild(qDiv);
       }
     }
+    qPaper.appendChild(qGrid);
+    container.appendChild(qPaper);
 
-    // 裁切线
-    var cutLine = document.createElement('div');
-    cutLine.className = 'cut-line';
-    cutLine.innerHTML = '<span>✂ 答案 · ' + batch + ' | 第 ' + (p + 1) + '/' + currentPages + ' 页 ✂</span>';
+    // === 答案页 ===
+    var aPaper = document.createElement('div');
+    aPaper.className = 'paper' + (p < currentPages - 1 ? ' paper-page' : '');
 
-    // 答案区（和做题区一样的5列布局）
+    aPaper.innerHTML =
+      '<div class="paper-header">' +
+        '<h2>' + c.name + ' · 答案</h2>' +
+        '<span class="page-num">' + batch + ' | 第 ' + (p + 1) + '/' + currentPages + ' 页</span>' +
+      '</div>';
+
     var aGrid = document.createElement('div');
-    aGrid.className = 'answers cols-' + c.cols;
+    aGrid.className = 'questions cols-' + cols;
     for (var r = 0; r < rowsPerPage; r++) {
-      for (var col = 0; col < c.colDefs.length; col++) {
-        var a = allQA[r][col].answer;
+      for (var col = 0; col < cols; col++) {
+        var q = allQA[r][col];
         var aDiv = document.createElement('div');
-        aDiv.className = 'answer-item';
-        aDiv.innerHTML = '<span class="idx">' + (r * c.cols + col + 1) + '.</span>' + ansHTML(a);
+        aDiv.className = 'question';
+        aDiv.innerHTML = '<span class="idx">' + (r * cols + col + 1) + '.</span><span class="q-text">' +
+          q.html.replace(' =', ' = ') + '<b>' + ansHTML(q.answer) + '</b></span>';
         aGrid.appendChild(aDiv);
       }
     }
+    var printFooterA = document.createElement('div');
+    printFooterA.className = 'print-footer';
+    printFooterA.textContent = '家庭练习纸 52kousuan.site · 82127972@coze.email';
+    aPaper.appendChild(aGrid);
+    aPaper.appendChild(printFooterA);
+    container.appendChild(aPaper);
 
-    paper.innerHTML = headerHTML;
-    paper.appendChild(qGrid);
-    paper.appendChild(cutLine);
-    paper.appendChild(aGrid);
-    container.appendChild(paper);
+    // 练习页也加水印
+    var printFooterQ = document.createElement('div');
+    printFooterQ.className = 'print-footer';
+    printFooterQ.textContent = '家庭练习纸 52kousuan.site · 82127972@coze.email';
+    qPaper.appendChild(printFooterQ);
   }
 }
 

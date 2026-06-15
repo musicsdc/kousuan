@@ -98,6 +98,7 @@
     <div>
       <h1>英语默写</h1>
       <p>选择年级与单元，一键生成可打印的单词默写纸</p>
+      <p style="font-size:12px;color:var(--ink-light);margin-top:2px;">反馈建议 <a href="mailto:82127972@coze.email" style="color:var(--ink-light);">82127972@coze.email</a></p>
     </div>
     <div style="text-align:right;">
       <div class="top-nav">
@@ -302,6 +303,10 @@ function generate() {
 
     paper.innerHTML = headerHTML;
     paper.appendChild(grid);
+    var pf = document.createElement('div');
+    pf.className = 'print-footer';
+    pf.textContent = '家庭练习纸 52kousuan.site · 82127972@coze.email';
+    paper.appendChild(pf);
     container.appendChild(paper);
   }
 }
