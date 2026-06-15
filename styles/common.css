@@ -172,7 +172,7 @@ body {
   .paper {
     background: #ffffff !important; box-shadow: none !important; border-radius: 0;
     padding: 16px 20px; margin: 0; border: none;
-    height: 267mm; width: 210mm;
+    min-height: 100vh;
     box-sizing: border-box;
     display: flex; flex-direction: column;
     page-break-after: always;
