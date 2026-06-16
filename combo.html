@@ -9,7 +9,6 @@
   :root {
     --accent: #7B5BA8;
     --accent-hover: #8E6FBA;
-    --container-width: 1100px;
   }
 
   .btn-gen:hover { box-shadow: 0 4px 16px rgba(123, 91, 168, 0.35); }
@@ -128,7 +127,7 @@
   <div class="header">
     <div>
       <h1>精选套题</h1>
-      <p>高质量综合练习，一键生成打印</p>
+      <p>选择套题类型，一键生成可打印的综合练习纸</p>
       <p style="font-size:12px;color:var(--ink-light);margin-top:2px;">反馈建议 <a href="mailto:82127972@coze.email" style="color:var(--ink-light);">82127972@coze.email</a></p>
     </div>
     <div style="text-align:right;">
@@ -138,7 +137,7 @@
         <a href="english.html">英语默写</a>
         <span class="current">精选套题</span>
       </div>
-      <div class="header-badge">五年级·分数特训</div>
+      <div class="header-badge" id="comboBadge">五年级·分数特训</div>
     </div>
   </div>
 
@@ -508,6 +507,9 @@ function selectCombo(idx) {
   document.querySelectorAll('.combo-pill').forEach(function(p, i) {
     p.classList.toggle('active', i === idx);
   });
+  // 更新header-badge
+  var c = combos[currentComboIdx];
+  document.getElementById('comboBadge').textContent = c.name;
   updateInfo();
   generateAll();
 }
@@ -518,6 +520,8 @@ function updateInfo() {
   document.getElementById('comboInfo').innerHTML =
     '<strong>' + c.code + '</strong> · ' + c.name + '<br>' +
     '共 ' + (c.colDefs.length * rowsPerPage) + ' 题 / ' + c.colDefs.length + ' 列 × ' + rowsPerPage + ' 题。' + c.desc;
+  // 更新header-badge
+  document.getElementById('comboBadge').textContent = c.name;
 }
 
 function renderPills() {

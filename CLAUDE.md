@@ -10,18 +10,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 | 工具 | 文件 | 状态 |
 |------|------|------|
-| **口算练习** | `project_20260601_092940/projects/kousuan.html` | 已上线 |
-| **英语默写** | `project_20260601_092940/projects/english.html` | 已上线 |
-| **精选套题** | `project_20260601_092940/projects/combo.html` | 已上线 |
+| **口算练习** | `kousuan.html` | 已上线 |
+| **英语默写** | `english.html` | 已上线 |
+| **精选套题** | `combo.html` | 已上线 |
+| **首页** | `index.html` | 已上线 |
+| **计算过程页** | `answer.html` | 实验阶段 |
 
 纯静态 Web 应用，HTML + CSS + JS，一键生成可打印的 A4 练习纸，无构建/无依赖。
 
 ## 运行方式
 
-所有源代码在 `project_20260601_092940/projects/` 下：
+所有源代码在根目录下：
 
 ```bash
-cd project_20260601_092940/projects
+cd "C:/微云同步助手/82127972/kousuan"
 python -m http.server 5000 --bind 0.0.0.0
 ```
 
@@ -31,19 +33,24 @@ python -m http.server 5000 --bind 0.0.0.0
 
 ```
 kousuan/
-├── CLAUDE.md、PROJECT.md、PROGRESS.md    # 项目文档
-├── project_20260601_092940/
-│   └── projects/
-│       ├── index.html                     # 口算练习（内联 CSS/JS，~1160 行）
-│       ├── english.html                   # 英语默写（~700 行，内联 CSS/JS）
-│       ├── js/
-│       │   └── wordbank.js               # 英语单词数据（3A-3B）
-│       ├── assets/                       # 历史版本 HTML、参考图片、单词表文件
-│       ├── styles/
-│       │   └── main.css                  # Coze 模板残留（未被引用）
-│       └── docs/plans/
-│           ├── 2026-06-01-english-dictation-design.md  # 英语默写设计方案
-│           └── 2026-06-01-english-dictation-plan.md    # 实施计划
+├── CLAUDE.md、PROJECT.md、PROGRESS.md、README.md    # 项目文档
+├── index.html                     # 首页入口
+├── kousuan.html                   # 口算练习（内联 CSS/JS，~1160 行）
+├── english.html                   # 英语默写（~700 行，内联 CSS/JS）
+├── combo.html                     # 精选套题
+├── answer.html                    # 计算过程页（实验阶段）
+├── js/
+│   └── wordbank.js               # 英语单词数据（3A-6B，8个年级）
+├── assets/                       # 历史版本 HTML、参考图片、单词表文件
+├── styles/
+│   ├── common.css                # 公共样式（所有页面引用）
+│   └── main.css                  # Coze 模板残留（未被引用）
+├── docs/plans/
+│   ├── 2026-06-01-english-dictation-design.md  # 英语默写设计方案
+│   └── 2026-06-01-english-dictation-plan.md    # 实施计划
+├── parse_words.py                 # 单词表解析脚本
+├── fix_words.py                   # 单词库修复脚本
+└── strict_parsed.json             # 解析后的单词数据
 ```
 
 ## 架构概览
@@ -100,7 +107,7 @@ var wordBank = {
   }
 };
 ```
-目前仅 3A 和 3B 有数据，后续按教材进度扩充。
+目前已有 3A~6B 共8个年级的数据，后续按教材进度扩充7A~9B。
 
 ### 共享设计系统
 
@@ -138,3 +145,4 @@ var wordBank = {
 - **用正则清理数据后必须验证 JSON/JS 结构**：`re.sub` 清理 5B 词库时留下 46 处双逗号和 8 处尾逗号，JS 解析出 undefined 条目。正确做法：清理后立即用 node eval 验证可解析，并检查每个数组长度
 - **修改共同依赖文件前先查谁在用**：common.css 的 paper 高度一改，所有三个页面都受影响。改之前先 grep 引用方，评估影响范围
 - **打印溢出先查纸高**：标题/字体/间距微调了无数次没用，最终发现是 common.css 里 paper 高度被改成了 297mm
+- **改文件前先读三行上下文**：插入代码、正则替换、字符串替换之前，必须看清目标位置前后三行是什么样的。wordbank.js 条目之间用 `},` 分隔，我没看到逗号就硬插，修了五六次才发现。每次失败浪费的不是代码，是真金白银

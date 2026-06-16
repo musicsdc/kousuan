@@ -90,10 +90,22 @@
     .controls-row .control-group { width: 100%; }
     .actions .btn { flex: 1; text-align: center; }
     .print-tip { max-width: none; white-space: normal; }
-    .paper { padding: 16px; }
+    .paper { padding: 12px 8px; overflow: hidden; }
     .words.cols-3, .words.cols-4 { grid-template-columns: repeat(2, 1fr); }
+    .words { gap: 4px 6px; }
     .top-nav { justify-content: center; }
-    .word-item { font-size: 14px; }
+    .word-item {
+      font-size: 12px; padding: 4px 0 2px 0; min-height: 38px; gap: 2px;
+      min-width: 0; overflow: hidden;
+    }
+    .word-item .idx { width: 16px; font-size: 10px; flex-shrink: 0; }
+    .word-item .prompt {
+      min-width: 0; white-space: normal; word-break: break-all;
+      overflow-wrap: break-word; flex-shrink: 1; line-height: 1.3;
+    }
+    .word-item .blank-line {
+      min-width: 20px; max-width: 60px; margin-left: 2px; margin-top: 16px; flex-shrink: 1;
+    }
   }
 </style>
 </head>
@@ -104,7 +116,7 @@
   <div class="header">
     <div>
       <h1>英语默写</h1>
-      <p>选择年级与单元，一键生成可打印的单词默写纸</p>
+      <p>选择年级与单元，一键生成可打印的英语默写纸</p>
       <p style="font-size:12px;color:var(--ink-light);margin-top:2px;">反馈建议 <a href="mailto:82127972@coze.email" style="color:var(--ink-light);">82127972@coze.email</a></p>
     </div>
     <div style="text-align:right;">
@@ -114,7 +126,7 @@
         <span class="current">英语默写</span>
         <a href="combo.html">精选套题</a>
       </div>
-      <div class="header-badge">译林版（2024新版）</div>
+      <div class="header-badge">译林版</div>
     </div>
   </div>
 
@@ -431,8 +443,15 @@ function selectGrade(g) {
 
 function updateEditionVisibility() {
   var show = (currentGrade === 5 || currentGrade === 6) && currentSemester === 'A';
-  document.getElementById('editionGroup').style.display = show ? '' : 'none';
-  if (!show) currentEdition = '';
+  var el = document.getElementById('editionGroup');
+  if (show) {
+    el.style.display = 'flex';
+    el.style.flexDirection = 'column';
+    el.style.gap = '6px';
+  } else {
+    el.style.display = 'none';
+    currentEdition = '';
+  }
 }
 
 function selectSemester(sem) {
