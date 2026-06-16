@@ -4197,4 +4197,287 @@ var wordBank = {
         }
 ]
   }
+,
+  "5A-new": {
+    label: "五上（2026新版）",
+    semester: "上册",
+    grade: 5,
+    edition: "new",
+    units: [
+        {
+            unit: "Unit 1",
+            words: [
+                { en: "do", zh: "exercise 锻炼" },
+                { en: "carefully", zh: "仔细地，小心翼翼地" },
+                { en: "tidy", zh: "整洁的，井然有序的" },
+                { en: "wait", zh: "a minute" },
+                { en: "never", zh: "从不，绝不" },
+                { en: "in", zh: "class 在课堂上" },
+                { en: "do", zh: "well 成功" },
+                { en: "very", zh: "much 非常" },
+                { en: "a", zh: "lot of 许多" },
+                { en: "often", zh: "时常，常常" },
+                { en: "in", zh: "bed 在床上" },
+                { en: "bad", zh: "坏的" },
+                { en: "healthy", zh: "健康的，健壮的" },
+                { en: "late", zh: "迟，晚" },
+                { en: "health", zh: "健康" },
+                { en: "card", zh: "卡片" },
+                { en: "It’s", zh: "your turn. 轮到你了。" },
+            ]
+        },
+        {
+            unit: "Unit 2",
+            words: [
+                { en: "feel", zh: "感到愉快（或有信心等）" },
+                { en: "excited", zh: "激动的，兴奋的" },
+                { en: "hard", zh: "努力地" },
+                { en: "like", zh: "例如，譬如" },
+                { en: "Well", zh: "done! 干得好！" },
+                { en: "or", zh: "也不" },
+                { en: "hear", zh: "听见，听到" },
+                { en: "sometimes", zh: "有时，间或" },
+                { en: "then", zh: "然后，后来" },
+                { en: "teach", zh: "教授，教" },
+                { en: "write", zh: "书写，写字" },
+                { en: "word", zh: "单词，字" },
+                { en: "give", zh: "up 放弃" },
+                { en: "fast", zh: "快，快速，迅速" },
+                { en: "speak", zh: "说话" },
+                { en: "study", zh: "学习" },
+                { en: "know", zh: "知道，了解" },
+                { en: "when", zh: "当……时" },
+            ]
+        },
+        {
+            unit: "Unit 3",
+            words: [
+                { en: "dance", zh: "舞蹈" },
+                { en: "paper-cutting", zh: "剪纸" },
+                { en: "gift", zh: "礼物" },
+                { en: "I", zh: "don’t think so." },
+                { en: "make", zh: "使变得，使成为" },
+                { en: "over", zh: "there 在那里" },
+                { en: "a", zh: "lot 大量" },
+            ]
+        },
+        {
+            unit: "Unit 4",
+            words: [
+                { en: "warm", zh: "up 做准备活动，热身" },
+                { en: "jump", zh: "跳，跳跃" },
+                { en: "should", zh: "应该，应当" },
+                { en: "swim", zh: "游泳" },
+                { en: "hurt", zh: "感到疼痛；" },
+                { en: "listen", zh: "听从" },
+                { en: "keep", zh: "to the right 靠右边走" },
+                { en: "may", zh: "也许，可能" },
+                { en: "out", zh: "of the way" },
+                { en: "right", zh: "now 立即，马上" },
+                { en: "walk", zh: "走，行走" },
+                { en: "slowly", zh: "慢速地，缓慢地" },
+            ]
+        },
+        {
+            unit: "Unit 5",
+            words: [
+                { en: "watch", zh: "观看" },
+                { en: "TV", zh: "电视，电视机" },
+                { en: "visit", zh: "拜访，看望" },
+                { en: "play", zh: "the piano 弹钢琴" },
+                { en: "internet", zh: "互联网" },
+                { en: "always", zh: "总是，每次都是" },
+                { en: "get", zh: "out 出去" },
+                { en: "plant", zh: "植物，花草" },
+                { en: "live", zh: "住，居住" },
+                { en: "wonderful", zh: "精彩的，绝妙的" },
+            ]
+        },
+        {
+            unit: "Unit 6",
+            words: [
+                { en: "wall", zh: "围墙；墙，壁" },
+                { en: "heavy", zh: "重的，沉的" },
+                { en: "drink", zh: "喝，饮" },
+                { en: "some", zh: "有些事物，有些人" },
+                { en: "on", zh: "one’s way back" },
+                { en: "next", zh: "to 紧邻，在……近旁" },
+                { en: "space", zh: "空地，空间" },
+                { en: "their", zh: "他们的，她们的，它们的" },
+                { en: "too", zh: "太，过于" },
+                { en: "close", zh: "to 接近" },
+                { en: "use", zh: "使用，利用" },
+                { en: "letter", zh: "信，函" },
+                { en: "friendly", zh: "友好的，友爱的" },
+                { en: "then", zh: "到那时，当时" },
+                { en: "time", zh: "时候；时间" },
+                { en: "favourite", zh: "(AmE favorite)" },
+                { en: "problem", zh: "问题，困难" },
+                { en: "do", zh: "your homework 做家庭作业" },
+            ]
+        },
+        {
+            unit: "Unit 7",
+            words: [
+                { en: "shop", zh: "在商店购物" },
+                { en: "sweater", zh: "毛衣，线衣" },
+                { en: "sock", zh: "短袜" },
+                { en: "Ms", zh: "女士（不指明婚否）" },
+                { en: "twenty-eight", zh: "二十八" },
+                { en: "How", zh: "about ...? ……怎么样？" },
+                { en: "show", zh: "给……看，展示" },
+                { en: "tail", zh: "尾巴" },
+                { en: "one", zh: "（一批东西中的）一个" },
+                { en: "try", zh: "on 试穿" },
+                { en: "sixty-eight", zh: "六十八" },
+                { en: "take", zh: "选中，买下" },
+                { en: "pair", zh: "一双，一对" },
+                { en: "forty", zh: "四十" },
+                { en: "twenty-four", zh: "二十四" },
+            ]
+        },
+        {
+            unit: "Unit 8",
+            words: [
+                { en: "about", zh: "关于，对于" },
+                { en: "May", zh: "五月" },
+                { en: "or", zh: "或者" },
+                { en: "June", zh: "六月" },
+                { en: "January", zh: "一月" },
+                { en: "February", zh: "二月" },
+                { en: "before", zh: "在……以前" },
+                { en: "lion", zh: "dance 舞狮" },
+                { en: "have", zh: "a good time 过得愉快" },
+                { en: "December", zh: "十二月" },
+                { en: "open", zh: "打开，撕开" },
+                { en: "October", zh: "十月" },
+                { en: "September", zh: "九月" },
+                { en: "mooncake", zh: "月饼" },
+                { en: "moon", zh: "月亮" },
+                { en: "China", zh: "中国" },
+            ]
+        },
+    ]
+  },
+  "6A-new": {
+    label: "六上（2026新版）",
+    semester: "上册",
+    grade: 6,
+    edition: "new",
+    units: [
+        {
+            unit: "Unit 1",
+            words: [
+                { en: "try", zh: "one’s best 尽某人最大的努力" },
+                { en: "play", zh: "戏剧；扮演" },
+                { en: "last", zh: "上一个的，最近的" },
+                { en: "begin", zh: "开始" },
+                { en: "the", zh: "words 歌词" },
+                { en: "keep", zh: "继续，重复" },
+                { en: "ago", zh: "以前" },
+                { en: "in", zh: "front of 在……前面" },
+                { en: "long", zh: "ago 很久以前" },
+                { en: "top", zh: "顶端，顶部" },
+            ]
+        },
+        {
+            unit: "Unit 2",
+            words: [
+                { en: "storybook", zh: "儿童故事书" },
+                { en: "yesterday", zh: "在昨天；昨天" },
+                { en: "say", zh: "说，讲" },
+                { en: "man", zh: "男人" },
+                { en: "old", zh: "老的，年纪大的" },
+                { en: "sell", zh: "卖，出售" },
+                { en: "get", zh: "back 重新获得" },
+                { en: "name", zh: "名声，名誉" },
+                { en: "watch", zh: "照看，看护" },
+                { en: "answer", zh: "答复，回答" },
+                { en: "cry", zh: "哭，哭泣" },
+            ]
+        },
+        {
+            unit: "Unit 3",
+            words: [
+                { en: "famous", zh: "著名的，出名的" },
+                { en: "cool", zh: "凉快，凉爽" },
+                { en: "all", zh: "over the world" },
+                { en: "study", zh: "研究，调查" },
+                { en: "call", zh: "称呼，把……叫作" },
+                { en: "age", zh: "年龄，年纪" },
+                { en: "work", zh: "on 从事，致力于" },
+                { en: "difficult", zh: "困难的" },
+                { en: "dear", zh: "昂贵的，价格高的" },
+                { en: "paper", zh: "纸，纸张" },
+                { en: "at", zh: "first 起初，起先" },
+            ]
+        },
+        {
+            unit: "Unit 4",
+            words: [
+                { en: "ninth", zh: "第九" },
+                { en: "show", zh: "表示" },
+                { en: "love", zh: "爱，关爱" },
+                { en: "wish", zh: "祝，祝愿" },
+                { en: "candle", zh: "蜡烛" },
+                { en: "photo", zh: "照片" },
+                { en: "time", zh: "flies 时光飞逝，光阴似箭" },
+                { en: "kid", zh: "小孩" },
+                { en: "March", zh: "三月" },
+                { en: "April", zh: "四月" },
+                { en: "July", zh: "七月" },
+                { en: "August", zh: "八月" },
+                { en: "November", zh: "十一月" },
+            ]
+        },
+        {
+            unit: "Unit 5",
+            words: [
+                { en: "pick", zh: "up 捡起" },
+                { en: "will", zh: "将，将要" },
+                { en: "on", zh: "time 准时，按时" },
+                { en: "cleaning", zh: "打扫，清洁" },
+            ]
+        },
+        {
+            unit: "Unit 6",
+            words: [
+                { en: "go", zh: "践行绿色环保的生活方式" },
+                { en: "turn", zh: "off 关掉" },
+                { en: "light", zh: "电灯" },
+                { en: "eat", zh: "up 吃完，吃光" },
+                { en: "the", zh: "Earth 地球" },
+                { en: "colour", zh: "(AmE color) 为……着色" },
+                { en: "hour", zh: "小时" },
+                { en: "last", zh: "持续" },
+                { en: "vegetable", zh: "蔬菜" },
+            ]
+        },
+        {
+            unit: "Unit 7",
+            words: [
+                { en: "glass", zh: "玻璃" },
+                { en: "box", zh: "盒，箱" },
+                { en: "be", zh: "made of 用……做的" },
+                { en: "do", zh: "with 处理" },
+                { en: "make", zh: "friends with" },
+                { en: "go", zh: "to sleep 睡觉" },
+                { en: "clever", zh: "聪明的" },
+            ]
+        },
+        {
+            unit: "Unit 8",
+            words: [
+                { en: "shop", zh: "商店，店铺" },
+                { en: "win", zh: "获胜，赢" },
+                { en: "wrong", zh: "有问题的" },
+                { en: "travel", zh: "行进" },
+                { en: "these", zh: "days 如今，而今" },
+                { en: "work", zh: "from home 居家办公" },
+                { en: "fifty", zh: "五十" },
+                { en: "email", zh: "电子邮件" },
+            ]
+        },
+    ]
+  },
 };

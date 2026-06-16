@@ -128,6 +128,13 @@
         <label>册别</label>
         <div class="semester-btns" id="semesterBtns"></div>
       </div>
+      <div class="control-group" id="editionGroup" style="display:none;">
+        <label>版本</label>
+        <div class="mode-btns" id="editionBtns">
+          <button class="mode-btn active" data-edition="">旧版</button>
+          <button class="mode-btn" data-edition="new">新版</button>
+        </div>
+      </div>
     </div>
     <div class="controls-row">
       <div class="control-group">
@@ -194,6 +201,7 @@
 // ============ 状态 ============
 var currentGrade = 3;
 var currentSemester = 'A';
+var currentEdition = '';  // 'new' or '' (old), only used for grade 5-6
 var currentMode = 'zh2en';
 var currentCount = 30;
 var currentPages = 1;
@@ -213,6 +221,11 @@ function shuffle(arr) {
 // ============ 获取当前数据 ============
 function getCurrentBook() {
   var key = currentGrade + currentSemester;
+  // 5-6年级上册支持新旧版切换
+  if (currentEdition === 'new' && currentSemester === 'A' && (currentGrade === 5 || currentGrade === 6)) {
+    var newKey = key + '-new';
+    if (wordBank[newKey]) return wordBank[newKey];
+  }
   return wordBank[key] || null;
 }
 
@@ -342,6 +355,19 @@ function initUI() {
     sb.appendChild(btn);
   });
 
+  // 版本切换按钮（5-6年级上册才有）
+  document.querySelectorAll('#editionBtns .mode-btn').forEach(function(btn) {
+    btn.onclick = function() {
+      document.querySelectorAll('#editionBtns .mode-btn').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      currentEdition = this.getAttribute('data-edition');
+      renderUnits();
+      generate();
+      savePrefs();
+    };
+  });
+  updateEditionVisibility();
+
   // 模式按钮
   var mb = document.getElementById('modeBtns');
   [
@@ -396,10 +422,17 @@ function selectGrade(g) {
   document.querySelectorAll('.grade-btn').forEach(function(b) {
     b.classList.toggle('active', parseInt(b.getAttribute('data-grade')) === g);
   });
+  updateEditionVisibility();
   activeUnitIndices = [0];
   renderUnits();
   generate();
   savePrefs();
+}
+
+function updateEditionVisibility() {
+  var show = (currentGrade === 5 || currentGrade === 6) && currentSemester === 'A';
+  document.getElementById('editionGroup').style.display = show ? '' : 'none';
+  if (!show) currentEdition = '';
 }
 
 function selectSemester(sem) {
@@ -407,6 +440,7 @@ function selectSemester(sem) {
   document.querySelectorAll('.semester-btn').forEach(function(b) {
     b.classList.toggle('active', b.getAttribute('data-semester') === sem);
   });
+  updateEditionVisibility();
   activeUnitIndices = [0];
   renderUnits();
   generate();
@@ -483,6 +517,7 @@ function savePrefs() {
     var data = {
       grade: currentGrade,
       semester: currentSemester,
+      edition: currentEdition,
       mode: currentMode,
       count: currentCount,
       pages: currentPages,
@@ -499,6 +534,7 @@ function loadPrefs() {
     var data = JSON.parse(raw);
     if (data.grade >= 3 && data.grade <= 9) currentGrade = data.grade;
     if (data.semester === 'A' || data.semester === 'B') currentSemester = data.semester;
+    if (data.edition) currentEdition = data.edition;
     if (data.mode) currentMode = data.mode;
     if (data.count) currentCount = Math.max(5, Math.min(200, data.count));
     if (data.pages) currentPages = Math.min(5, data.pages);
