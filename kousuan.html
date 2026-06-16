@@ -199,10 +199,10 @@ var typeDefs = {
     { id: 'g1c',   label: '连加连减', gen: function() { return genChain(1, 20, 3); } },
   ],
   2: [
-    { id: 'g2a100', label: '100以内加减', gen: function() { return genAddSub(1, 100); } },
+    { id: 'g2a100', label: '100以内加减', gen: function() { return genAddSub(1, 100, true); } },
     { id: 'g2mul',  label: '表内乘除', gen: function() { return genTableMulDiv(); } },
     { id: 'g2muladd', label: '乘加运算', gen: function() {
-      var a = rand(1,9), b = rand(1,9), c = rand(1,9);
+      var a = rand(2,9), b = rand(2,9), c = rand(1,9);
       return { html: a + ' × ' + b + ' + ' + c + ' =', answer: a * b + c };
     }},
     { id: 'g2mix',  label: '混合运算', gen: function() { return genMix2(); } },
@@ -269,7 +269,7 @@ function fmtFrac(n, d) {
 
 // ============ 题型生成器 ============
 
-function genAddSub(min, max) {
+function genAddSub(min, max, requireTwoDigit) {
   var useCarryBorrow = Math.random() < 0.8; // 80%进退位，20%不进退位
 
   if (Math.random() < 0.5) {
@@ -278,6 +278,9 @@ function genAddSub(min, max) {
       var result = rand(Math.max(min * 2, 2), max);
       var a = rand(min, Math.max(min, result - min));
       var b = result - a;
+
+      // 二年级100以内加减：不能两个都是个位数
+      if (requireTwoDigit && a < 10 && b < 10) continue;
 
       // 检查个位相加是否进位
       var aUnit = a % 10;
@@ -292,12 +295,16 @@ function genAddSub(min, max) {
     var result = rand(Math.max(min * 2, 2), max);
     var a = rand(min, Math.max(min, result - min));
     var b = result - a;
-    return { html: a + ' + ' + b + ' =', answer: result };
+    if (requireTwoDigit && a < 10 && b < 10) { a = 10 + rand(0, 9); b = result - a; if (b < 0) b = rand(1, 9); }
+    return { html: a + ' + ' + b + ' =', answer: a + b };
   } else {
     // 减法：一半概率
     for (var attempt = 0; attempt < 100; attempt++) {
       var a = rand(min + 1, max);
       var b = rand(min, a - 1);
+
+      // 二年级100以内加减：不能两个都是个位数
+      if (requireTwoDigit && a < 10 && b < 10) continue;
 
       // 检查个位是否需要退位
       var aUnit = a % 10;
@@ -311,6 +318,7 @@ function genAddSub(min, max) {
     // 重试失败 fallback
     var a = rand(min + 1, max);
     var b = rand(min, a - 1);
+    if (requireTwoDigit && a < 10 && b < 10) a = 10 + rand(0, max - 10);
     return { html: a + ' - ' + b + ' =', answer: a - b };
   }
 }
