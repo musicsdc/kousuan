@@ -98,6 +98,12 @@
     .controls-row .control-group { width: 100%; }
     .questions.cols-4, .questions.cols-5 { grid-template-columns: repeat(3, 1fr); }
   }
+
+  /* 打印时无论屏幕宽度，都按桌面端列数布局 */
+  @media print and (max-width: 700px) {
+    .questions.cols-4 { grid-template-columns: repeat(4, 1fr) !important; }
+    .questions.cols-5 { grid-template-columns: repeat(5, 1fr) !important; }
+  }
 </style>
 </head>
 <body>
