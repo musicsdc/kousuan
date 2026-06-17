@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英语默写 · 新方案样张</title>
+<link rel="stylesheet" href="../styles/common.css">
+<style>
+  :root {
+    --accent: #4A90D9;
+    --accent-hover: #5BA0E9;
+  }
+
+  /* 已选单元统计条 */
+  .summary-bar {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .summary-bar .stats {
+    display: flex; gap: 20px; flex-wrap: wrap; align-items: center;
+  }
+  .summary-bar .stat-item {
+    font-size: 13px; color: var(--ink-light);
+  }
+  .summary-bar .stat-item strong {
+    color: var(--accent); font-size: 18px; font-weight: 700;
+    margin-right: 4px;
+  }
+
+  /* 默写纸 - 25行 × 2列 = 50题/页 */
+  .words {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 24px;
+  }
+  .word-item {
+    padding: 8px 4px 4px 4px;
+    border-bottom: 1px dashed var(--border);
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--ink);
+    min-height: 44px;
+  }
+  .word-item .idx {
+    width: 24px;
+    display: inline-flex;
+    justify-content: flex-end;
+    font-size: 11px;
+    color: var(--ink-light);
+    flex-shrink: 0;
+    align-self: flex-end;
+    padding-bottom: 4px;
+  }
+  .word-item .prompt {
+    flex: 0 0 auto;
+    width: 88px;
+    line-height: 1.3;
+    word-break: break-word;
+    font-size: 13px;
+    font-weight: 600;
+    align-self: center;
+  }
+  .word-item .prompt.long {
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  /* 单元分隔标题（横跨两列） */
+  .unit-divider {
+    grid-column: 1 / -1;
+    margin: 14px 0 6px;
+    padding: 4px 0 6px;
+    border-bottom: 1.5px solid var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+  }
+  .unit-divider:first-child {
+    margin-top: 0;
+  }
+  .word-item .blank-line {
+    flex: 1;
+    border-bottom: 1px solid var(--ink);
+    height: 0;
+    margin-left: 4px;
+    margin-bottom: 4px;
+  }
+
+  /* 屏幕预览：模拟 A4 纸 */
+  .paper {
+    background: var(--card);
+    padding: 24px 28px;
+    margin-bottom: 24px;
+  }
+
+  /* 打印 */
+  @media print {
+    .header, .controls, .summary-bar, .btn, .demo-note { display: none !important; }
+    .paper {
+      background: #ffffff !important;
+      padding: 16px 20px;
+      height: 267mm; width: 210mm;
+      box-sizing: border-box;
+      page-break-after: always;
+    }
+    .paper:last-child { page-break-after: auto; }
+    .word-item { font-size: 13px !important; min-height: 38px; }
+    .word-item .prompt { font-size: 12px; width: 80px; font-weight: 600; }
+    .word-item .prompt.long { font-size: 10px; font-weight: 600; }
+    .word-item .blank-line { border-bottom: 1px solid #000 !important; }
+    .unit-divider {
+      border-bottom: 1.5px solid #000 !important;
+      color: #000 !important;
+      font-size: 12px;
+      margin: 10px 0 4px;
+      padding: 2px 0 4px;
+    }
+    .unit-divider:first-child { margin-top: 0; }
+  }
+
+  /* 演示说明 */
+  .demo-note {
+    background: #FFF8E1;
+    border: 1px solid #F4D88B;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: #6B5B2E;
+    line-height: 1.6;
+  }
+  .demo-note strong { color: #5A4A1E; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div>
+      <h1>英语默写 · 新方案样张</h1>
+      <p>按选中单元的全部单词出题，每页50题（2列×25行），课本顺序</p>
+    </div>
+    <div style="text-align:right;">
+      <div class="top-nav">
+        <a href="../index.html">首页</a>
+        <a href="../kousuan.html">口算练习</a>
+        <a href="../english.html">英语默写</a>
+      </div>
+      <div class="header-badge">译林版</div>
+    </div>
+  </div>
+
+  <div class="demo-note">
+    <strong>样张说明：</strong>这是一个不接入实际数据、不接入控件的静态样张，模拟选中"7A Unit 1"（40词）+"7A Unit 2"（35词）共75词时的预览效果。
+    实际应用后：UI 会自动按所选单元的全部词条出题（按课本顺序，不打乱），每50题一页自动分页。横线统一长度（同一行内2个单词的横线一样长），长中文翻译会自动缩小字号或换行。
+  </div>
+
+  <div class="summary-bar">
+    <div class="stats">
+      <div class="stat-item">已选 <strong>2</strong> 单元</div>
+      <div class="stat-item">共 <strong>75</strong> 词</div>
+      <div class="stat-item">默写需 <strong>2</strong> 张纸</div>
+      <div class="stat-item">模式：<strong>中→英</strong></div>
+    </div>
+    <div>
+      <button class="btn btn-print" onclick="window.print()">打印 / PDF</button>
+    </div>
+  </div>
+
+  <!-- 第1页：50题 -->
+  <div class="paper">
+    <div class="paper-header">
+      <h2>七年级上册 默写纸</h2>
+      <div class="paper-meta">
+        <span>姓名: <span class="blank"></span></span>
+        <span>日期: <span class="blank"></span></span>
+        <span>第 1 / 2 页</span>
+      </div>
+    </div>
+    <div class="words" id="page1"></div>
+  </div>
+
+  <!-- 第2页：剩余25题 -->
+  <div class="paper">
+    <div class="paper-header">
+      <h2>七年级上册 默写纸</h2>
+      <div class="paper-meta">
+        <span>姓名: <span class="blank"></span></span>
+        <span>日期: <span class="blank"></span></span>
+        <span>第 2 / 2 页</span>
+      </div>
+    </div>
+    <div class="words" id="page2"></div>
+  </div>
+
+</div>
+
+<script>
+// 模拟数据：按单元分组（每个单元包含 unit + words[]）
+var demoUnits = [
+  {
+    unit: "Unit 1 Making friends",
+    words: [
+      { en: "greet", zh: "和（某人）打招呼（或问好）" },
+      { en: "introduce", zh: "介绍" },
+      { en: "each other", zh: "互相" },
+      { en: "go by", zh: "叫作，被称为" },
+      { en: "glad", zh: "高兴" },
+      { en: "same", zh: "同一的，相同的" },
+      { en: "hobby", zh: "业余爱好" },
+      { en: "grade", zh: "年级；等级" },
+      { en: "classmate", zh: "同班同学" },
+      { en: "friendly", zh: "友好的" },
+      { en: "full", zh: "满的" },
+      { en: "be full of", zh: "满是…的" },
+      { en: "energy", zh: "精力，活力" },
+      { en: "be good at", zh: "擅长…" },
+      { en: "slim", zh: "苗条的" },
+      { en: "polite", zh: "有礼貌的" },
+      { en: "smart", zh: "聪明的；智能的" },
+      { en: "ready", zh: "愿意迅速做某事；准备好" },
+      { en: "be ready to do sth", zh: "愿意（或准备好）做某事" },
+      { en: "other", zh: "另外，其他" },
+      { en: "interested", zh: "感兴趣的" },
+      { en: "be interested in", zh: "对…感兴趣" },
+      { en: "looks", zh: "相貌，容貌" },
+      { en: "character", zh: "性格" },
+      { en: "both", zh: "两个都" },
+      { en: "enjoy", zh: "享受…的乐趣，欣赏，喜爱" },
+      { en: "pretty", zh: "漂亮的，标致的" },
+      { en: "shy", zh: "害羞的" },
+      { en: "only", zh: "只有，仅仅" },
+      { en: "stay", zh: "保持，继续是；暂住；停留，逗留" },
+      { en: "match", zh: "比赛" },
+      { en: "luck", zh: "幸运，好运" },
+      { en: "good luck", zh: "祝成功，祝好运" },
+      { en: "maths", zh: "数学" },
+      { en: "chess", zh: "国际象棋" },
+      { en: "Chinese chess", zh: "（中国）象棋" },
+      { en: "problem", zh: "数学题；难题，困难" },
+      { en: "weekend", zh: "周末" },
+      { en: "at the weekend", zh: "在周末" },
+      { en: "fun", zh: "有趣的，使人快乐的；开心，乐趣" }
+    ]
+  },
+  {
+    unit: "Unit 2 Hobbies",
+    words: [
+      { en: "jog", zh: "慢跑（尤指锻炼）" },
+      { en: "paint", zh: "用颜料画；在…上刷油漆；绘画颜料" },
+      { en: "paper-cutting", zh: "剪纸" },
+      { en: "all kinds of", zh: "各种各样的" },
+      { en: "fit", zh: "健康的" },
+      { en: "around", zh: "围绕，环绕；到处" },
+      { en: "change", zh: "改变，变化" },
+      { en: "life", zh: "个人生活；生命" },
+      { en: "museum", zh: "博物馆" },
+      { en: "thing", zh: "东西" },
+      { en: "apart", zh: "分开" },
+      { en: "take apart", zh: "拆分" },
+      { en: "fix", zh: "修理；安装" },
+      { en: "endless", zh: "无穷无尽的，不计其数的" },
+      { en: "scientist", zh: "科学家" },
+      { en: "dream", zh: "梦想；梦" },
+      { en: "true", zh: "真正的，实质的" },
+      { en: "come true", zh: "实现，成为现实" },
+      { en: "at weekends", zh: "在周末" },
+      { en: "club", zh: "社团，俱乐部" },
+      { en: "member", zh: "成员" },
+      { en: "geography", zh: "地理（学）" },
+      { en: "p.m.", zh: "下午" },
+      { en: "discuss", zh: "讨论" },
+      { en: "main", zh: "主要的" },
+      { en: "wing", zh: "翅膀" },
+      { en: "machine", zh: "机器" },
+      { en: "wheel", zh: "车轮，轮子" },
+      { en: "join", zh: "加入" },
+      { en: "join in", zh: "参加" },
+      { en: "everywhere", zh: "到处，处处" },
+      { en: "feeling", zh: "感觉，感受" },
+      { en: "show", zh: "展示，给…看；表演，演出" },
+      { en: "exchange", zh: "交流，交换" },
+      { en: "happiness", zh: "幸福，愉快" }
+    ]
+  }
+];
+
+// 把 units 展平成带单元标记的列表，再按 50 个/页切片
+function flattenWithMarks(units) {
+  var items = [];
+  units.forEach(function(u) {
+    items.push({ type: 'unit', unit: u.unit });
+    u.words.forEach(function(w) {
+      items.push({ type: 'word', en: w.en, zh: w.zh });
+    });
+  });
+  return items;
+}
+
+// 渲染：把 items 按页切（每页50题，单元分隔不计入题数）
+function renderByPages() {
+  var allItems = flattenWithMarks(demoUnits);
+  // 把全部内容渲染到 page1 / page2 容器（这里简化为：根据题数切分）
+  // 真实实现时按题数累计达到50就分页
+  var pages = [];
+  var currentPage = [];
+  var wordCount = 0;
+
+  allItems.forEach(function(it) {
+    if (it.type === 'word') {
+      if (wordCount === 50) {
+        pages.push(currentPage);
+        currentPage = [];
+        wordCount = 0;
+      }
+      wordCount++;
+    }
+    currentPage.push(it);
+  });
+  if (currentPage.length > 0) pages.push(currentPage);
+
+  var globalIdx = 0;
+  pages.forEach(function(pageItems, pageIdx) {
+    var container = document.getElementById('page' + (pageIdx + 1));
+    if (!container) return;
+    container.innerHTML = '';
+    pageItems.forEach(function(it) {
+      if (it.type === 'unit') {
+        var div = document.createElement('div');
+        div.className = 'unit-divider';
+        div.textContent = it.unit;
+        container.appendChild(div);
+      } else {
+        globalIdx++;
+        var item = document.createElement('div');
+        item.className = 'word-item';
+        var promptCls = it.zh.length > 8 ? 'prompt long' : 'prompt';
+        item.innerHTML =
+          '<span class="idx">' + globalIdx + '.</span>' +
+          '<span class="' + promptCls + '">' + it.zh + '</span>' +
+          '<span class="blank-line"></span>';
+        container.appendChild(item);
+      }
+    });
+  });
+}
+
+renderByPages();
+</script>
+
+</body>
+</html>
