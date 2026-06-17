@@ -13,3 +13,7 @@ nul
 ocr_tool/
 ocr_results/
 parsed_words.json
+
+# Large PDF textbooks (too big for GitHub)
+assets/*新编初中*.pdf
+assets/9A WORDS PDF.pdf
