@@ -2,147 +2,149 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-> **每次新会话必读**: [PROJECT.md](PROJECT.md)（项目背景与技术约定）、[PROGRESS.md](PROGRESS.md)（当前进度与待办）、[README.md](project_20260601_092940/projects/README.md)（最新状态总览）
+## Project Overview
 
-## 项目概述
+家庭练习纸是一个纯静态 Web 应用，用于生成可打印的 A4 学习练习纸。项目不使用 npm、打包器或后端服务，根目录 HTML/CSS/JS 可直接由浏览器运行。
 
-家庭教育打印工具集，包含三个子工具：
+当前主要页面：
 
-| 工具 | 文件 | 状态 |
-|------|------|------|
-| **口算练习** | `kousuan.html` | 已上线 |
-| **英语默写** | `english.html` | 已上线 |
-| **精选套题** | `combo.html` | 已上线 |
-| **首页** | `index.html` | 已上线 |
-| **计算过程页** | `answer.html` | 实验阶段 |
+| Page | Purpose |
+| --- | --- |
+| `index.html` | 首页，提供口算、英语默写、精选套题三个入口 |
+| `kousuan.html` | 口算练习，1-6 年级题型生成器 |
+| `english.html` | 英语默写，基于 `js/wordbank.js` 生成单词默写纸 |
+| `combo.html` | 精选套题，题目页和答案页交替生成 |
+| `answer.html` | 计算过程页，实验阶段 |
 
-纯静态 Web 应用，HTML + CSS + JS，一键生成可打印的 A4 练习纸，无构建/无依赖。
+相关项目文档：
+- `README.md`：项目简介、页面清单、教材版本
+- `PROGRESS.md`：当前功能清单、待办和灵感库
+- `CHANGELOG.md`：历史更新和每次变更涉及文件
+- `docs/plans/`：英语默写等功能的设计/实施方案
 
-## 运行方式
+## Common Commands
 
-所有源代码在根目录下：
+Run the site locally:
 
 ```bash
 cd "C:/微云同步助手/82127972/kousuan"
-python -m http.server 5000 --bind 0.0.0.0
+python -m http.server 5000
 ```
 
-浏览器打开 `http://localhost:5000`。两个工具通过顶部链接互相跳转。
+Open `http://localhost:5000` in a browser. Use direct page URLs for focused checks:
 
-## 目录结构
-
-```
-kousuan/
-├── CLAUDE.md、PROJECT.md、PROGRESS.md、README.md    # 项目文档
-├── index.html                     # 首页入口
-├── kousuan.html                   # 口算练习（内联 CSS/JS，~1160 行）
-├── english.html                   # 英语默写（~700 行，内联 CSS/JS）
-├── combo.html                     # 精选套题
-├── answer.html                    # 计算过程页（实验阶段）
-├── js/
-│   └── wordbank.js               # 英语单词数据（3A-6B，8个年级）
-├── assets/                       # 历史版本 HTML、参考图片、单词表文件
-├── styles/
-│   ├── common.css                # 公共样式（所有页面引用）
-│   └── main.css                  # Coze 模板残留（未被引用）
-├── docs/plans/
-│   ├── 2026-06-01-english-dictation-design.md  # 英语默写设计方案
-│   └── 2026-06-01-english-dictation-plan.md    # 实施计划
-├── parse_words.py                 # 单词表解析脚本
-├── fix_words.py                   # 单词库修复脚本
-└── strict_parsed.json             # 解析后的单词数据
+```text
+http://localhost:5000/kousuan.html
+http://localhost:5000/english.html
+http://localhost:5000/combo.html
 ```
 
-## 架构概览
+There is no build step and no automated test suite. For a quick JavaScript syntax check of the external word bank:
 
-### 口算练习（index.html）
+```bash
+node --check js/wordbank.js
+```
 
-**单文件应用**，所有 HTML/CSS/JS 内联在一个文件中。核心架构：
+For Python data-processing scripts under `assets/`, run the target script from the repository root so relative paths resolve correctly:
 
-**题型系统** — 定义在 `typeDefs` 对象中（`index.html:347`），按年级 1-6 分组。每个题型：
+```bash
+python assets/parse_words.py
+python assets/fix_words.py
+```
+
+After UI or print-layout changes, verify manually in the browser:
+1. Start `python -m http.server 5000`.
+2. Open the affected page.
+3. Generate the worksheet using representative controls.
+4. Check screen layout and browser print preview / PDF output.
+
+## Architecture
+
+### Static page model
+
+Each tool page is mostly self-contained:
+- `kousuan.html` contains its own controls, question generators, rendering logic, localStorage preference handling, and page-specific styles.
+- `english.html` contains UI/rendering logic but loads data from `js/wordbank.js` via a non-module deferred script.
+- `combo.html` contains suite configuration, generators, answer rendering, and print page pairing in one file.
+- `styles/common.css` provides shared design tokens, navigation, controls, paper layout, fraction rendering, print rules, and mobile responsive rules.
+
+Do not introduce npm, ES modules, framework code, or a build pipeline unless the user explicitly asks for an architecture change.
+
+### Shared design and print system
+
+`styles/common.css` is the shared dependency for `kousuan.html`, `english.html`, and `combo.html`. It defines:
+- design tokens such as `--paper`, `--card`, `--ink`, `--border`, `--container-width`
+- shared header/navigation/control/button styles
+- `.paper`, `.paper-header`, `.paper-meta`, `.frac`
+- global print rules including A4 portrait page setup
+
+Each page overrides only its accent color and page-specific layout in inline `<style>` blocks:
+- `kousuan.html`: warm orange `--accent`
+- `english.html`: blue `--accent`
+- `combo.html`: purple `--accent`
+
+Before changing `styles/common.css`, search which pages depend on the target selector because one change can affect all printable tools.
+
+### Print layout invariant
+
+Printed worksheets rely on `.paper` being `210mm` wide and `267mm` high with `@page { margin: 8mm; size: A4 portrait; }`. Do not change paper height to `297mm`; that causes content to overflow onto an extra page in browsers.
+
+All pages hide controls during print and render only paper pages. Mobile responsive rules must not reduce printed column counts; `kousuan.html` has a print-specific mobile override for this reason.
+
+### Kousuan flow
+
+`kousuan.html` uses a `typeDefs` object grouped by grade. Each type definition has an `id`, label, and `gen()` function returning:
+
 ```js
-{ id: 'g3f', label: '分数初步', gen: function() { return { html: '...', answer: '...' }; } }
+{ html: '...', answer: '...' }
 ```
-- `gen()` 返回 `{html, answer}` — html 是内联样式的 HTML 表达式，answer 是纯文本答案
-- 每个年级约 2-5 种题型，共 ~25 种
 
-**生成流程**：
-1. 选择年级 → `selectGrade()` 更新 `currentGrade`，重新渲染题型 pill 按钮
-2. `generate()`：取选中题型，按 `currentCount` 循环生成，`{html}` 去重，shuffle 打乱
-3. 渲染到 `.paper` 容器，`cols-4` / `cols-5` 网格布局
-4. 多页时每页一个 `.paper`，`@media print` 中 `page-break-after: always` 分页
+The generation flow is:
+1. Select grade and active type IDs.
+2. Generate enough questions for the selected count/pages.
+3. Deduplicate primarily by generated HTML.
+4. Shuffle and render into `.paper` containers using `.questions.cols-4` or `.questions.cols-5`.
+5. Save preferences in localStorage key `oralMath_prefs`.
 
-**关键生成器函数**（`index.html:390-919`）：
-| 函数 | 用途 |
-|------|------|
-| `genAddSub(min, max)` | 加减法 |
-| `genMul(aMin, aMax, bMin, bMax)` | 乘法 |
-| `genDiv(aMin, aMax, bMin, bMax)` | 除法 |
-| `genFracArith(ops)` | 分数四则运算 |
-| `genFracChain()` | 分数连乘（4 种模式：链式约分/对消/因子池/随机） |
-| `genEquation(maxN)` | 解方程（9 种变体） |
-| `genPercent()` | 百分数（求百分比/分数化百分数/逆向/折扣） |
-| `genRatio()` | 比例（化简比/求比值/解比例） |
-| `genDecConcept()` | 小数概念（分数↔小数转换/比大小） |
+Question output often contains inline HTML for fractions and blanks, so changes to generators should be checked both on screen and in print preview.
 
-### 英语默写（english.html）
+### English dictation flow
 
-与口算共享同一套设计令牌（CSS 变量，差异仅 accent 色），逻辑在 `english.html` 中内联，数据外置到 `js/wordbank.js`。
+`english.html` loads `js/wordbank.js`, which defines global `wordBank`. The data shape is:
 
-**核心功能**：
-- 年级选择（3-9）、册别（上/下册）
-- 单元多选（pill 按钮 + 全选/全不选）
-- 默写模式：中→英 / 英→中 / 混合
-- 单词选取：合并选中单元 → 去重 → shuffle → 按每题数截取
-
-**数据模型**（`wordbank.js`）：
 ```js
 var wordBank = {
   "3A": {
     label: "三年级上册",
+    semester: "上册",
+    grade: 3,
     units: [
-      { unit: "Unit 1 Hello!", words: [{ en: "hello", zh: "你好" }, ...] },
-      ...
+      { unit: "Unit 1 Hello!", words: [{ en: "hello", zh: "哈啰，你好" }] }
     ]
   }
 };
 ```
-目前已有 3A~6B 共8个年级的数据，后续按教材进度扩充7A~9B。
 
-### 共享设计系统
+The page selects grade/semester/edition, units, and mode, then emits 50 words per page (`WORDS_PER_PAGE = 50`) in textbook order. Unit dividers span both columns. Preferences use localStorage key `englishDictation_prefs`.
 
-两个文件通过 CSS 变量共享视觉语言：
+When modifying `js/wordbank.js`, validate that it remains parseable with `node --check js/wordbank.js` and visually inspect at least one affected grade/semester in `english.html`.
 
-```css
-:root {
-  --paper: #FFF9F0;  --card: #FFFFFF;  --ink: #3B3228;
-  --ink-light: #8B7E6E;  --border: #E6DDD0;  --bg: #FDF5E8;
-  --radius: 14px;  --shadow: 0 2px 12px rgba(60, 40, 20, 0.06);
-}
-```
+### Combo flow
 
-差异仅在于 accent 色：口算 `#E8A317`（暖橙），英语 `#4A90D9`（蓝色）。
+`combo.html` defines available suites in the `combos` array. A combo contains metadata, column definitions, and generator functions. `generateAll()` creates exercise pages and matching answer pages, with a batch code so parents can match questions to answers.
 
-**打印设计**（两文件共用）：
-- `@media print` 隐藏控件，只显示题目纸
-- 每页 267mm × 210mm（A4），`@page { size: A4 portrait; margin: 6mm }`
-- 打印时 `filter: grayscale(100%)`
+The current production suite is `BOAI.LI` for fifth-grade fraction practice. Future suites should follow the existing combo structure rather than creating a separate framework.
 
-**偏好持久化**（两文件各自）：
-- 口算：`localStorage` 键 `oralMath_prefs`
-- 英语：`localStorage` 键 `englishDictation_prefs`
+### Data and assets
 
-## 工作约定
+`assets/` contains source materials, historical backups, parsing scripts, and intermediate wordbank fragments. Treat it as provenance/history, not as production runtime except for scripts and source files intentionally referenced by scripts.
 
-- **纯静态**：不引入 node.js/npm/ES module — 所有代码浏览器原生可运行
-- **先改设计文档，再改代码**：功能改动前先更新 `docs/plans/` 中的设计文档
-- **目视验证**：修改后必须在浏览器实地检查排版和打印效果
-- **数据溯源**：新增年级/题型/单词数据必须标注来源和教材版本年份
-- **历史文件不可动**：`assets/` 中的历史版本文件不得删除
-- **英语教材版本**：译林版 **2024 新版**（三年级起点），与旧版单元主题/词汇完全不同
-- 项目已初始化 git 仓库（根目录 `kousuan/`），配合 `.gitignore` 排除 OS 垃圾文件
-- **A4 纸高度是 267mm，不是 297mm**：`@page { margin: 8mm }` 上下共 16mm，267 + 16 = 283，加上浏览器内部余量凑满 297mm。设 297mm 会导致内容溢出到第二页
-- **用正则清理数据后必须验证 JSON/JS 结构**：`re.sub` 清理 5B 词库时留下 46 处双逗号和 8 处尾逗号，JS 解析出 undefined 条目。正确做法：清理后立即用 node eval 验证可解析，并检查每个数组长度
-- **修改共同依赖文件前先查谁在用**：common.css 的 paper 高度一改，所有三个页面都受影响。改之前先 grep 引用方，评估影响范围
-- **打印溢出先查纸高**：标题/字体/间距微调了无数次没用，最终发现是 common.css 里 paper 高度被改成了 297mm
-- **改文件前先读三行上下文**：插入代码、正则替换、字符串替换之前，必须看清目标位置前后三行是什么样的。wordbank.js 条目之间用 `},` 分隔，我没看到逗号就硬插，修了五六次才发现。每次失败浪费的不是代码，是真金白银
+Before editing root HTML files, back up the old version into `assets/` using the existing changelog convention: `filename_YYYYMMDD_vN.html`. `CHANGELOG.md` records versioned changes and rollback pointers.
+
+## Project-Specific Constraints
+
+- Keep the app browser-native and static.
+- For functional changes, update relevant docs in `docs/plans/`, `PROGRESS.md`, or `CHANGELOG.md` when they describe the changed behavior.
+- New vocabulary data must preserve textbook source/version context; current README states 3-4 use 2024新版 and 5-6 are current/old pending upgrade.
+- Do not delete historical files under `assets/` unless the user explicitly asks.
+- Use root-relative workflow assumptions: Python scripts in `assets/` often rely on paths like `assets/...` and `js/wordbank.js` from repository root.

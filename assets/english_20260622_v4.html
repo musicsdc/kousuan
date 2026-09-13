@@ -40,7 +40,7 @@
     margin-right: 4px;
   }
 
-  /* ── 默写纸：2列 × 25行 = 50题/页 ── */
+  /* ── 默写纸：第一页46题，后续每页48题 ── */
   .words {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr);
@@ -155,7 +155,7 @@
       border-bottom: 1px solid #aaaaaa !important;
       break-inside: avoid;
       padding: 8px 3px 4px 3px;
-      min-height: 40px;
+      min-height: 34px;
       font-size: 13px !important;
       color: #000000 !important;
       font-weight: 400 !important;
@@ -204,7 +204,7 @@
     .paper { padding: 12px 8px; overflow: hidden; }
     .words { gap: 0 8px; }
     .word-item {
-      font-size: 12px; padding: 4px 2px 2px 2px; min-height: 36px; gap: 2px;
+      font-size: 12px; padding: 4px 2px 2px 2px; min-height: 34px; gap: 2px;
       min-width: 0;
     }
     .word-item .unit-mark { width: 18px; font-size: 8px; padding-bottom: 4px; }
@@ -224,9 +224,9 @@
       overflow: visible !important;
     }
     .word-item {
-      padding: 8px 4px 4px 4px !important;
-      min-height: 44px !important;
-      font-size: 14px !important;
+      padding: 8px 3px 4px 3px !important;
+      min-height: 34px !important;
+      font-size: 13px !important;
       gap: 6px !important;
       min-width: auto !important;
     }
@@ -303,7 +303,7 @@
       <div class="actions">
         <button class="btn btn-gen" onclick="generate()">生成默写纸</button>
         <button class="btn btn-print" onclick="window.print()">打印 / PDF</button>
-        <span class="print-tip">第一页48题，后续每页50题，按选中单元全部出题</span>
+        <span class="print-tip">第一页46题，后续每页48题，按选中单元全部出题</span>
       </div>
     </div>
   </div>
@@ -335,8 +335,8 @@ var currentSemester = 'A';
 var currentEdition = '';  // 'new' or '' (old), only used for grade 5-6
 var currentMode = 'zh2en';
 var activeUnitIndices = [0];
-var FIRST_PAGE_WORDS = 48;
-var FOLLOWING_PAGE_WORDS = 50;
+var FIRST_PAGE_WORDS = 46;
+var FOLLOWING_PAGE_WORDS = 48;
 
 // ============ 工具函数 ============
 function getCurrentBook() {
@@ -403,20 +403,22 @@ function generate() {
     });
   });
 
-  // 按第一页48题、后续每页50题切分
+  // 按第一页46题、后续每页48题切分
   var pages = [];
   var currentPage = [];
   var wordCount = 0;
   var currentLimit = FIRST_PAGE_WORDS;
 
   allItems.forEach(function(it) {
-    if (wordCount === currentLimit) {
-      pages.push(currentPage);
-      currentPage = [];
-      wordCount = 0;
-      currentLimit = FOLLOWING_PAGE_WORDS;
+    if (it.type === 'word') {
+      if (wordCount === currentLimit) {
+        pages.push(currentPage);
+        currentPage = [];
+        wordCount = 0;
+        currentLimit = FOLLOWING_PAGE_WORDS;
+      }
+      wordCount++;
     }
-    wordCount++;
     currentPage.push(it);
   });
   if (currentPage.length > 0) pages.push(currentPage);
@@ -438,7 +440,7 @@ function generate() {
     var paper = document.createElement('div');
     paper.className = 'paper' + (p < pages.length - 1 ? ' paper-page' : '');
 
-    paper.innerHTML =
+    paper.innerHTML = p === 0 ?
       '<div class="paper-header">' +
         '<span class="page-num">第 ' + (p+1) + ' / ' + pages.length + ' 页</span>' +
         '<h2>' + title + '</h2>' +
@@ -447,7 +449,7 @@ function generate() {
           '<span>姓名: <span class="blank"></span></span>' +
           '<span>日期: <span class="blank"></span></span>' +
         '</div>' +
-      '</div>';
+      '</div>' : '';
 
     var grid = document.createElement('div');
     grid.className = 'words';

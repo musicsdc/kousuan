@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>奥数练习 · 样张</title>
+<link rel="stylesheet" href="../styles/common.css">
+<style>
+  :root {
+    --accent: #2E8B57;
+    --accent-hover: #3CA068;
+  }
+
+  .btn-gen:hover { box-shadow: 0 4px 16px rgba(46, 139, 87, 0.35); }
+
+  /* 题目卡片 */
+  .questions {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .question-item {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--paper);
+    break-inside: avoid;
+  }
+  .question-item .q-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .question-item .idx {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+    min-width: 24px;
+  }
+  .question-item .q-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .question-item .q-text strong {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .question-item .answer-area {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border);
+    font-size: 12px;
+    color: var(--ink-light);
+    line-height: 2.4;
+  }
+  .question-item .answer-area .blank-line {
+    display: inline-block;
+    width: 80px;
+    border-bottom: 1px solid var(--ink);
+    margin: 0 4px;
+  }
+
+  /* 演示说明 */
+  .demo-note {
+    background: #FFF8E1;
+    border: 1px solid #F4D88B;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: #6B5B2E;
+    line-height: 1.6;
+  }
+  .demo-note strong { color: #5A4A1E; }
+
+  /* 选项栏 */
+  .toolbar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 10px 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .toolbar label {
+    font-size: 13px;
+    color: var(--ink-light);
+    margin-right: 4px;
+  }
+  .toolbar select {
+    padding: 4px 8px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 13px;
+  }
+
+  /* 打印样式 */
+  @media print {
+    .header, .demo-note, .toolbar, .btn { display: none !important; }
+    .paper {
+      background: #ffffff !important;
+      box-shadow: none !important;
+      padding: 16px 20px;
+      margin: 0;
+      border: none;
+      height: 267mm;
+      width: 210mm;
+      box-sizing: border-box;
+      page-break-after: always;
+    }
+    .question-item {
+      border: 1px solid #888 !important;
+      background: #fff !important;
+      page-break-inside: avoid;
+    }
+    .question-item .idx,
+    .question-item .q-text strong { color: #000 !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div>
+      <h1>奥数练习 · 样张</h1>
+      <p>选择年级与题型，一键生成可打印的奥数练习纸</p>
+    </div>
+    <div style="text-align:right;">
+      <div class="top-nav">
+        <a href="../index.html">首页</a>
+        <a href="../kousuan.html">口算练习</a>
+        <a href="../english.html">英语默写</a>
+      </div>
+      <div class="header-badge">小学奥数</div>
+    </div>
+  </div>
+
+  <div class="demo-note">
+    <strong>样张说明：</strong>这是奥数练习的初步设计稿，未接入交互。展示的是「三年级·鸡兔同笼·入门」题型，每题一卡片，下方留答题空间。
+    实际版本会包含：年级选择、题型选择、每页题量、生成数量、答案页、A4打印等。
+  </div>
+
+  <div class="toolbar">
+    <label>年级</label>
+    <select disabled><option>三年级</option></select>
+    <label>题型</label>
+    <select disabled><option>鸡兔同笼·入门</option></select>
+    <label>每页</label>
+    <select disabled><option>8 题</option></select>
+    <button class="btn btn-gen">生成新一组</button>
+    <button class="btn btn-print" onclick="window.print()">打印 / PDF</button>
+  </div>
+
+  <div class="paper">
+    <div class="paper-header">
+      <h2>三年级 鸡兔同笼·入门 练习题</h2>
+      <div class="paper-meta">
+        <span>姓名: <span class="blank"></span></span>
+        <span>日期: <span class="blank"></span></span>
+        <span>用时: <span class="blank"></span></span>
+      </div>
+    </div>
+
+    <div class="questions" id="qContainer"></div>
+  </div>
+
+</div>
+
+<script>
+function rand(a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; }
+
+// 鸡兔同笼·入门：动物总数≤15，脚数合理
+function genJiTu_basic() {
+  // 鸡 + 兔 = 总数
+  // 鸡×2 + 兔×4 = 脚数
+  var chicken = rand(2, 8);
+  var rabbit = rand(2, 7);
+  var total = chicken + rabbit;
+  var legs = chicken * 2 + rabbit * 4;
+  return {
+    text: '笼子里有鸡和兔共 <strong>' + total + '</strong> 只，它们的脚一共有 <strong>' + legs + '</strong> 条。问鸡和兔各有多少只？',
+    answer: { chicken: chicken, rabbit: rabbit }
+  };
+}
+
+// 模板2：变体说法
+function genJiTu_variant() {
+  var chicken = rand(3, 10);
+  var rabbit = rand(3, 8);
+  var total = chicken + rabbit;
+  var legs = chicken * 2 + rabbit * 4;
+  return {
+    text: '小明家养了 <strong>' + total + '</strong> 只鸡和兔，数一数它们的腿，一共 <strong>' + legs + '</strong> 条。请问小明家有几只鸡？几只兔？',
+    answer: { chicken: chicken, rabbit: rabbit }
+  };
+}
+
+// 模板3：另一种叙事
+function genJiTu_simple() {
+  var chicken = rand(4, 9);
+  var rabbit = rand(2, 6);
+  var total = chicken + rabbit;
+  var legs = chicken * 2 + rabbit * 4;
+  return {
+    text: '动物园里有一群鸡和兔，共 <strong>' + total + '</strong> 个头， <strong>' + legs + '</strong> 只脚。鸡和兔各几只？',
+    answer: { chicken: chicken, rabbit: rabbit }
+  };
+}
+
+var generators = [genJiTu_basic, genJiTu_variant, genJiTu_simple];
+
+function generate() {
+  var container = document.getElementById('qContainer');
+  container.innerHTML = '';
+  var seen = {};
+  var count = 0;
+  while (count < 8) {
+    var gen = generators[rand(0, generators.length - 1)];
+    var q = gen();
+    var key = q.answer.chicken + '_' + q.answer.rabbit;
+    if (seen[key]) continue;
+    seen[key] = true;
+    count++;
+
+    var item = document.createElement('div');
+    item.className = 'question-item';
+    item.innerHTML =
+      '<div class="q-header">' +
+        '<span class="idx">' + count + '.</span>' +
+        '<span class="q-text">' + q.text + '</span>' +
+      '</div>' +
+      '<div class="answer-area">' +
+        '解答：鸡 <span class="blank-line"></span> 只，' +
+        '兔 <span class="blank-line"></span> 只。' +
+      '</div>';
+    container.appendChild(item);
+  }
+}
+
+generate();
+</script>
+
+</body>
+</html>
