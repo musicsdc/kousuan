@@ -49,6 +49,7 @@
   .questions { display: grid; gap: 6px 14px; }
   .questions.cols-4 { grid-template-columns: repeat(4, 1fr); }
   .questions.cols-5 { grid-template-columns: repeat(5, 1fr); }
+  .questions.cols-3 { grid-template-columns: repeat(3, 1fr); }
 
   .question {
     padding: 7px 4px;
@@ -95,17 +96,19 @@
     .questions { flex: 1; align-content: space-between; display: grid !important; gap: 0 10px !important; }
     .questions.cols-4 { grid-template-columns: repeat(4, 1fr) !important; }
     .questions.cols-5 { grid-template-columns: repeat(5, 1fr) !important; }
+    .questions.cols-3 { grid-template-columns: repeat(3, 1fr) !important; }
   }
 
   @media (max-width: 700px) {
     .controls-row .control-group { width: 100%; }
-    .questions.cols-4, .questions.cols-5 { grid-template-columns: repeat(3, 1fr); }
+    .questions.cols-3, .questions.cols-4, .questions.cols-5 { grid-template-columns: repeat(3, 1fr); }
   }
 
   /* 打印时无论屏幕宽度，都按桌面端列数布局 */
   @media print and (max-width: 700px) {
     .questions.cols-4 { grid-template-columns: repeat(4, 1fr) !important; }
     .questions.cols-5 { grid-template-columns: repeat(5, 1fr) !important; }
+    .questions.cols-3 { grid-template-columns: repeat(3, 1fr) !important; }
   }
 </style>
 </head>
@@ -695,6 +698,7 @@ function eqxCoef(n, d) { return d === 1 ? eqxCoefInt(n) : '<span style="white-sp
 function eqxFracC(n, d) { return d === 1 ? '' + n : fracHTML(n, d); }
 function eqxSignedInt(v) { return v < 0 ? ' - ' + (-v) : ' + ' + v; }
 function eqxDecT(t) { return t % 10 === 0 ? '' + (t / 10) : (t / 10).toFixed(1); }
+function eqxCoefDecT(t) { return t === 10 ? 'x' : eqxDecT(t) + 'x'; }
 function eqxSignedDecT(t) { return t < 0 ? ' - ' + eqxDecT(-t) : ' + ' + eqxDecT(t); }
 
 // 分数系数·整数解：白名单 [aN,aD,cN,cD,m,n]，δ=a-c=m/n，x0=n·k 保证 δ·x0 为整数
@@ -751,7 +755,7 @@ function genEqxDec() {
     var bT = 5 * rand(Math.max(-60, -dxT + 5) / 5, Math.min(60, 60 - dxT) / 5);
     if (bT === 0) continue;
     var dT = bT + dxT;
-    var L = eqxDecT(aT) + 'x' + eqxSignedDecT(bT), R = eqxDecT(cT) + 'x' + eqxSignedDecT(dT);
+    var L = eqxCoefDecT(aT) + eqxSignedDecT(bT), R = eqxCoefDecT(cT) + eqxSignedDecT(dT);
     return { html: Math.random() < 0.75 ? L + ' = ' + R : R + ' = ' + L, answer: x0 };
   }
   return { html: '2.5x + 1 = 2x + 3', answer: 4 };
@@ -1014,9 +1018,12 @@ function generate() {
   if (onlySingleWideType) {
     hasWideType = true;
   }
+  // 解方程·进阶单独出题时用 3 列：题面最长，3 列不缩字号即可单行排下
+  var onlyEqx = types.length === 1 && types[0].id === 'g6eqx';
 
   var cols, fontSize;
-  if (perPage <= 30) { cols = 4; fontSize = '20px'; }
+  if (onlyEqx) { cols = 3; fontSize = '14px'; }
+  else if (perPage <= 30) { cols = 4; fontSize = '20px'; }
   else if (perPage <= 50) { cols = 4; fontSize = '18px'; }
   else if (perPage <= 80) {
     if (hasWideType) { cols = 4; fontSize = '14px'; }
